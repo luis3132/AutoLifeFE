@@ -45,6 +45,7 @@ function loadCliente(idcliente){
     select.innerHTML = "";
     let request = sendRequest('api/vehiculo/list/'+idcliente, 'GET', '')
     let request1 = sendRequest('api/tipovehiculo/list', 'GET', '')
+
     let numSerie = document.getElementById('num-serie')
     let placa = document.getElementById('placa')
     let marca = document.getElementById('marca')
@@ -55,9 +56,8 @@ function loadCliente(idcliente){
     let kilometraje = document.getElementById('km')
     let ciudadProcedencia = document.getElementById('ciudad-proce')
     let usuario = document.getElementById('usuario')
-    let tipo_vehi = document.getElementById('tipo-vehi')
+
       request.onload = function(){
-        
         let data = request.response;
         numSerie.value = data.numSerie
         placa.value = data.placa
@@ -69,12 +69,20 @@ function loadCliente(idcliente){
         kilometraje.value = data.kilometraje
         ciudadProcedencia.value = data.ciudadProcedencia
         usuario.value = data.usuario
+
         let data1 = request1.response;
-        console.log(data1);
+        console.log(data.tipovehiculo.id);
+        console.log(data1.id);
         data1.forEach((element, index) => {
-            table.innerHTML += `
+            if (data.tipovehiculo.id == element.id){
+                select.innerHTML += `
+                    <option selected ="selected" value="${element.id}">"${element.nombre}"</option>
+                `
+            } else {
+                select.innerHTML += `
                     <option value="${element.id}">"${element.nombre}"</option>
-                `});
+                `
+            }});
     }
     request.onerror = function(){
         alert("Error al recuperar los datos.");
@@ -92,30 +100,55 @@ function saveCliente(){
     let ciudadProcedencia = document.getElementById('ciudad-proce').value
     let usuario = document.getElementById('usuario').value
     let tipovehiculo = document.getElementById('tipo-vehi').value
-    data.forEach((element, index) => {
-        table.innerHTML += `
-                <option value="${element.id}">"${element.nombre}"</option>
-            `});
+    let tp = parseInt(tipovehiculo)
+    let tv = sendRequest('api/tipovehiculo/list/'+tp, 'GET', "")
+    console.log(tv.response)
+
     let data = {'numSerie': numSerie,'placa':placa,'marca': marca, 'modelo': modelo, 
-        'referencia': referencia, 'serie': serie, 'color':color, "kilometraje": kilometraje, "ciudadProcedencia": ciudadProcedencia, "usuario": usuario, "tipovehiculo": tipovehiculo, }
+        'referencia': referencia, 'serie': serie, 'color':color, "kilometraje": kilometraje,   
+        "ciudadProcedencia": ciudadProcedencia, "usuario": usuario, "tipovehiculo": tv.response }
+        
+
     let request = sendRequest('api/vehiculo/new', 'POST', data)
+    
+    
+
     request.onload = function(){
+       
         window.location = 'vehiculos.html';
     }
+
     request.onerror = function(){
         alert('Error al guardar los cambios.')
     }
 }
 
+function loadTipoVehiculo(){
+    let select = document.getElementById('tipo-vehi');
+    select.innerHTML = "";
+
+    let request1 = sendRequest('api/tipovehiculo/list', 'GET', "")
+
+    request1.onload = function (){
+
+        let data1 = request1.response;
+        data1.forEach((element, index) => {
+        select.innerHTML += `
+                <option value="${element.id}">"${element.nombre}"</option>
+            `});
+    }
+
+}
+
 function deleteCliente(){
     let id = document.getElementById('num-serie').value
-    let request = sendRequest('api/vehiculo/'+ id , 'DELETE', '')
+    let request = sendRequest('api/vehiculo/delete/'+ id , 'DELETE', '')
     request.onload = function(){
         alert('Registro Eliminado Exitosamente.')
-        window.location = 'clientes.html';
+        window.location = 'vehiculos.html';
     }
     request.onerror = function(){
-        alert('Error al guardar los cambios.')
+        alert('Error al elminar.')
     }
 }
 
