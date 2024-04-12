@@ -70,10 +70,9 @@ function loadVehiculo(idvehiculo) {
         ciudadProcedencia.value = data.ciudadProcedencia
         usuario.value = data.usuario
 
-        let data1 = request1.response;
-        console.log(data.tipovehiculo.id);
-        console.log(data1.id);
-        data1.forEach((element, index) => {
+        request1.onload = function(){
+            let data1 = request1.response;
+            data1.forEach((element, index) => {
             if (data.tipovehiculo.id == element.id) {
                 select.innerHTML += `
                     <option selected ="selected" value="${element.id}">"${element.nombre}"</option>
@@ -84,6 +83,7 @@ function loadVehiculo(idvehiculo) {
                 `
             }
         });
+        }
     }
     request.onerror = function () {
         alert("Error al recuperar los datos.");
@@ -131,8 +131,46 @@ function crearVehiculo() {
 }
 
 function guardarVehiculo(){
+    let numSerie = document.getElementById('num-serie').value
+    let placa = document.getElementById('placa').value
+    let marca = document.getElementById('marca').value
+    let modelo = document.getElementById('modelo').value
+    let referencia = document.getElementById('ref').value
+    let serie = document.getElementById('serie').value
+    let color = document.getElementById('color').value
+    let kilometraje = document.getElementById('km').value
+    let ciudadProcedencia = document.getElementById('ciudad-proce').value
+    let usuario = document.getElementById('usuario').value
+    let tipovehiculo = document.getElementById('tipo-vehi').value
+    let tv = sendRequest('api/tipovehiculo/list/' + tipovehiculo, 'GET', '')
 
-
+    tv.onload = function () {
+        let data = {
+            'numSerie': numSerie,
+            'placa': placa,
+            'marca': marca,
+            'modelo': modelo,
+            'referencia': referencia,
+            'serie': serie,
+            'color': color,
+            "kilometraje": kilometraje,
+            "ciudadProcedencia": ciudadProcedencia,
+            "usuario": usuario,
+            "tipovehiculo": tv.response
+        }
+        let request = sendRequest('api/vehiculo/edit', 'PUT', data)
+        
+        request.onload = function () {
+            window.location = 'vehiculos.html';
+        }
+        request.onerror = function () {
+            alert('Error al hacer los cambios.')
+        }
+    }
+    tv.onerror = function (){
+      alert('Error al elminar.')
+ 
+    }
 }
 
 

@@ -30,5 +30,12 @@ function validarLogin(){
 
 
 function registrarUsuario(){
-    
+   let dni =  document.getElementById('dni').value
+   let nombre =  document.getElementById('nombre').value
+   let apellidos =  document.getElementById('apellidos').value
+   let telefono =  document.getElementById('telefono').value
+   let direccion =  document.getElementById('direccion').value
+   let email =  document.getElementById('email').value
+   let nombreusuario =  document.getElementById('nombreusuario').value
+   let contrasena =  document.getElementById('contrasena').value
 }
