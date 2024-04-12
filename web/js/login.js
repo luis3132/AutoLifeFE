@@ -6,10 +6,11 @@ function validarLogin(){
     console.log(userLogin)
     console.log(contrasena)
 //    prompt("Una pausa por favor")
-    let data = {"userLogin": "diego","contrasena":"admin"}
+    let data = {"userLogin": userLogin,
+                "contrasena":contrasena}
     console.log(data)
 //    prompt("Una pausa por favor")
-    let request = sendRequest('api/usuarios/login/nombreusuario', 'GET', data)
+    let request = sendRequest('api/usuarios/login/nombreusuario', 'POST', data)
     request.onload = function(){
         
         let data1 = request.response;
