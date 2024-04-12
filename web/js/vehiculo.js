@@ -23,7 +23,7 @@ function loadData() {
                     
                     <td>
                         <button type="button" class="btn btn-primary" onclick='window.location = 
-                        "form_clientes.html?idcliente=${element.numSerie}"'>Ver</button>
+                        "form_edicion_vehiculo.html?idvehiculo=${element.numSerie}"'>Ver</button>
                     </td>
                 </tr>
 
@@ -40,10 +40,10 @@ function loadData() {
 }
 
 
-function loadCliente(idcliente) {
+function loadVehiculo(idvehiculo) {
     let select = document.getElementById('tipo-vehi');
     select.innerHTML = "";
-    let request = sendRequest('api/vehiculo/list/' + idcliente, 'GET', '')
+    let request = sendRequest('api/vehiculo/list/' + idvehiculo, 'GET', '')
     let request1 = sendRequest('api/tipovehiculo/list', 'GET', '')
 
     let numSerie = document.getElementById('num-serie')
@@ -89,7 +89,7 @@ function loadCliente(idcliente) {
         alert("Error al recuperar los datos.");
     }
 }
-function saveCliente() {
+function crearVehiculo() {
     let numSerie = document.getElementById('num-serie').value
     let placa = document.getElementById('placa').value
     let marca = document.getElementById('marca').value
@@ -130,6 +130,12 @@ function saveCliente() {
 
 }
 
+function guardarVehiculo(){
+
+
+}
+
+
 function loadTipoVehiculo() {
     let select = document.getElementById('tipo-vehi');
     select.innerHTML = "";
@@ -147,7 +153,7 @@ function loadTipoVehiculo() {
 
 }
 
-function deleteCliente() {
+function eliminarVehiculo() {
     let id = document.getElementById('num-serie').value
     let request = sendRequest('api/vehiculo/delete/' + id, 'DELETE', '')
     request.onload = function () {

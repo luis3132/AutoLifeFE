@@ -20,7 +20,7 @@
     <body>
         <section class="container">
             <div class="row align-items-center mb-4">
-                <span class="fw-bold w-auto">Formulario de Vehiculos</span>
+                <span class="fw-bold w-auto">Formulario de edición Vehiculos</span>
             </div>
             <div class="divider"></div>
 
@@ -53,7 +53,7 @@
                     <input type="text" class="form-control" id="serie" name="serie">
                 </div>
                 <div class="mb-3">
-                    <label for="colot" class="form-label">Color</label>
+                    <label for="color" class="form-label">Color</label>
                     <input type="text" class="form-control" id="color" name="color">
                 </div>
                 <div class="mb-3">
@@ -74,8 +74,8 @@
                 </div>
 
                 
-                <button type="button" class="btn btn-primary" onclick="saveCliente()">Guardar</button>
-                <button type="button" class="btn btn-danger" onclick="deleteCliente()">Eliminar</button>
+                <button type="button" class="btn btn-primary" onclick="guardarVehiculo()">Guardar</button>
+                <button type="button" class="btn btn-danger" onclick="eliminarVehiculo()">Eliminar</button>
             </form>
         </div>
         </section>
@@ -86,10 +86,10 @@
     <script src="js/vehiculo.js"></script>
     <script>
         window.onload = function(){
+            loadTipoVehiculo();
             const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.get('idcliente') != null)
-                loadCliente(urlParams.get('idcliente'))
-
+            if (urlParams.get('idvehiculo') != null)
+                loadVehiculo(urlParams.get('idvehiculo'))
         }
     </script>
     </body>

@@ -27,3 +27,8 @@ function validarLogin(){
         alert("Error al recuperar los datos.");
     }
 }
+
+
+function registrarUsuario(){
+    
+}
