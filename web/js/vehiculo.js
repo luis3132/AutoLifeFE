@@ -49,11 +49,11 @@ function loadCliente(idcliente){
     let placa = document.getElementById('placa')
     let marca = document.getElementById('marca')
     let modelo = document.getElementById('modelo')
-    let ref = document.getElementById('ref')
+    let referencia = document.getElementById('ref')
     let serie = document.getElementById('serie')
     let color = document.getElementById('color')
-    let km = document.getElementById('km')
-    let ciudad_proce = document.getElementById('ciudad-proce')
+    let kilometraje = document.getElementById('km')
+    let ciudadProcedencia = document.getElementById('ciudad-proce')
     let usuario = document.getElementById('usuario')
     let tipo_vehi = document.getElementById('tipo-vehi')
       request.onload = function(){
@@ -63,11 +63,11 @@ function loadCliente(idcliente){
         placa.value = data.placa
         marca.value = data.marca
         modelo.value = data.modelo
-        ref.value = data.ref
+        referencia.value = data.referencia
         serie.value = data.serie
         color.value = data.color
-        km.value = data.km
-        ciudad_proce.value = data.ciudad_proce
+        kilometraje.value = data.kilometraje
+        ciudadProcedencia.value = data.ciudadProcedencia
         usuario.value = data.usuario
         let data1 = request1.response;
         console.log(data1);
