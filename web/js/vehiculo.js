@@ -1,9 +1,9 @@
-function loadData(){
+function loadData() {
     let request = sendRequest('api/vehiculo/list', 'GET', '')
     let table = document.getElementById('vehiculo-table');
     table.innerHTML = "";
-    request.onload = function(){
-        
+    request.onload = function () {
+
         let data = request.response;
         console.log(data);
         data.forEach((element, index) => {
@@ -30,7 +30,7 @@ function loadData(){
                 `
         });
     }
-    request.onerror = function(){
+    request.onerror = function () {
         table.innerHTML = `
             <tr>
                 <td colspan="5">Error al recuperar los datos.</td>
@@ -40,10 +40,10 @@ function loadData(){
 }
 
 
-function loadCliente(idcliente){
+function loadCliente(idcliente) {
     let select = document.getElementById('tipo-vehi');
     select.innerHTML = "";
-    let request = sendRequest('api/vehiculo/list/'+idcliente, 'GET', '')
+    let request = sendRequest('api/vehiculo/list/' + idcliente, 'GET', '')
     let request1 = sendRequest('api/tipovehiculo/list', 'GET', '')
 
     let numSerie = document.getElementById('num-serie')
@@ -57,7 +57,7 @@ function loadCliente(idcliente){
     let ciudadProcedencia = document.getElementById('ciudad-proce')
     let usuario = document.getElementById('usuario')
 
-      request.onload = function(){
+    request.onload = function () {
         let data = request.response;
         numSerie.value = data.numSerie
         placa.value = data.placa
@@ -74,7 +74,7 @@ function loadCliente(idcliente){
         console.log(data.tipovehiculo.id);
         console.log(data1.id);
         data1.forEach((element, index) => {
-            if (data.tipovehiculo.id == element.id){
+            if (data.tipovehiculo.id == element.id) {
                 select.innerHTML += `
                     <option selected ="selected" value="${element.id}">"${element.nombre}"</option>
                 `
@@ -82,13 +82,14 @@ function loadCliente(idcliente){
                 select.innerHTML += `
                     <option value="${element.id}">"${element.nombre}"</option>
                 `
-            }});
+            }
+        });
     }
-    request.onerror = function(){
+    request.onerror = function () {
         alert("Error al recuperar los datos.");
     }
 }
-function saveCliente(){
+function saveCliente() {
     let numSerie = document.getElementById('num-serie').value
     let placa = document.getElementById('placa').value
     let marca = document.getElementById('marca').value
@@ -100,54 +101,60 @@ function saveCliente(){
     let ciudadProcedencia = document.getElementById('ciudad-proce').value
     let usuario = document.getElementById('usuario').value
     let tipovehiculo = document.getElementById('tipo-vehi').value
-    let tp = parseInt(tipovehiculo)
-    let tv = sendRequest('api/tipovehiculo/list/'+tp, 'GET', "")
-    console.log(tv.response)
+    console.log(tipovehiculo)
+    let tv = sendRequest('api/tipovehiculo/list/' + tipovehiculo, 'GET', '')
 
-    let data = {'numSerie': numSerie,'placa':placa,'marca': marca, 'modelo': modelo, 
-        'referencia': referencia, 'serie': serie, 'color':color, "kilometraje": kilometraje,   
-        "ciudadProcedencia": ciudadProcedencia, "usuario": usuario, "tipovehiculo": tv.response }
+    tv.onload = function () {
+        let data = {
+            'numSerie': numSerie,
+            'placa': placa,
+            'marca': marca,
+            'modelo': modelo,
+            'referencia': referencia,
+            'serie': serie,
+            'color': color,
+            "kilometraje": kilometraje,
+            "ciudadProcedencia": ciudadProcedencia,
+            "usuario": usuario,
+            "tipovehiculo": tv.response
+        }
+        let request = sendRequest('api/vehiculo/new', 'POST', data)
         
-
-    let request = sendRequest('api/vehiculo/new', 'POST', data)
-    
-    
-
-    request.onload = function(){
-       
-        window.location = 'vehiculos.html';
+        request.onload = function () {
+            window.location = 'vehiculos.html';
+        }
+        request.onerror = function () {
+            alert('Error al guardar los cambios.')
+        }
     }
 
-    request.onerror = function(){
-        alert('Error al guardar los cambios.')
-    }
 }
 
-function loadTipoVehiculo(){
+function loadTipoVehiculo() {
     let select = document.getElementById('tipo-vehi');
     select.innerHTML = "";
 
     let request1 = sendRequest('api/tipovehiculo/list', 'GET', "")
 
-    request1.onload = function (){
+    request1.onload = function () {
 
         let data1 = request1.response;
         data1.forEach((element, index) => {
-        select.innerHTML += `
+            select.innerHTML += `
                 <option value="${element.id}">"${element.nombre}"</option>
             `});
     }
 
 }
 
-function deleteCliente(){
+function deleteCliente() {
     let id = document.getElementById('num-serie').value
-    let request = sendRequest('api/vehiculo/delete/'+ id , 'DELETE', '')
-    request.onload = function(){
+    let request = sendRequest('api/vehiculo/delete/' + id, 'DELETE', '')
+    request.onload = function () {
         alert('Registro Eliminado Exitosamente.')
         window.location = 'vehiculos.html';
     }
-    request.onerror = function(){
+    request.onerror = function () {
         alert('Error al elminar.')
     }
 }
