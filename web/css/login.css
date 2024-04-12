@@ -1,0 +1,16 @@
+body{
+    margin: 0;
+    padding: 0;
+    background: url("../img/carro.jpg")top;
+    background-position: center center;
+    background-repeat: no-repeat;
+    opacity: 1.9;
+}
+.container{
+    margin-top: 5%;
+}
+.card{
+    padding-right: 20px;
+}
+
+
