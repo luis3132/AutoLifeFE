@@ -21,7 +21,7 @@
         <section class="container">
             <div class="row align-items-center mb-4">
                 <span class="fw-bold w-auto">Formulario de edición Vehiculos</span>
-                <button class="btn btn-primary w-auto" onclick="window.location='vehiculos.html'">
+                <button class="btn btn-primary w-auto" onclick="vehiculosform()">
                     Regresar
                 </button>
             </div>
@@ -32,7 +32,7 @@
 
                 <div class="mb-3">
                     <label for="num-serie">Numero de serie</label>
-                    <input type="text" class="form-control" id="num-serie" name="num-serie" >
+                    <input type="text" class="form-control" id="num-serie" name="num-serie" disabled>
                 </div>
                 <div class="mb-3">
                     <label for="placa">Placa</label>
@@ -86,6 +86,7 @@
     crossorigin="anonymous"></script>
     <script src="js/request.js"></script>
     <script src="js/vehiculo.js"></script>
+    <script src="js/menu.js"></script>
     <script>
         window.onload = function(){
             const urlParams = new URLSearchParams(window.location.search);

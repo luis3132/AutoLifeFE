@@ -1,34 +1,43 @@
-function loadData() {
-    let request = sendRequest('api/vehiculo/list', 'GET', '')
-    let table = document.getElementById('vehiculo-table');
-    table.innerHTML = "";
+function loadData(usuario) {
+    let request = sendRequest('api/usuarios/list/nombreusuario/'+usuario, 'GET', '')
     request.onload = function () {
-
         let data = request.response;
-        console.log(data);
-        data.forEach((element, index) => {
-            table.innerHTML += `
+        let request1 = sendRequest('api/vehiculo/list/usuario/'+data.dni, 'GET', '')
+        request1.onload = function(){
+            let data1 = request1.response
+            let table = document.getElementById('vehiculo-table');
+            table.innerHTML = "";
+            data1.forEach((element, index) => {
+                table.innerHTML += `
+                    <tr>
+                        <th>${element.numSerie}</th>
+                        <td>${element.placa}</td>
+                        <td>${element.marca}</td>
+                        <td>${element.modelo}</td>
+                        <td>${element.referencia}</td>
+                        <td>${element.serie}</td>
+                        <td>${element.color}</td>
+                        <td>${element.kilometraje}</td>
+                        <td>${element.ciudadProcedencia}</td>
+                        <td>${element.usuario}</td>
+                        <td>${element.tipovehiculo.nombre}</td>
+                        
+                        <td>
+                            <button type="button" class="btn btn-primary" onclick='window.location = 
+                            "form_edicion_vehiculo.html?numserie=${element.numSerie}"'>Ver</button>
+                        </td>
+                    </tr>
+    
+                    `
+            });
+        }
+        request1.onerror = function () {
+            table.innerHTML = `
                 <tr>
-                    <th>${element.numSerie}</th>
-                    <td>${element.placa}</td>
-                    <td>${element.marca}</td>
-                    <td>${element.modelo}</td>
-                    <td>${element.referencia}</td>
-                    <td>${element.serie}</td>
-                    <td>${element.color}</td>
-                    <td>${element.kilometraje}</td>
-                    <td>${element.ciudadProcedencia}</td>
-                    <td>${element.usuario}</td>
-                    <td>${element.tipovehiculo.nombre}</td>
-                    
-                    <td>
-                        <button type="button" class="btn btn-primary" onclick='window.location = 
-                        "form_edicion_vehiculo.html?numserie=${element.numSerie}"'>Ver</button>
-                    </td>
+                    <td colspan="5">Error al recuperar los datos, o no Tiene vehiculos</td>
                 </tr>
-
-                `
-        });
+            `;
+        }
     }
     request.onerror = function () {
         table.innerHTML = `
@@ -120,7 +129,9 @@ function crearVehiculo() {
         let request = sendRequest('api/vehiculo/new', 'POST', data)
 
         request.onload = function () {
-            window.location = 'vehiculos.html';
+            const urlParams = new URLSearchParams(window.location.search);
+            let usuario = urlParams.get('Usuario')
+            window.location = `vehiculos.html?Usuario=${usuario}`;
         }
         request.onerror = function () {
             alert('Error al guardar los cambios.')
@@ -158,12 +169,16 @@ function guardarVehiculo() {
             "tipovehiculo": tv.response
         }
         let request = sendRequest('api/vehiculo/edit', 'PUT', data)
+        let request1 = sendRequest('api/usuarios/list/'+usuario, 'GET', "")
 
-        request.onload = function () {
-            window.location = 'vehiculos.html';
-        }
-        request.onerror = function () {
-            alert('Error al hacer los cambios.')
+        request1.onload = function () {
+            request.onload = function(){
+                let data1 = request1.response
+                window.location = `vehiculos.html?Usuario=${data1.nombreUsuario}`;
+            }
+            request.onerror = function () {
+                alert('Error al hacer los cambios.')
+            }
         }
     }
     tv.onerror = function () {
@@ -171,8 +186,14 @@ function guardarVehiculo() {
 
     }
 }
-
-
+function loadUsuario(usuario){
+    let request = sendRequest('api/usuarios/list/nombreusuario/'+usuario, 'GET', "")
+    let usuarioh = document.getElementById('usuario')
+    request.onload = function(){
+        let data = request.response
+        usuarioh.value = data.dni
+    }
+}
 function loadTipoVehiculo() {
     let select = document.getElementById('tipo-vehi');
     select.innerHTML = "";
@@ -195,7 +216,9 @@ function eliminarVehiculo() {
     let request = sendRequest('api/vehiculo/delete/' + id, 'DELETE', '')
     request.onload = function () {
         alert('Registro Eliminado Exitosamente.')
-        window.location = 'vehiculos.html';
+        const urlParams = new URLSearchParams(window.location.search);
+        let usuario = urlParams.get('Usuario')
+        window.location = `vehiculos.html?Usuario=${usuario}`;
     }
     request.onerror = function () {
         alert('Error al elminar.')

@@ -21,7 +21,7 @@
         <section class="container">
             <div class="row align-items-center mb-4">
                 <span class="fw-bold w-auto">Formulario para crear Vehiculos</span>
-                <button class="btn btn-primary w-auto" onclick="window.location='vehiculos.html'">
+                <button class="btn btn-primary w-auto" onclick="vehiculosCrear()">
                     Regresar
                 </button>
             </div>
@@ -69,7 +69,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="usuario" class="form-label">Usuario</label>
-                    <input type="text" class="form-control" id="usuario" name="usuario">
+                    <input type="text" class="form-control" id="usuario" name="usuario" disabled>
                 </div>
                 <div class="mb-3">
                     <label for="tipo-vehi" class="form-label">Tipo de vehiculo</label>
@@ -78,7 +78,6 @@
 
                 
                 <button type="button" class="btn btn-primary" onclick="crearVehiculo()">Guardar</button>
-                <button type="button" class="btn btn-primary" onclick="window.location='vehiculos.html'">Regresar</button>
             </form>
         </div>
         </section>
@@ -87,8 +86,11 @@
     crossorigin="anonymous"></script>
     <script src="js/request.js"></script>
     <script src="js/vehiculo.js"></script>
+    <script src="js/menu.js"></script>
     <script>
         window.onload = function(){
+            const urlParams = new URLSearchParams(window.location.search);
+            loadUsuario(urlParams.get("Usuario"));
             loadTipoVehiculo();
         }
     </script>

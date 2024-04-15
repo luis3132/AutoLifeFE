@@ -22,7 +22,7 @@
         <section class="container">
             <div class="row align-items-center mb-4">
                 <span class="fw-bold w-auto">Administración de Vehiculos</span>
-                <button class="btn btn-primary w-auto" onclick="window.location='form_crear_vehiculo.html'">
+                <button class="btn btn-primary w-auto" onclick="vehiculoCrear()">
                     Nuevo Vehiculo
                 </button>
                 </div>
@@ -52,9 +52,17 @@
     crossorigin="anonymous"></script>
     <script src="js/request.js"></script>
     <script src="js/vehiculo.js"></script>
+    <script src="js/menu.js"></script>
     <script>
         window.onload = function(){
-            loadData(); 
+            const urlParams = new URLSearchParams(window.location.search);
+            let usuario = urlParams.get('Usuario')
+            if (usuario != null){
+                loadData(usuario);
+            } else {
+                alert("No has Iniciado Secion")
+                window.location = "index.html"
+            }                
         }
     </script>
     </body>
