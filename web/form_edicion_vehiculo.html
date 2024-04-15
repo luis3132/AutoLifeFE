@@ -29,7 +29,6 @@
 
         <div class="row">
             <form  id="form-cliente" class="mt-4" action="" onsubmit="" method="POST">
-                <input type="hidden" id="idcliente"/>
 
                 <div class="mb-3">
                     <label for="num-serie">Numero de serie</label>
@@ -89,10 +88,9 @@
     <script src="js/vehiculo.js"></script>
     <script>
         window.onload = function(){
-            loadTipoVehiculo();
             const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.get('idvehiculo') != null)
-                loadVehiculo(urlParams.get('idvehiculo'))
+            if (urlParams.get('numserie') != null)
+                loadVehiculo(urlParams.get('numserie'))
         }
     </script>
     </body>

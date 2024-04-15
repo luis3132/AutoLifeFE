@@ -23,7 +23,7 @@ function loadData() {
                     
                     <td>
                         <button type="button" class="btn btn-primary" onclick='window.location = 
-                        "form_edicion_vehiculo.html?idvehiculo=${element.numSerie}"'>Ver</button>
+                        "form_edicion_vehiculo.html?numserie=${element.numSerie}"'>Ver</button>
                     </td>
                 </tr>
 
@@ -40,10 +40,8 @@ function loadData() {
 }
 
 
-function loadVehiculo(idvehiculo) {
-    let select = document.getElementById('tipo-vehi');
-    select.innerHTML = "";
-    let request = sendRequest('api/vehiculo/list/' + idvehiculo, 'GET', '')
+function loadVehiculo(numserie) {
+    let request = sendRequest('api/vehiculo/list/' + numserie, 'GET', '')
     let request1 = sendRequest('api/tipovehiculo/list', 'GET', '')
 
     let numSerie = document.getElementById('num-serie')
@@ -57,35 +55,36 @@ function loadVehiculo(idvehiculo) {
     let ciudadProcedencia = document.getElementById('ciudad-proce')
     let usuario = document.getElementById('usuario')
 
-    request.onload = function () {
-        let data = request.response;
-        numSerie.value = data.numSerie
-        placa.value = data.placa
-        marca.value = data.marca
-        modelo.value = data.modelo
-        referencia.value = data.referencia
-        serie.value = data.serie
-        color.value = data.color
-        kilometraje.value = data.kilometraje
-        ciudadProcedencia.value = data.ciudadProcedencia
-        usuario.value = data.usuario
+    let select = document.getElementById('tipo-vehi');
+    select.innerHTML = "";
 
-        request1.onload = function(){
+    request1.onload = function () {
+        request.onload = function () {
+            let data = request.response;
+            numSerie.value = data.numSerie
+            placa.value = data.placa
+            marca.value = data.marca
+            modelo.value = data.modelo
+            referencia.value = data.referencia
+            serie.value = data.serie
+            color.value = data.color
+            kilometraje.value = data.kilometraje
+            ciudadProcedencia.value = data.ciudadProcedencia
+            usuario.value = data.usuario
+            
             let data1 = request1.response;
             data1.forEach((element, index) => {
-            if (data.tipovehiculo.id == element.id) {
-                select.innerHTML += `
-                    <option selected ="selected" value="${element.id}">"${element.nombre}"</option>
-                `
-            } else {
-                select.innerHTML += `
-                    <option value="${element.id}">"${element.nombre}"</option>
-                `
-            }
-        });
+                if (data.tipovehiculo.id == element.id) {
+                    select.innerHTML += `
+                <option selected ="selected" value="${element.id}">"${element.nombre}"</option>`
+                } else {
+                    select.innerHTML += `
+                <option value="${element.id}">"${element.nombre}"</option>`
+                }
+            });
         }
     }
-    request.onerror = function () {
+    request1.onerror = function () {
         alert("Error al recuperar los datos.");
     }
 }
@@ -119,7 +118,7 @@ function crearVehiculo() {
             "tipovehiculo": tv.response
         }
         let request = sendRequest('api/vehiculo/new', 'POST', data)
-        
+
         request.onload = function () {
             window.location = 'vehiculos.html';
         }
@@ -130,7 +129,7 @@ function crearVehiculo() {
 
 }
 
-function guardarVehiculo(){
+function guardarVehiculo() {
     let numSerie = document.getElementById('num-serie').value
     let placa = document.getElementById('placa').value
     let marca = document.getElementById('marca').value
@@ -159,7 +158,7 @@ function guardarVehiculo(){
             "tipovehiculo": tv.response
         }
         let request = sendRequest('api/vehiculo/edit', 'PUT', data)
-        
+
         request.onload = function () {
             window.location = 'vehiculos.html';
         }
@@ -167,9 +166,9 @@ function guardarVehiculo(){
             alert('Error al hacer los cambios.')
         }
     }
-    tv.onerror = function (){
-      alert('Error al elminar.')
- 
+    tv.onerror = function () {
+        alert('Error al elminar.')
+
     }
 }
 
