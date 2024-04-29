@@ -40,3 +40,8 @@ function vehiculosCrear(){
     let vehiculo = urlParams.get('Usuario')
     window.location = `vehiculos.html?Usuario=${vehiculo}`
 }
+function duenoCrear(){
+    const urlParams = new URLSearchParams(window.location.search);
+    let usuario = urlParams.get('Usuario')
+    window.location = `form_crear_duenos.html?Usuario=${usuario}`
+}
