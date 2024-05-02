@@ -3,7 +3,9 @@ import Image from 'next/image';
 
 export default function Vehiculos({vehiculos}){
   return (
-    <div className="flex bg-gray-100 pt-[1%] pb-[1%] rounded-xl ">
+    <>
+    <div className='pb-3'></div>
+    <div className="flex bg-gray-100 pt-1 pb-1 rounded-2xl ">
         <div className="md:w-[25%] w-[30%] items-center justify-center">
             <Image alt="Foto" width={100} height={100} src={vehiculos.fotos.foto} />
         </div>
@@ -25,5 +27,6 @@ export default function Vehiculos({vehiculos}){
             </div>
         </div>
     </div>
+    </>
   )
 }
