@@ -10,10 +10,13 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.19",
+    "cookie": "^0.6.0",
     "cross-fetch": "^4.0.0",
+    "jsonwebtoken": "^9.0.2",
     "next": "14.2.3",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-router-dom": "^6.23.0"
   },
   "devDependencies": {
     "@iconify/react": "^4.1.1",

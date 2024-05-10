@@ -3,7 +3,7 @@ import {React, useEffect, useState } from 'react'
 import Vehiculos from "@/components/vehiculos";
 
 export default function Home() {
-    const Vehiculos_API_URL = "http://localhost:8090/api/vehiculo/list/publico/True"
+    const Vehiculos_API_URL = "http://localhost:8090/auth/vehiculo/list/publico/True"
     const [vehiculos, setVehiculos] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -28,6 +28,7 @@ export default function Home() {
     }, []);
     console.log(vehiculos)
   return (
+    <>
     <div className="pl-[5%] pr-[5%] pt-[2%] justify-between">
         {!loading && (
           <div className="justify-between">
@@ -37,5 +38,6 @@ export default function Home() {
           </div>
         )}
     </div>
+    </>
   );
 }

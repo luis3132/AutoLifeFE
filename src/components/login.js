@@ -2,11 +2,18 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { Icon } from '@iconify/react';
 
-
 export default function LoginUser({ closeComponent }) {
-    const Usuario_API_URL = "http://localhost:8090/api/usuarios/new"
+    const Usuario_API_URL = "http://localhost:8090/auth/register"
+    const Usuario_API_Login = "http://localhost:8090/auth/login"
     const [register, setRegister] = useState(false);
+    const [confirmar, setConfirmar] = useState({
+        confirmar: ""
+    })
     let [isOpen, setIsOpen] = useState(true);
+    const [login, setLogin] = useState({
+        userLogin: "",
+        contrasena: ""
+    });
     const [Usuario, setUsuario] = useState({
         dni: "",
         nombre: "",
@@ -21,20 +28,53 @@ export default function LoginUser({ closeComponent }) {
             rol: "User"
         }
     })
-    console.log(Usuario)
     const saveUsuario = async (e) => {
-        const response = await fetch(Usuario_API_URL, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(Usuario)
-        });
-        if (!response.ok) {
-            alert("DNI o Email o Nombre de Usuario ya registrado");
+        if(confirmar.confirmar == Usuario.contrasena){
+            const response = await fetch(Usuario_API_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(Usuario)
+            });
+            if (!response.ok) {
+                alert("DNI o Email o Nombre de Usuario ya registrado");
+            } else {
+                const _Usuario = await response.json();
+                alert("Usuario Creado");
+                sessionStorage.setItem("authToken", _Usuario.token)
+                reset(e);
+                window.location.href = "loged"
+            }
         } else {
-            const _Usuario = await response.json();
-            reset(e);
+            alert("Contrasenas no cohinciden")
+            setUsuario({...Usuario, contrasena: ""})
+            setConfirmar({confirmar: ""})
+        }
+    };
+    const loginUsuario = async (e) => {
+        try {
+            const response = await fetch(Usuario_API_Login, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(login)
+            });
+            if (!response.ok) {
+                alert("Nombre de Usuario o Contrasena INCORRECTOS");
+                setLogin({
+                    userLogin: "",
+                    contrasena: ""
+                })
+            } else {
+                const _Login = await response.json();
+                sessionStorage.setItem("authToken", _Login.token)
+                reset(e);
+                window.location.href = "loged"
+            }
+        } catch (error){
+            alert("Error al Iniciar Seccion");
         }
     };
     const reset = (e) => {
@@ -52,21 +92,51 @@ export default function LoginUser({ closeComponent }) {
                 rol: "User"
             }
         })
+        setLogin({
+            userLogin: "",
+            contrasena: ""
+        })
         closeComponent();
     }
     const handleChange = (event) => {
-        const value = event.target.value;
-        setUsuario({ ...Usuario, [event.target.name]: value });
+        setUsuario({ ...Usuario, [event.target.name]: event.target.value });
+        console.log(Usuario)
+    }
+    const handleChangeLogin = (event) => {
+        setLogin({ ...login, [event.target.name]: event.target.value });
+        console.log(login)
+    }
+    const handleChangeConfirmar = (event) => {
+        setConfirmar({ ...confirmar, [event.target.name]: event.target.value });
+        console.log(confirmar)
     }
     function closeModal() {
         setIsOpen(false)
     }
     function changeRegister() {
         setRegister(!register)
+        setUsuario({
+            dni: "",
+            nombre: "",
+            apellidos: "",
+            telefono: "",
+            direccion: "",
+            contrasena: "",
+            email: "",
+            nombreUsuario: "",
+            "roles": {
+                id: "2",
+                rol: "User"
+            }
+        })
+        setLogin({
+            userLogin: "",
+            contrasena: ""
+        })
     }
     return (
         <>
-            <div className="w-full bg-black fixed inset-0 flex items-center justify-center bg-opacity-60 ">
+            <div className="w-full fixed inset-0 flex items-center justify-center backdrop-blur-sm ">
                 <Transition appear show={isOpen} as={Fragment}>
                     <Dialog as="div" className="relative z-10" onClose={closeModal}>
                         <Transition.Child
@@ -123,10 +193,10 @@ export default function LoginUser({ closeComponent }) {
                                             </div>
                                             <div>
                                                 <div className="text-left w-full pl-5">Contrasena:</div>
-                                                <input type="password" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="Contrasena" ></input>
+                                                <input name="contrasena" value={Usuario.contrasena} onChange={(e) => handleChange(e)} type="password" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="Contrasena" ></input>
                                             </div>
                                             <div className="pt-2">
-                                                <input name="contrasena" value={Usuario.contrasena} onChange={(e) => handleChange(e)} type="password" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="Contrasena" ></input>
+                                                <input name="confirmar" value={confirmar.confirmar} onChange={(e) => handleChangeConfirmar(e)} type="password" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="Contrasena" ></input>
                                             </div>
                                             <div className="pt-2">
                                                 <button className="pr-2 pl-2 rounded-full bg-amber-400 hover:bg-opacity-100 bg-opacity-70" onClick={saveUsuario}>Registro</button>
@@ -141,14 +211,14 @@ export default function LoginUser({ closeComponent }) {
                                             <div className="text-2xl pt-3 pl-10" >Login</div>
                                             <div className="" >
                                                 <div className="text-left w-full pl-5">Nombre Usuario:</div>
-                                                <input type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="pepe" ></input>
+                                                <input name="userLogin" value={login.userLogin} onChange={(e) => handleChangeLogin(e)} type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="Nombre Usuario" ></input>
                                             </div>
                                             <div className="pt-2" >
-                                                <div className="text-left w-full pl-5">Nombre Usuario:</div>
-                                                <input type="password" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="1234" ></input>
+                                                <div className="text-left w-full pl-5">Contrasena:</div>
+                                                <input name="contrasena" value={login.contrasena} onChange={(e) => handleChangeLogin(e)} type="password" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="1234" ></input>
                                             </div>
                                             <div className="pt-2">
-                                                <button className="pr-2 pl-2 rounded-full bg-lime-400 hover:bg-opacity-100 bg-opacity-70">Ingresar</button>
+                                                <button onClick={loginUsuario} className="pr-2 pl-2 rounded-full bg-lime-400 hover:bg-opacity-100 bg-opacity-70">Ingresar</button>
                                             </div>
                                             <div className="pt-2 text-right pr-3 text-sm">
                                                 No se ha registrado? <button className="hover:text-gray-600" onClick={changeRegister}>Registrese!</button>

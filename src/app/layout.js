@@ -1,5 +1,5 @@
-import Navbar from "@/components/navbarLO";
 import "./globals.css";
+import NavbarLO from "@/components/navbarLO";
 
 
 export const metadata = {
@@ -12,7 +12,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <header className="bg-white">
-          <Navbar></Navbar>
+          <NavbarLO></NavbarLO>
         </header>
         <main>
           {children}
