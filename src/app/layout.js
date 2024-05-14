@@ -1,5 +1,5 @@
 import "./globals.css";
-import NavbarLO from "@/components/navbarLO";
+import NavbarLO from "@/components/NavBar/navbarLO";
 
 
 export const metadata = {

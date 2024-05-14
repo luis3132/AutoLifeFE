@@ -42,7 +42,7 @@ export default function LoginUser({ closeComponent }) {
             } else {
                 const _Usuario = await response.json();
                 alert("Usuario Creado");
-                sessionStorage.setItem("authToken", _Usuario.token)
+                document.cookie = `authToken=${_Usuario.token}; path=/;`;
                 reset(e);
                 window.location.href = "loged"
             }
@@ -69,7 +69,7 @@ export default function LoginUser({ closeComponent }) {
                 })
             } else {
                 const _Login = await response.json();
-                sessionStorage.setItem("authToken", _Login.token)
+                document.cookie = `authToken=${_Login.token}; path=/;`;
                 reset(e);
                 window.location.href = "loged"
             }
@@ -100,15 +100,12 @@ export default function LoginUser({ closeComponent }) {
     }
     const handleChange = (event) => {
         setUsuario({ ...Usuario, [event.target.name]: event.target.value });
-        console.log(Usuario)
     }
     const handleChangeLogin = (event) => {
         setLogin({ ...login, [event.target.name]: event.target.value });
-        console.log(login)
     }
     const handleChangeConfirmar = (event) => {
         setConfirmar({ ...confirmar, [event.target.name]: event.target.value });
-        console.log(confirmar)
     }
     function closeModal() {
         setIsOpen(false)

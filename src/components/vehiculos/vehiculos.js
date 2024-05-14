@@ -6,8 +6,8 @@ export default function Vehiculos({vehiculos}){
     <>
     <div className='pb-3'></div>
     <div className="flex bg-gray-100 pt-1 pb-1 rounded-2xl ">
-        <div className="md:w-[25%] w-[30%] items-center justify-center">
-            <Image alt="Foto" width={100} height={100} src={vehiculos.fotos.foto} />
+        <div className="md:w-[25%] w-[30%] items-center justify-center p-2">
+            <Image className="" alt="Foto" width={100} height={100} src={vehiculos.fotos[0].foto} />
         </div>
         <div className="w-full">
             <div>

@@ -12,6 +12,7 @@
 # next.js
 /.next/
 /out/
+/public/imagenes/Vehiculos/
 
 # production
 /build

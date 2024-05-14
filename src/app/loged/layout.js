@@ -1,4 +1,4 @@
-import NavbarLi from "@/components/navbarLi";
+import NavbarLi from "@/components/NavBar/navbarLi";
 import "./globals.css";
 
 
