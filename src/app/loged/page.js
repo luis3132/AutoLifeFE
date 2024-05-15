@@ -1,7 +1,7 @@
 "use client";
 
 
-export default function Home({ vehiculo }) {
+export default function Home() {
   return (
     <div>
       parchadero :P

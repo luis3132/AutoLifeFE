@@ -4,12 +4,16 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Transition } from '@headlessui/react'
-import {Perfil} from '@/components/loged/perfil';
+import Perfil from '@/components/loged/perfil';
 
 export default function NavbarLi({ usuario }) {
     var foto = null;
-    if (usuario.fotos.length > 0){
-        foto = usuario.fotos[0].foto
+    if (usuario != null) {
+        if (usuario.fotos.length > 0) {
+            foto = usuario.fotos[0].foto
+        } else {
+            foto = "/imagenes/logo/logoSL.png";
+        }
     } else {
         foto = "/imagenes/logo/logoSL.png";
     }
@@ -21,7 +25,7 @@ export default function NavbarLi({ usuario }) {
         setShowLogin(!showLogin);
     };
     const handleLogout = () => {
-        window.location.href = "";
+        window.location.href = "/";
         document.cookie = "authToken =; path=/;"
     }
     return (
