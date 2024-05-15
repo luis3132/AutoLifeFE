@@ -1,6 +1,6 @@
 
 
-export default function PAccidentes() {
+export default function accidentePu() {
     return (
         <>
             <div>
