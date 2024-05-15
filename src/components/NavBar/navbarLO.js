@@ -32,7 +32,7 @@ export default function NavbarLO() {
                     </li>
                     <li className="flex">
                         <div className="p-1"><Icon icon="fluent:vehicle-car-collision-24-regular" /></div>
-                        <Link className="hover:text-gray-500" href="" replace>Accidentes</Link>
+                        <Link className="hover:text-gray-500" href="/accidentePublico" replace>Accidentes</Link>
                     </li>
                 </ul>
             </div>
@@ -53,7 +53,7 @@ export default function NavbarLO() {
                         </li>
                         <li className="flex">
                             <div className="p-1"><Icon icon="fluent:vehicle-car-collision-24-regular" /></div>
-                            <Link className="hover:text-gray-500" onClick={() => setNavbar(!navbar)} replace href="">Accidentes</Link>
+                            <Link className="hover:text-gray-500" onClick={() => setNavbar(!navbar)} replace href="/accidentePublico">Accidentes</Link>
                         </li>
                     </ul>
                 </div>
