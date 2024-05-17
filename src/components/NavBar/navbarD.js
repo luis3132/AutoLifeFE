@@ -1,14 +1,27 @@
 "use client";
 
 import { Icon } from '@iconify/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import LoginUser from '@/components/Login/login';
 import { Transition } from '@headlessui/react'
 import Perfil from '@/components/loged/perfil';
+import CryptoJS from 'crypto-js';
 
 export default function NavBarD({ usuario }) {
+    // add sessionStorage info about usuario in crypto way
+    useEffect(() => {
+        // verifica si existe el usuario
+        if (usuario != undefined && usuario != "") {
+            // Verificar si estamos en el navegador antes de usar localStorage
+            if (typeof window !== 'undefined') {
+                const usuarioString = JSON.stringify(usuario)
+                const cryp = CryptoJS.AES.encrypt(usuarioString, process.env.NEXT_PUBLIC_SECRETKEY).toString()
+                sessionStorage.setItem("usuario", cryp)
+            }
+        }
+    }, []);
     var foto = null;
     // comprobacion de una sola recarga
     const [render, setRender] = useState(0);
@@ -31,9 +44,13 @@ export default function NavBarD({ usuario }) {
     const handleLogout = () => {
         window.location.href = "/";
         document.cookie = "authToken =; path=/;"
+        sessionStorage.clear();
     }
 
     if (usuario != null) {
+        if (typeof window !== 'undefined') {
+            sessionStorage.setItem("loged", "true")
+        }
         if (render == 1) {
             setLoged(!loged);
         }
@@ -90,19 +107,19 @@ export default function NavBarD({ usuario }) {
                             <ul className="flex-col flex gap-8 justify-center items-center">
                                 <li className="flex">
                                     <div className="p-1"><Icon icon="vaadin:car" /></div>
-                                    <Link className="hover:text-gray-500" onClick={() => {setNavbar(!navbar); setIsShowing(!isShowing);}} replace href="/loged/vehiculoPrivado">Mis Vehiculos</Link>
+                                    <Link className="hover:text-gray-500" onClick={() => { setNavbar(!navbar); setIsShowing(!isShowing); }} replace href="/loged/vehiculoPrivado">Mis Vehiculos</Link>
                                 </li>
                                 <li className="flex">
                                     <div className="p-1"><Icon icon="vaadin:car" /></div>
-                                    <Link className="hover:text-gray-500" onClick={() => {setNavbar(!navbar); setIsShowing(!isShowing);}} replace href="/loged/vehiculoPublico">Vehiculos</Link>
+                                    <Link className="hover:text-gray-500" onClick={() => { setNavbar(!navbar); setIsShowing(!isShowing); }} replace href="/loged/vehiculoPublico">Vehiculos</Link>
                                 </li>
                                 <li className="flex">
                                     <div className="p-1"><Icon icon="fluent:vehicle-car-collision-24-regular" /></div>
-                                    <Link className="hover:text-gray-500" onClick={() => {setNavbar(!navbar); setIsShowing(!isShowing);}} replace href="/loged/accidentePublico">Accidentes</Link>
+                                    <Link className="hover:text-gray-500" onClick={() => { setNavbar(!navbar); setIsShowing(!isShowing); }} replace href="/loged/accidentePublico">Accidentes</Link>
                                 </li>
                                 <li className="flex">
                                     <div className="p-1"><Icon icon="fluent:vehicle-car-collision-24-regular" /></div>
-                                    <Link className="hover:text-gray-500" onClick={() => {setNavbar(!navbar); setIsShowing(!isShowing);}} replace href="/loged/accidentePrivado">Mis Accidentes</Link>
+                                    <Link className="hover:text-gray-500" onClick={() => { setNavbar(!navbar); setIsShowing(!isShowing); }} replace href="/loged/accidentePrivado">Mis Accidentes</Link>
                                 </li>
                             </ul>
                         </div>
@@ -163,11 +180,11 @@ export default function NavBarD({ usuario }) {
                             <ul className="flex-col flex gap-8 justify-center items-center">
                                 <li className="flex">
                                     <div className="p-1"><Icon icon="vaadin:car" /></div>
-                                    <Link className="hover:text-gray-500" onClick={() => {setNavbar(!navbar); setIsShowing(!isShowing);}} replace href="/vehiculoPublico">Vehiculos</Link>
+                                    <Link className="hover:text-gray-500" onClick={() => { setNavbar(!navbar); setIsShowing(!isShowing); }} replace href="/vehiculoPublico">Vehiculos</Link>
                                 </li>
                                 <li className="flex">
                                     <div className="p-1"><Icon icon="fluent:vehicle-car-collision-24-regular" /></div>
-                                    <Link className="hover:text-gray-500" onClick={() => {setNavbar(!navbar); setIsShowing(!isShowing);}} replace href="/accidentePublico">Accidentes</Link>
+                                    <Link className="hover:text-gray-500" onClick={() => { setNavbar(!navbar); setIsShowing(!isShowing); }} replace href="/accidentePublico">Accidentes</Link>
                                 </li>
                             </ul>
                         </div>

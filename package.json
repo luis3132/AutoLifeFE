@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.19",
+    "@next/env": "^14.2.3",
     "cookie": "^0.6.0",
     "cross-fetch": "^4.0.0",
+    "crypto-js": "^4.2.0",
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
     "next": "14.2.3",

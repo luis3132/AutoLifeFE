@@ -7,6 +7,7 @@ import LoginUser from '@/components/Login/login';
 import { Transition } from '@headlessui/react'
 
 export default function NavbarLO() {
+    // Not used
     const [navbar, setNavbar] = useState(false);
     const [isShowing, setIsShowing] = useState(false);
     const [showLogin, setShowLogin] = useState(false);

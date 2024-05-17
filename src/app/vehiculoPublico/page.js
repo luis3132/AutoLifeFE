@@ -3,7 +3,7 @@ import {React, useEffect, useState } from 'react'
 import Vehiculos from "@/components/vehiculos/vehiculos";
 
 export default function Home() {
-    const Vehiculos_API_URL = "http://localhost:8090/auth/vehiculo/list/publico/True"
+    const Vehiculos_API_URL = `${process.env.NEXT_PUBLIC_HOSTNAME}/auth/vehiculo/list/publico/True`
     const [vehiculos, setVehiculos] = useState(null);
     const [loading, setLoading] = useState(true);
 

@@ -7,6 +7,7 @@ import { Transition } from '@headlessui/react'
 import Perfil from '@/components/loged/perfil';
 
 export default function NavbarLi({ usuario }) {
+    // not used
     var foto = null;
     if (usuario != null) {
         if (usuario.fotos.length > 0) {
