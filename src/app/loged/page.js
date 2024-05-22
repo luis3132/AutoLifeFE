@@ -4,13 +4,26 @@ import { useState, useEffect } from "react";
 import CryptoJS from "crypto-js";
 
 export default function Home() {
+  // start validation
+
+  const [token, setToken] = useState(null);
   const [usuario, setUsuario] = useState(null);
   useEffect(() => {
     // verify if we are in the browser
     if (typeof window !== 'undefined') {
-      // verify if the user is login
+      const t = document.cookie;
+      const cookiesArray = t.split(';');
+      // Recorrer el array de cookies para encontrar la cookie "authToken"
+      cookiesArray.forEach(cookie => {
+        const [name, value] = cookie.trim().split('=');
+        if (name === 'authToken') {
+          const valor = decodeURIComponent(value);
+          setToken(valor);
+        }
+      });
+      // verify if the user are logged
       const loged = sessionStorage.getItem("loged");
-      if (loged) {
+      if (loged == "true") {
         // get the encrpt text
         const cryp = sessionStorage.getItem("usuario");
         // decrypt the text
@@ -26,6 +39,8 @@ export default function Home() {
       }
     }
   }, []);
+
+  // end validation
 
   console.log(usuario)
   return (

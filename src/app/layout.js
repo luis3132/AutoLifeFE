@@ -51,21 +51,6 @@ export default async function RootLayout({ children }) {
       console.log(error)
     }
 
-    // cargar datos de los vehiculos del usuario
-
-    try {
-      const Vehiculos_API_URL = `${process.env.HOSTNAME}/api/vehiculo/list/usuario/${Usuario.dni}`;
-      const response = await fetch(Vehiculos_API_URL, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        }
-      });
-      Vehiculos = await response.json();
-    } catch (error) {
-      console.log(error)
-    }
   }
   return (
     <html lang="en">

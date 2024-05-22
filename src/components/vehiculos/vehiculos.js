@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image';
+import { Icon } from '@iconify/react';
+import Vervehiculo from './ver';
 
-export default function Vehiculos({ vehiculos }) {
+export default function Vehiculos({ vehiculos, token }) {
+    const [showVer, setShowVer] = useState(false);
     var foto = null;
     if (vehiculos.fotos.length > 0) {
         foto = vehiculos.fotos[0].foto
@@ -11,11 +14,11 @@ export default function Vehiculos({ vehiculos }) {
     return (
         <>
             <div className='pb-3'></div>
-            <div className="flex bg-gray-100 pt-1 pb-1 rounded-2xl ">
-                <div className="md:w-[25%] w-[30%] items-center justify-center p-2">
-                    <Image className="" alt="Foto" width={100} height={100} src={foto} />
+            <div className="flex bg-gray-200 pt-1 pb-1 rounded-2xl ">
+                <div className="md:w-[25%] w-[30%] items-center justify-center flex p-2">
+                    <Image className="" alt="Foto" width={100} height={100} src={foto} objectFit="cover" />
                 </div>
-                <div className="w-full">
+                <div className="w-full flex flex-col">
                     <div>
                         {vehiculos.marca} {vehiculos.referencia} {vehiculos.serie} {vehiculos.modelo}
                     </div>
@@ -28,9 +31,15 @@ export default function Vehiculos({ vehiculos }) {
                     <div>
                         Kilometraje: {vehiculos.kilometraje}
                     </div>
-                    <div className="float-right pr-3">
-                        <button>Ver</button>
+                    <div className="self-end mt-auto float-right pr-3">
+                        <button onClick={() => setShowVer(!showVer)}>
+                            <div className="flex items-center">
+                                <Icon className="" icon="mdi:eye-outline" />
+                                <div className="pl-2">Ver</div>
+                            </div>
+                        </button>
                     </div>
+                    {showVer && <Vervehiculo token={token} vehiculo={vehiculos} closecomponent={() => setShowVer(!showVer)} />}
                 </div>
             </div>
         </>

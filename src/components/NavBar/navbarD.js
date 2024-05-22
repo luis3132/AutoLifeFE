@@ -38,7 +38,7 @@ export default function NavBarD({ usuario }) {
     };
 
     const handlePerfilButtonClick = () => {
-        setShowLogin(!showLogin);
+        window.location.href = "/loged";
     };
 
     const handleLogout = () => {
@@ -69,7 +69,7 @@ export default function NavBarD({ usuario }) {
                     <div className="pl-[1%] ">
                         <Link className="flex items-center hover:text-gray-500" href="/loged" style={{ cursor: 'pointer' }} replace>
                             <Image src="/imagenes/logo/logoSLSF.png" alt="Logo" width={100} height={100} className="pt-1 pb-1" />
-                            <div className="md:static absolute top-[-100%] text-2xl font-bold">
+                            <div className="sm:static absolute top-[-100%] text-2xl font-bold">
                                 AutoLife
                             </div>
                         </Link>
@@ -105,7 +105,7 @@ export default function NavBarD({ usuario }) {
                         <div className={`lg:hidden absolute bg-white min-h-[10%] left-0 top-[11%] w-full flex items-center px-5 justify-center ${navbar ? '' : 'hidden'
                             }`}>
                             <ul className="flex-col flex gap-8 justify-center items-center">
-                                <li className="flex">
+                                <li className="flex pt-2">
                                     <div className="p-1"><Icon icon="vaadin:car" /></div>
                                     <Link className="hover:text-gray-500" onClick={() => { setNavbar(!navbar); setIsShowing(!isShowing); }} replace href="/loged/vehiculoPrivado">Mis Vehiculos</Link>
                                 </li>
@@ -132,7 +132,6 @@ export default function NavBarD({ usuario }) {
                             </div>
                         </button>
                         <button className="bg-red-500 text-black p-4 rounded-full hover:bg-red-600" onClick={handleLogout}>Logout</button>
-                        {showLogin && <Perfil closeComponent={() => setShowLogin(false)} />}
                         <button className="text-3xl lg:hidden pr-5" onClick={() => {
                             setNavbar(!navbar);
                             setIsShowing(!isShowing);
@@ -150,7 +149,7 @@ export default function NavBarD({ usuario }) {
                     <div className="pl-[1%] ">
                         <Link className="flex items-center hover:text-gray-500" href="/" style={{ cursor: 'pointer' }} replace>
                             <Image src="/imagenes/logo/logoSLSF.png" alt="Logo" width={100} height={100} className="pt-1 pb-1" />
-                            <div className="md:static absolute top-[-100%] text-2xl font-bold">
+                            <div className="sm:static absolute top-[-100%] text-2xl font-bold">
                                 AutoLife
                             </div>
                         </Link>
@@ -178,7 +177,7 @@ export default function NavBarD({ usuario }) {
                         <div className={`md:hidden absolute bg-white min-h-[10%] left-0 top-[11%] w-full flex items-center px-5 justify-center ${navbar ? '' : 'hidden'
                             }`}>
                             <ul className="flex-col flex gap-8 justify-center items-center">
-                                <li className="flex">
+                                <li className="flex pt-2">
                                     <div className="p-1"><Icon icon="vaadin:car" /></div>
                                     <Link className="hover:text-gray-500" onClick={() => { setNavbar(!navbar); setIsShowing(!isShowing); }} replace href="/vehiculoPublico">Vehiculos</Link>
                                 </li>
