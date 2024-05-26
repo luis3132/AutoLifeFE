@@ -42,10 +42,21 @@ export default function Home() {
 
   // end validation
 
-  console.log(usuario)
+  var foto = null
+  if (usuario != undefined && usuario != ""){
+    if (usuario.fotos.length > 0){
+      foto = usuario.fotos[0].foto;
+    } else {
+      foto = "/imagenes/logo/logoSL.png";
+    }
+  }
   return (
     <div>
-      parchadero :P
+      <div className="lg:flex-col flex pl-[5%] pr-[5%] pt-[2%] ">
+        <div className="lg:w-[30%] w-full bg-gray-200 rounded-2xl flex flex-col justify-center items-center">
+          XD
+        </div>
+      </div>
     </div>
   );
 }

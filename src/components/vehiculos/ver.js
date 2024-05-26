@@ -1,3 +1,4 @@
+import { Icon } from '@iconify/react';
 import { Dialog, Transition } from "@headlessui/react";
 import Image from "next/image";
 import { Fragment, useState } from "react";
@@ -33,8 +34,6 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
     function closeModal() {
         setIsOpen(false)
     }
-
-    console.log(dueno2)
     const handleChange = (event) => {
         if (event.target.name == "publico") {
             if (vehiculo1.publico == true) {
@@ -221,7 +220,6 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
     }
 
     async function DuenoCambio() {
-        console.log(dueno); console.log(dueno2);
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_HOSTNAME}/api/duenos/edit`, {
                 method: "PUT",
@@ -360,11 +358,20 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
                                                 </div>
                                             </div>
                                             <div className="flex-row justify-center w-full flex items-center pt-2 ">
-                                                <button className="justify-center flex-row items-center p-1 bg-red-500 hover:bg-red-600 rounded-lg" onClick={deleteVehiculo}>Eliminar</button>
+                                                <button className="justify-center flex items-center p-1 bg-red-500 hover:bg-red-600 rounded-lg" onClick={deleteVehiculo}>
+                                                    <Icon icon="material-symbols:delete-outline" />
+                                                    Eliminar
+                                                </button>
                                                 <div className="w-[20%] "></div>
-                                                <button className="justify-center flex-row items-center p-1 bg-lime-400 hover:bg-lime-500 rounded-lg" onClick={updateVehiculo}>Guardar</button>
+                                                <button className="justify-center flex items-center p-1 bg-lime-400 hover:bg-lime-500 rounded-lg" onClick={updateVehiculo}>
+                                                    <Icon icon="ri:save-line" />
+                                                    Guardar
+                                                </button>
                                                 <div className="w-[20%] "></div>
-                                                <button className="justify-center flex-row items-center p-1 bg-red-500 hover:bg-red-600 rounded-lg" onClick={() => setEditar(!editar)}>Cancelar</button>
+                                                <button className="justify-center flex items-center p-1 bg-red-500 hover:bg-red-600 rounded-lg" onClick={() => setEditar(!editar)}>
+                                                    <Icon icon="line-md:cancel-twotone" />
+                                                    Cancelar
+                                                </button>
                                             </div>
                                         </div>
                                     ) : (
@@ -440,9 +447,15 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
                                                 </div>
                                             </div>
                                             <div className="flex-row justify-center w-full flex items-center pt-2 ">
-                                                <button className="justify-center flex-row items-center p-1 bg-lime-400 hover:bg-lime-500 rounded-lg" onClick={() => setEditar(!editar)} >Editar</button>
+                                                <button className="justify-center flex items-center p-1 bg-lime-400 hover:bg-lime-500 rounded-lg" onClick={() => setEditar(!editar)} >
+                                                    <Icon icon="lucide:edit" />
+                                                    Editar
+                                                </button>
                                                 <div className="w-[20%] "></div>
-                                                <button className="justify-center flex-row items-center p-1 bg-red-500 hover:bg-red-600 rounded-lg" onClick={closecomponent}>Salir</button>
+                                                <button className="justify-center flex items-center p-1 bg-red-500 hover:bg-red-600 rounded-lg" onClick={closecomponent}>
+                                                    <Icon icon="material-symbols:close" />
+                                                    Salir
+                                                </button>
                                             </div>
                                         </div>
                                     )}

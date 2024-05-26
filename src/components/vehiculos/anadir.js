@@ -1,3 +1,4 @@
+import { Icon } from '@iconify/react';
 import { useState } from 'react';
 import Tipovehiculo from './tipovehiculo';
 
@@ -44,15 +45,15 @@ export default function Anadir({ tipovehiculo, token, dni, showAnadir }) {
             setCheck(!check);
         }
         setVehiculo({ ...vehiculo, [event.target.name]: event.target.value });
-        setDueno({ ...dueno, vehiculo: vehiculo.numSerie})
+        setDueno({ ...dueno, vehiculo: vehiculo.numSerie })
     }
     const saveVehiculo = async (e) => {
         var tipoVehiculoSeleccionado = null;
         tipovehiculo.map((tipo) => {
-            if (idT.id == tipo.id){
+            if (idT.id == tipo.id) {
                 tipoVehiculoSeleccionado = tipo
             }
-        }) 
+        })
         const nuevoVehiculo = {
             ...vehiculo,
             tipovehiculo: {
@@ -121,7 +122,7 @@ export default function Anadir({ tipovehiculo, token, dni, showAnadir }) {
                 </div>
                 <div className="flex-col justify-center w-full flex items-center ">
                     <div className="text-left w-full pl-5">Kilometraje:</div>
-                    <input name="kilometraje" value={vehiculo.kilometraje} onChange={(e) => {handleChange(e); handleChangedate(e)}} id="kilometraje" type="number" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
+                    <input name="kilometraje" value={vehiculo.kilometraje} onChange={(e) => { handleChange(e); handleChangedate(e) }} id="kilometraje" type="number" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
                 </div>
                 <div className="justify-center w-full flex items-center ">
                     <div className="text-left w-full pl-5">Publico:</div>
@@ -157,9 +158,15 @@ export default function Anadir({ tipovehiculo, token, dni, showAnadir }) {
                     </select>
                 </div>
                 <div className="flex-row justify-center w-full flex items-center pt-2 ">
-                    <button className="justify-center flex-row items-center p-1 bg-lime-400 hover:bg-lime-500 rounded-full" onClick={saveVehiculo}>Anadir</button>
-                    <div className="w-[20%] "></div>
-                    <button className="justify-center flex-row items-center p-1 bg-red-500 hover:bg-red-600 rounded-full" onClick={showAnadir}>Cancelar</button>
+                    <button className="justify-center flex items-center p-1 bg-lime-400 hover:bg-lime-500 rounded-full" onClick={saveVehiculo}>
+                        <Icon icon="gg:add" />
+                        Anadir
+                    </button>
+                    <div className="w-[10%] "></div>
+                    <button className="justify-center flex items-center p-1 bg-red-500 hover:bg-red-600 rounded-full" onClick={showAnadir}>
+                        <Icon icon="line-md:cancel-twotone" />
+                        Cancelar
+                    </button>
                 </div>
             </div>
         </>
