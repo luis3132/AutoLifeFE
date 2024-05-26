@@ -30,7 +30,11 @@ export default function Anadir({ tipovehiculo, token, dni, showAnadir }) {
         usuario: dni
     })
     const handleChangedate = (event) => {
-        setDueno({ ...dueno, [event.target.name]: event.target.value });
+        if (event.target.name == "kilometraje") {
+            setDueno({ ...dueno, kmFinish: event.target.value });
+        } else {
+            setDueno({ ...dueno, [event.target.name]: event.target.value });
+        }
     }
     const handleChangeID = (event) => {
         setIdT({ ...idT, [event.target.name]: event.target.value });
@@ -117,7 +121,7 @@ export default function Anadir({ tipovehiculo, token, dni, showAnadir }) {
                 </div>
                 <div className="flex-col justify-center w-full flex items-center ">
                     <div className="text-left w-full pl-5">Kilometraje:</div>
-                    <input name="kilometraje" value={vehiculo.kilometraje} onChange={(e) => handleChange(e)} id="kilometraje" type="number" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
+                    <input name="kilometraje" value={vehiculo.kilometraje} onChange={(e) => {handleChange(e); handleChangedate(e)}} id="kilometraje" type="number" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
                 </div>
                 <div className="justify-center w-full flex items-center ">
                     <div className="text-left w-full pl-5">Publico:</div>

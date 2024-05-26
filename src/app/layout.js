@@ -12,7 +12,6 @@ export default async function RootLayout({ children }) {
   const cook = cookies().get("authToken");
   var token = null;
   var Usuario = null;
-  var Vehiculos = null;
   if (cook != undefined && cook != "") {
     token = cook.value;
   }

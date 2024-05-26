@@ -4,13 +4,29 @@ import { Fragment, useState } from "react";
 import Swal from 'sweetalert2';
 
 export default function Vervehiculo({ closecomponent, vehiculo, token }) {
+    // auto set foto if the vehiculo doesn't have it
     var foto = null;
     if (vehiculo.fotos.length > 0) {
         foto = vehiculo.fotos[0].foto
     } else {
         foto = "/imagenes/logo/logoSL.png";
     }
-
+    // set date
+    const hoy = new Date(); const dia = hoy.getDate(); const mes = hoy.getMonth() + 1; const anio = hoy.getFullYear();
+    // size of Duenos array
+    const size = vehiculo.duenos.length - 1;
+    //set Duenos to a const
+    const [dueno, setDueno] = useState(vehiculo.duenos[size]);
+    // set duenos to add in case to change city or Dueno
+    const [dueno2, setDueno2] = useState({
+        usuario: vehiculo.usuario,
+        vehiculo: vehiculo.numSerie,
+        kmStart: vehiculo.kilometraje,
+        kmFinish: 0,
+        dateStart: anio + "-" + mes + "-" + dia,
+        dateFinish: "",
+        ciudadPromTransi: dueno.ciudadPromTransi
+    })
     const [editar, setEditar] = useState(false);
     const [vehiculo1, setVehiculo1] = useState(vehiculo);
     let [isOpen, setIsOpen] = useState(true);
@@ -18,6 +34,7 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
         setIsOpen(false)
     }
 
+    console.log(dueno2)
     const handleChange = (event) => {
         if (event.target.name == "publico") {
             if (vehiculo1.publico == true) {
@@ -26,12 +43,25 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
                 setVehiculo1({ ...vehiculo1, [event.target.name]: true });
             }
         } else {
-            setVehiculo1({ ...vehiculo1, [event.target.name]: event.target.value });
+            if (event.target.name == "usuario") {
+                setDueno({ ...dueno, dateFinish: anio + "-" + mes + "-" + dia });
+                setDueno2({ ...dueno2, usuario: event.target.value })
+            }
+            if (event.target.name == "kilometraje") {
+                setDueno({ ...dueno, kmFinish: event.target.value });
+                setDueno2({ ...dueno2, kmStart: event.target.value });
+            }
+            if (event.target.name == "ciudadPromTransi") {
+                setDueno({ ...dueno, dateFinish: anio + "-" + mes + "-" + dia });
+                setDueno2({ ...dueno2, ciudadPromTransi: event.target.value });
+            } else {
+                setVehiculo1({ ...vehiculo1, [event.target.name]: event.target.value });
+            }
         }
     }
 
     const updateVehiculo = async (e) => {
-        if (vehiculo != vehiculo1) {
+        if (vehiculo != vehiculo1 || dueno != dueno2) {
             if (vehiculo.usuario != vehiculo1.usuario) {
                 Swal.fire({
                     title: '¿Estás seguro?',
@@ -49,7 +79,17 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
                             'El cambio de usuario ha sido confirmado.',
                             'success'
                         ).then(() => {
-                            Cambiar();
+                            if (vehiculo1.kilometraje >= vehiculo.kilometraje) {
+                                DuenoCambio();
+                            } else {
+                                Swal.fire({
+                                    title: 'ERROR',
+                                    text: "El kilometraje final es menor a inicial...",
+                                    icon: 'warning',
+                                    confirmButtonColor: '#3085d6',
+                                    confirmButtonText: 'okey!'
+                                })
+                            }
                         })
                     } else {
                         // El usuario hizo clic en "Cancelar"
@@ -58,11 +98,24 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
                             'La eliminacion sido cancelada.',
                             'error'
                         );
-                        // Lógica para cancelar el cambio
                     }
                 });
             } else {
-                Cambiar();
+                if (vehiculo1.kilometraje >= vehiculo.kilometraje) {
+                    if (dueno.ciudadPromTransi == dueno2.ciudadPromTransi) {
+                        Cambiar();
+                    } else {
+                        DuenoCambio();
+                    }
+                } else {
+                    Swal.fire({
+                        title: 'ERROR',
+                        text: "El kilometraje final es menor a inicial...",
+                        icon: 'warning',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'okey!'
+                    })
+                }
             }
         } else {
             closecomponent();
@@ -167,6 +220,51 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
         }
     }
 
+    async function DuenoCambio() {
+        console.log(dueno); console.log(dueno2);
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_HOSTNAME}/api/duenos/edit`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify(dueno)
+            });
+            const deleteV = await response.json();
+            try {
+                const response2 = await fetch(`${process.env.NEXT_PUBLIC_HOSTNAME}/api/duenos/new`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify(dueno2)
+                });
+                const deleteV = await response2.json();
+                Cambiar();
+            } catch (error) {
+                console.log(error);
+                Swal.fire({
+                    title: 'ERROR',
+                    text: "Ha sucedido un error al hacer el cambio...",
+                    icon: 'warning',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'okey!'
+                })
+            }
+        } catch (error) {
+            console.log(error);
+            Swal.fire({
+                title: 'ERROR',
+                text: "Ha sucedido un error al hacer el cambio...",
+                icon: 'warning',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'okey!'
+            })
+        }
+    }
+
     return (
         <>
             <div className="w-full fixed inset-0 flex items-center justify-center backdrop-blur-sm ">
@@ -217,7 +315,7 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
                                                         </div>
                                                         <div className="flex-col justify-center w-full flex items-center ">
                                                             <div className="text-left w-full pl-5">Modelo:</div>
-                                                            <input name="modelo" value={vehiculo1.modelo} onChange={(e) => handleChange(e)} id="modelo" type="number" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
+                                                            <input name="modelo" value={vehiculo1.modelo} disabled id="modelo" type="number" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
                                                         </div>
                                                         <div className="flex-col justify-center w-full flex items-center ">
                                                             <div className="text-left w-full pl-5">Referencia:</div>
@@ -240,8 +338,8 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
                                                             <input name="publico" checked={vehiculo1.publico} value={vehiculo1.publico} onChange={(e) => handleChange(e)} id="publico" type="checkbox" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pt-1" placeholder="" ></input>
                                                         </div>
                                                         <div className="flex-col justify-center w-full flex items-center ">
-                                                            <div className="text-left w-full pl-5">Ciudad de procedencia:</div>
-                                                            <input name="ciudadProcedencia" value={vehiculo1.ciudadProcedencia} onChange={(e) => handleChange(e)} id="ciudadProcedencia" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
+                                                            <div className="text-left w-full pl-5">Ciudad promedio Transitada:</div>
+                                                            <input name="ciudadPromTransi" value={dueno2.ciudadPromTransi} onChange={(e) => handleChange(e)} id="ciudadProcedencia" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
                                                         </div>
                                                         <div className="flex-col justify-center w-full flex items-center ">
                                                             <div className="text-left w-full pl-5">Fecha de compra:</div>
@@ -322,6 +420,10 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
                                                         <div className="flex-col justify-center w-full flex items-center ">
                                                             <div className="text-left w-full pl-5">Ciudad de procedencia:</div>
                                                             <input name="ciudadProcedencia" disabled value={vehiculo1.ciudadProcedencia} id="ciudadProcedencia" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
+                                                        </div>
+                                                        <div className="flex-col justify-center w-full flex items-center ">
+                                                            <div className="text-left w-full pl-5">Ciudad promedio Transitada:</div>
+                                                            <input name="ciudadPromTransi" value={dueno.ciudadPromTransi} disabled id="ciudadProcedencia" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
                                                         </div>
                                                         <div className="flex-col justify-center w-full flex items-center ">
                                                             <div className="text-left w-full pl-5">Fecha de compra:</div>
