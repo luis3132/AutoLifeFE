@@ -6,7 +6,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import LoginUser from '@/components/Login/login';
 import { Transition } from '@headlessui/react'
-import Perfil from '@/components/loged/perfil';
 import CryptoJS from 'crypto-js';
 
 export default function NavBarD({ usuario }) {

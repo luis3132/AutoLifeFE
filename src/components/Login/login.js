@@ -1,6 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { Icon } from '@iconify/react';
+import Swal from 'sweetalert2';
 
 export default function LoginUser({ closeComponent }) {
     const Usuario_API_URL = "http://localhost:8090/auth/register"
@@ -38,16 +39,34 @@ export default function LoginUser({ closeComponent }) {
                 body: JSON.stringify(Usuario)
             });
             if (!response.ok) {
-                alert("DNI o Email o Nombre de Usuario ya registrado");
+                Swal.fire({
+                    title: 'Error',
+                    text: "DNI o Email o Nombre de Usuario ya registrado",
+                    icon: 'warning',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Regresar'
+                })
             } else {
                 const _Usuario = await response.json();
-                alert("Usuario Creado");
+                Swal.fire({
+                    title: 'Creado!',
+                    text: "Usuario Creado con exito",
+                    icon: 'success',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Regresar'
+                })
                 document.cookie = `authToken=${_Usuario.token}; path=/;`;
                 reset(e);
                 window.location.href = "loged"
             }
         } else {
-            alert("Contrasenas no cohinciden")
+            Swal.fire({
+                title: 'Error',
+                text: "Contrasenas no cohinciden",
+                icon: 'warning',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Regresar'
+            })
             setUsuario({...Usuario, contrasena: ""})
             setConfirmar({confirmar: ""})
         }
@@ -62,7 +81,13 @@ export default function LoginUser({ closeComponent }) {
                 body: JSON.stringify(login)
             });
             if (!response.ok) {
-                alert("Nombre de Usuario o Contrasena INCORRECTOS");
+                Swal.fire({
+                    title: 'Error',
+                    text: "Nombre de usuario o contrasena INCORRECTOS",
+                    icon: 'warning',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Regresar'
+                })
                 setLogin({
                     userLogin: "",
                     contrasena: ""
@@ -74,7 +99,13 @@ export default function LoginUser({ closeComponent }) {
                 window.location.href = "loged"
             }
         } catch (error){
-            alert("Error al Iniciar Seccion");
+            Swal.fire({
+                title: 'Error',
+                text: "Error al iniciar seccion",
+                icon: 'warning',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Regresar'
+            })
         }
     };
     const reset = (e) => {
@@ -162,31 +193,31 @@ export default function LoginUser({ closeComponent }) {
                                             <div className="text-2xl pt-3 pl-10" >Register</div>
                                             <div className="" >
                                                 <div className="text-left w-full pl-5">DNI:</div>
-                                                <input name="dni" value={Usuario.dni} onChange={(e) => handleChange(e)} id="DNI" type="number" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="1234" ></input>
+                                                <input name="dni" value={Usuario.dni} onChange={(e) => handleChange(e)} maxLength={20} id="DNI" type="number" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="1234" ></input>
                                             </div>
                                             <div>
                                                 <div className="text-left w-full pl-5">Nombres:</div>
-                                                <input name="nombre" value={Usuario.nombre} onChange={(e) => handleChange(e)} className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="Pepito" ></input>
+                                                <input name="nombre" value={Usuario.nombre} onChange={(e) => handleChange(e)} maxLength={100} className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="Pepito" ></input>
                                             </div>
                                             <div>
                                                 <div className="text-left w-full pl-5">Apellidos:</div>
-                                                <input name="apellidos" value={Usuario.apellidos} onChange={(e) => handleChange(e)} className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="Perez" ></input>
+                                                <input name="apellidos" value={Usuario.apellidos} onChange={(e) => handleChange(e)} maxLength={100} className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="Perez" ></input>
                                             </div>
                                             <div>
                                                 <div className="text-left w-full pl-5">Direccion:</div>
-                                                <input name="direccion" value={Usuario.direccion} onChange={(e) => handleChange(e)} className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="Calle 1 #1-1" ></input>
+                                                <input name="direccion" value={Usuario.direccion} onChange={(e) => handleChange(e)} maxLength={200} className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="Calle 1 #1-1" ></input>
                                             </div>
                                             <div>
                                                 <div className="text-left w-full pl-5">Email:</div>
-                                                <input name="email" value={Usuario.email} onChange={(e) => handleChange(e)} className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="pp@email.com" ></input>
+                                                <input name="email" value={Usuario.email} onChange={(e) => handleChange(e)} maxLength={150} className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="pp@email.com" ></input>
                                             </div>
                                             <div>
                                                 <div className="text-left w-full pl-5">Nombre Usuario:</div>
-                                                <input name="nombreUsuario" value={Usuario.nombreUsuario} onChange={(e) => handleChange(e)} className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2 " placeholder="pepe" ></input>
+                                                <input name="nombreUsuario" value={Usuario.nombreUsuario} onChange={(e) => handleChange(e)} maxLength={20} className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2 " placeholder="pepe" ></input>
                                             </div>
                                             <div>
                                                 <div className="text-left w-full pl-5">Telefono:</div>
-                                                <input name="telefono" value={Usuario.telefono} onChange={(e) => handleChange(e)} type="number" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="3101234567" ></input>
+                                                <input name="telefono" value={Usuario.telefono} onChange={(e) => handleChange(e)} maxLength={15} type="number" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="3101234567" ></input>
                                             </div>
                                             <div>
                                                 <div className="text-left w-full pl-5">Contrasena:</div>

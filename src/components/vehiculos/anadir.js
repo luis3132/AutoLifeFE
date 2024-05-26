@@ -93,31 +93,31 @@ export default function Anadir({ tipovehiculo, token, dni, showAnadir }) {
                 <div className="flex text-2xl pt-3 justify-center w-full items-center" >Anadir Vehiculo</div>
                 <div className="flex-col justify-center w-full flex items-center ">
                     <div className="text-left w-full pl-5">Numero de serie:</div>
-                    <input name="numSerie" value={vehiculo.numSerie} onChange={(e) => handleChange(e)} id="numSerie" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
+                    <input name="numSerie" value={vehiculo.numSerie} onChange={(e) => handleChange(e)} maxLength={200} id="numSerie" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
                 </div>
                 <div className="flex-col justify-center w-full flex items-center ">
                     <div className="text-left w-full pl-5">Placa:</div>
-                    <input name="placa" value={vehiculo.placa} onChange={(e) => handleChange(e)} id="placa" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
+                    <input name="placa" value={vehiculo.placa} onChange={(e) => handleChange(e)} maxLength={10} id="placa" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
                 </div>
                 <div className="flex-col justify-center w-full flex items-center ">
                     <div className="text-left w-full pl-5">Marca:</div>
-                    <input name="marca" value={vehiculo.marca} onChange={(e) => handleChange(e)} id="marca" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
+                    <input name="marca" value={vehiculo.marca} onChange={(e) => handleChange(e)} maxLength={50} id="marca" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
                 </div>
                 <div className="flex-col justify-center w-full flex items-center ">
                     <div className="text-left w-full pl-5">Modelo:</div>
-                    <input name="modelo" value={vehiculo.modelo} onChange={(e) => handleChange(e)} id="modelo" type="number" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
+                    <input name="modelo" value={vehiculo.modelo} onChange={(e) => handleChange(e)} maxLength={50} id="modelo" type="number" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
                 </div>
                 <div className="flex-col justify-center w-full flex items-center ">
                     <div className="text-left w-full pl-5">Referencia:</div>
-                    <input name="referencia" value={vehiculo.referencia} onChange={(e) => handleChange(e)} id="referencia" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
+                    <input name="referencia" value={vehiculo.referencia} onChange={(e) => handleChange(e)} maxLength={50} id="referencia" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
                 </div>
                 <div className="flex-col justify-center w-full flex items-center ">
                     <div className="text-left w-full pl-5">Serie:</div>
-                    <input name="serie" value={vehiculo.serie} onChange={(e) => handleChange(e)} id="serie" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
+                    <input name="serie" value={vehiculo.serie} onChange={(e) => handleChange(e)} maxLength={50} id="serie" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
                 </div>
                 <div className="flex-col justify-center w-full flex items-center ">
                     <div className="text-left w-full pl-5">Color:</div>
-                    <input name="color" value={vehiculo.color} onChange={(e) => handleChange(e)} id="color" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
+                    <input name="color" value={vehiculo.color} onChange={(e) => handleChange(e)} maxLength={15} id="color" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
                 </div>
                 <div className="flex-col justify-center w-full flex items-center ">
                     <div className="text-left w-full pl-5">Kilometraje:</div>
@@ -129,11 +129,11 @@ export default function Anadir({ tipovehiculo, token, dni, showAnadir }) {
                 </div>
                 <div className="flex-col justify-center w-full flex items-center ">
                     <div className="text-left w-full pl-5">Ciudad de procedencia:</div>
-                    <input name="ciudadProcedencia" value={vehiculo.ciudadProcedencia} onChange={(e) => handleChange(e)} id="ciudadProcedencia" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
+                    <input name="ciudadProcedencia" value={vehiculo.ciudadProcedencia} onChange={(e) => handleChange(e)} maxLength={50} id="ciudadProcedencia" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
                 </div>
                 <div className="flex-col justify-center w-full flex items-center ">
                     <div className="text-left w-full pl-5">Ciudad promedio Transitada:</div>
-                    <input name="ciudadPromTransi" value={dueno.ciudadPromTransi} onChange={(e) => handleChangedate(e)} id="ciudadProcedencia" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
+                    <input name="ciudadPromTransi" value={dueno.ciudadPromTransi} onChange={(e) => handleChangedate(e)} maxLength={50} id="ciudadProcedencia" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
                 </div>
                 <div className="flex-col justify-center w-full flex items-center ">
                     <div className="text-left w-full pl-5">Fecha de compra:</div>
@@ -145,7 +145,7 @@ export default function Anadir({ tipovehiculo, token, dni, showAnadir }) {
                 </div>
                 <div className="flex-col justify-center w-full flex items-center ">
                     <div className="text-left w-full pl-5">Descripcion:</div>
-                    <textarea name="descripcion" value={vehiculo.descripcion} onChange={(e) => handleChange(e)} id="descripcion" type="text" className="bg-black bg-opacity-10 rounded-2xl text-center w-[80%] pl-2" placeholder="" ></textarea>
+                    <textarea name="descripcion" value={vehiculo.descripcion} onChange={(e) => handleChange(e)} maxLength={1000} id="descripcion" type="text" className="bg-black bg-opacity-10 rounded-2xl text-center w-[80%] pl-2" placeholder="" ></textarea>
                 </div>
                 <div className="flex-col justify-center w-full flex items-center ">
                     <div className="text-left w-full pl-5">Tipo de vehiculo:</div>
