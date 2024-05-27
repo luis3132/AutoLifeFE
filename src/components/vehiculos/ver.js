@@ -34,6 +34,21 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
     function closeModal() {
         setIsOpen(false)
     }
+
+    const handleEditar = () => {
+        if(token) {
+            setEditar(!editar)
+        } else {
+            Swal.fire({
+                title: 'Error',
+                text: "No es tu vehiculo",
+                icon: 'warning',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Salir!'
+            })
+        }
+    }
+
     const handleChange = (event) => {
         if (event.target.name == "publico") {
             if (vehiculo1.publico == true) {
@@ -290,12 +305,14 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
                                     leaveTo="opacity-0 scale-95">
                                     {editar ? (
                                         <div className=" absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 md:w-[70%] w-[90%] bg-amber-400 rounded-2xl pb-1  ">
-                                            <div className="md:flex  w-full">
+                                            <div className="md:flex justify-center items-center">
                                                 <div className="flex flex-col justify-center items-center">
                                                     <div className="rounded-full">
                                                         <Image className="p-3 object-cover" src={foto} width={200} height={200} alt="Foto" />
                                                     </div>
-
+                                                    <div className="flex flex-col">
+                                                        <input type="file"></input>
+                                                    </div>
                                                 </div>
                                                 <div>
                                                     <div className="p-5 flex flex-col items-center justify-center">
@@ -353,9 +370,7 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="flex flex-col justify-center ">
-                                                    duenos e historiales
-                                                </div>
+                                                
                                             </div>
                                             <div className="flex-row justify-center w-full flex items-center pt-2 ">
                                                 <button className="justify-center flex items-center p-1 bg-red-500 hover:bg-red-600 rounded-lg" onClick={deleteVehiculo}>
@@ -447,7 +462,7 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
                                                 </div>
                                             </div>
                                             <div className="flex-row justify-center w-full flex items-center pt-2 ">
-                                                <button className="justify-center flex items-center p-1 bg-lime-400 hover:bg-lime-500 rounded-lg" onClick={() => setEditar(!editar)} >
+                                                <button className="justify-center flex items-center p-1 bg-lime-400 hover:bg-lime-500 rounded-lg" onClick={handleEditar} >
                                                     <Icon icon="lucide:edit" />
                                                     Editar
                                                 </button>
