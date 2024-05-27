@@ -26,7 +26,6 @@ export default function Home() {
       };
       fetchData();
     }, []);
-    console.log(vehiculos)
   return (
     <>
     <div className="pl-[5%] pr-[5%] pt-[2%] justify-between">
