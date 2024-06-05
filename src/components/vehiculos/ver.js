@@ -16,6 +16,8 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
     const hoy = new Date(); const dia = hoy.getDate(); const mes = hoy.getMonth() + 1; const anio = hoy.getFullYear();
     // size of Duenos array
     const size = vehiculo.duenos.length - 1;
+    // set if the Dueno is updated
+    const [update, setUpdate] = useState();
     //set Duenos to a const
     const [dueno, setDueno] = useState(vehiculo.duenos[size]);
     // set duenos to add in case to change city or Dueno
@@ -28,12 +30,17 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
         dateFinish: "",
         ciudadPromTransi: dueno.ciudadPromTransi
     })
+    // change the page to see the car to edit him
     const [editar, setEditar] = useState(false);
+    // Manage the changes of the car
     const [vehiculo1, setVehiculo1] = useState(vehiculo);
+    // Manage the Animation
     let [isOpen, setIsOpen] = useState(true);
     function closeModal() {
         setIsOpen(false)
     }
+    // Manage the upload file
+    const [file, setFile] = useState(null);
 
     const handleEditar = () => {
         if(token) {
@@ -60,14 +67,17 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
             if (event.target.name == "usuario") {
                 setDueno({ ...dueno, dateFinish: anio + "-" + mes + "-" + dia });
                 setDueno2({ ...dueno2, usuario: event.target.value })
+                setUpdate(true);
             }
             if (event.target.name == "kilometraje") {
                 setDueno({ ...dueno, kmFinish: event.target.value });
                 setDueno2({ ...dueno2, kmStart: event.target.value });
+                setUpdate(true);
             }
             if (event.target.name == "ciudadPromTransi") {
                 setDueno({ ...dueno, dateFinish: anio + "-" + mes + "-" + dia });
                 setDueno2({ ...dueno2, ciudadPromTransi: event.target.value });
+                setUpdate(true);
             } else {
                 setVehiculo1({ ...vehiculo1, [event.target.name]: event.target.value });
             }
@@ -75,7 +85,22 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
     }
 
     const updateVehiculo = async (e) => {
-        if (vehiculo != vehiculo1 || dueno != dueno2) {
+        if (file != undefined) {
+            const form = new FormData();
+            form.set('file', file);
+            const vehiculoString = JSON.stringify(vehiculo)
+            form.set('vehiculo', vehiculoString);
+            form.set('token', token);
+            const res = await fetch('/api/uploadVehiculo', {
+                method: "POST",
+                body: form
+            })
+            const data = await res.json()
+            if (res.ok){
+                window.location.href = "/loged/vehiculoPrivado"
+            }
+        }
+        if (vehiculo != vehiculo1 || update) {
             if (vehiculo.usuario != vehiculo1.usuario) {
                 Swal.fire({
                     title: '¿Estás seguro?',
@@ -311,7 +336,7 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
                                                         <Image className="p-3 object-cover" src={foto} width={200} height={200} alt="Foto" />
                                                     </div>
                                                     <div className="flex flex-col">
-                                                        <input type="file"></input>
+                                                        <input name="file" type="file" onChange={(e) => {setFile(e.target.files[0])}}></input>
                                                     </div>
                                                 </div>
                                                 <div>
@@ -398,50 +423,50 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
                                                     </div>
                                                     <div className="flex-col justify-center w-full flex items-center ">
                                                         <div className="text-left w-full pl-5">Descripcion:</div>
-                                                        <textarea name="descripcion" disabled value={vehiculo1.descripcion} id="descripcion" type="text" className="bg-black bg-opacity-10 rounded-2xl text-center w-[80%] pl-2" placeholder="" ></textarea>
+                                                        <textarea name="descripcion" disabled value={vehiculo.descripcion} id="descripcion" type="text" className="bg-black bg-opacity-10 rounded-2xl text-center w-[80%] pl-2" placeholder="" ></textarea>
                                                     </div>
                                                 </div>
                                                 <div>
                                                     <div className="p-5 flex flex-col items-center justify-center">
                                                         <div className="flex-col justify-center w-full flex items-center ">
                                                             <div className="text-left w-full pl-5">Numero de serie:</div>
-                                                            <input name="numSerie" disabled value={vehiculo1.numSerie} id="numSerie" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
+                                                            <input name="numSerie" disabled value={vehiculo.numSerie} id="numSerie" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
                                                         </div>
                                                         <div className="flex-col justify-center w-full flex items-center ">
                                                             <div className="text-left w-full pl-5">Placa:</div>
-                                                            <input name="placa" disabled value={vehiculo1.placa} id="placa" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
+                                                            <input name="placa" disabled value={vehiculo.placa} id="placa" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
                                                         </div>
                                                         <div className="flex-col justify-center w-full flex items-center ">
                                                             <div className="text-left w-full pl-5">Marca:</div>
-                                                            <input name="marca" disabled value={vehiculo1.marca} id="marca" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
+                                                            <input name="marca" disabled value={vehiculo.marca} id="marca" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
                                                         </div>
                                                         <div className="flex-col justify-center w-full flex items-center ">
                                                             <div className="text-left w-full pl-5">Modelo:</div>
-                                                            <input name="modelo" disabled value={vehiculo1.modelo} id="modelo" type="number" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
+                                                            <input name="modelo" disabled value={vehiculo.modelo} id="modelo" type="number" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
                                                         </div>
                                                         <div className="flex-col justify-center w-full flex items-center ">
                                                             <div className="text-left w-full pl-5">Referencia:</div>
-                                                            <input name="referencia" disabled value={vehiculo1.referencia} id="referencia" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
+                                                            <input name="referencia" disabled value={vehiculo.referencia} id="referencia" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
                                                         </div>
                                                         <div className="flex-col justify-center w-full flex items-center ">
                                                             <div className="text-left w-full pl-5">Serie:</div>
-                                                            <input name="serie" disabled value={vehiculo1.serie} id="serie" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
+                                                            <input name="serie" disabled value={vehiculo.serie} id="serie" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
                                                         </div>
                                                         <div className="flex-col justify-center w-full flex items-center ">
                                                             <div className="text-left w-full pl-5">Color:</div>
-                                                            <input name="color" disabled value={vehiculo1.color} id="color" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
+                                                            <input name="color" disabled value={vehiculo.color} id="color" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
                                                         </div>
                                                         <div className="flex-col justify-center w-full flex items-center ">
                                                             <div className="text-left w-full pl-5">Kilometraje:</div>
-                                                            <input name="kilometraje" disabled value={vehiculo1.kilometraje} id="kilometraje" type="number" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
+                                                            <input name="kilometraje" disabled value={vehiculo.kilometraje} id="kilometraje" type="number" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
                                                         </div>
                                                         <div className="justify-center w-full flex items-center ">
                                                             <div className="text-left w-full pl-5">Publico:</div>
-                                                            <input name="publico" disabled checked={vehiculo1.publico} value={vehiculo1.publico} id="publico" type="checkbox" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pt-1" placeholder="" ></input>
+                                                            <input name="publico" disabled checked={vehiculo.publico} value={vehiculo.publico} id="publico" type="checkbox" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pt-1" placeholder="" ></input>
                                                         </div>
                                                         <div className="flex-col justify-center w-full flex items-center ">
                                                             <div className="text-left w-full pl-5">Ciudad de procedencia:</div>
-                                                            <input name="ciudadProcedencia" disabled value={vehiculo1.ciudadProcedencia} id="ciudadProcedencia" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
+                                                            <input name="ciudadProcedencia" disabled value={vehiculo.ciudadProcedencia} id="ciudadProcedencia" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
                                                         </div>
                                                         <div className="flex-col justify-center w-full flex items-center ">
                                                             <div className="text-left w-full pl-5">Ciudad promedio Transitada:</div>
@@ -449,11 +474,11 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
                                                         </div>
                                                         <div className="flex-col justify-center w-full flex items-center ">
                                                             <div className="text-left w-full pl-5">Fecha de compra:</div>
-                                                            <input name="dateStart" disabled value={vehiculo1.duenos[0].dateStart} id="dateStart" type="date" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
+                                                            <input name="dateStart" disabled value={vehiculo.duenos[0].dateStart} id="dateStart" type="date" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
                                                         </div>
                                                         <div className="flex-col justify-center w-full flex items-center ">
                                                             <div className="text-left w-full pl-5">Usuario:</div>
-                                                            <input name="" value={vehiculo1.usuario} id="usuario" disabled type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
+                                                            <input name="" value={vehiculo.usuario} id="usuario" disabled type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
                                                         </div>
                                                     </div>
                                                 </div>
