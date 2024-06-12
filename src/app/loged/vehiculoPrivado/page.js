@@ -84,7 +84,6 @@ export default function VehiculoP() {
     } catch (error) {
       console.log(error)
     }
-    console.log(tipoVehiculo)
   }
 
   return (

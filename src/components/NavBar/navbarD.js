@@ -73,8 +73,8 @@ export default function NavBarD({ usuario }) {
                             </div>
                         </Link>
                     </div>
-                    <div className="lg:static  absolute  min-h-fit left-0 top-[-100%] w-auto flex items-center px-5">
-                        <ul className=" lg:flex-row flex-col flex lg:items-center lg:gap-[4vw] gap-8 justify-center">
+                    <div className="xl:static  absolute  min-h-fit left-0 top-[-100%] w-auto flex items-center px-5">
+                        <ul className=" xl:flex-row flex-col flex xl:items-center xl:gap-[4vw] gap-8 justify-center">
                             <li className="flex">
                                 <div className="p-1"><Icon icon="vaadin:car" /></div>
                                 <Link className="hover:text-gray-500" href="/loged/vehiculoPrivado" replace>Mis Vehiculos</Link>
@@ -91,6 +91,14 @@ export default function NavBarD({ usuario }) {
                                 <div className="p-1"><Icon icon="fluent:vehicle-car-collision-24-regular" /></div>
                                 <Link className="hover:text-gray-500" href="/loged/accidentePrivado" replace>Mis Accidentes</Link>
                             </li>
+                            <li className="flex">
+                                <div className="p-1"><Icon icon="mi:document" /></div>
+                                <Link className="hover:text-gray-500" href="/loged/regulacion" replace>Regulacion</Link>
+                            </li>
+                            <li className="flex">
+                                <div className="p-1"><Icon icon="material-symbols:home-repair-service-outline" /></div>
+                                <Link className="hover:text-gray-500" href="/loged/servicios" replace>Servicios</Link>
+                            </li>
                         </ul>
                     </div>
                     <Transition
@@ -101,7 +109,7 @@ export default function NavBarD({ usuario }) {
                         leave="transition-opacity duration-300"
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0">
-                        <div className={`lg:hidden absolute bg-white min-h-[10%] left-0 top-[11%] w-full flex items-center px-5 justify-center ${navbar ? '' : 'hidden'
+                        <div className={`xl:hidden absolute bg-white min-h-[10%] left-0 top-[11%] w-full flex items-center px-5 justify-center ${navbar ? '' : 'hidden'
                             }`}>
                             <ul className="flex-col flex gap-8 justify-center items-center">
                                 <li className="flex pt-2">
@@ -120,6 +128,14 @@ export default function NavBarD({ usuario }) {
                                     <div className="p-1"><Icon icon="fluent:vehicle-car-collision-24-regular" /></div>
                                     <Link className="hover:text-gray-500" onClick={() => { setNavbar(!navbar); setIsShowing(!isShowing); }} replace href="/loged/accidentePrivado">Mis Accidentes</Link>
                                 </li>
+                                <li className="flex">
+                                    <div className="p-1"><Icon icon="mi:document" /></div>
+                                    <Link className="hover:text-gray-500" onClick={() => { setNavbar(!navbar); setIsShowing(!isShowing); }} replace href="/loged/regulacion">Regulacion</Link>
+                                </li>
+                                <li className="flex pb-2">
+                                    <div className="p-1"><Icon icon="material-symbols:home-repair-service-outline" /></div>
+                                    <Link className="hover:text-gray-500" onClick={() => { setNavbar(!navbar); setIsShowing(!isShowing); }} replace href="/loged/servicios">Servicios</Link>
+                                </li>
                             </ul>
                         </div>
                     </Transition>
@@ -131,7 +147,7 @@ export default function NavBarD({ usuario }) {
                             </div>
                         </button>
                         <button className="bg-red-500 text-black p-4 rounded-full hover:bg-red-600" onClick={handleLogout}>Logout</button>
-                        <button className="text-3xl lg:hidden pr-5" onClick={() => {
+                        <button className="text-3xl xl:hidden pr-5" onClick={() => {
                             setNavbar(!navbar);
                             setIsShowing(!isShowing);
                         }}>
@@ -180,7 +196,7 @@ export default function NavBarD({ usuario }) {
                                     <div className="p-1"><Icon icon="vaadin:car" /></div>
                                     <Link className="hover:text-gray-500" onClick={() => { setNavbar(!navbar); setIsShowing(!isShowing); }} replace href="/vehiculoPublico">Vehiculos</Link>
                                 </li>
-                                <li className="flex">
+                                <li className="flex pb-2">
                                     <div className="p-1"><Icon icon="fluent:vehicle-car-collision-24-regular" /></div>
                                     <Link className="hover:text-gray-500" onClick={() => { setNavbar(!navbar); setIsShowing(!isShowing); }} replace href="/accidentePublico">Accidentes</Link>
                                 </li>

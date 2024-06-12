@@ -17,7 +17,6 @@ export async function POST(request) {
     // Verify if the folder exist
     const rutaCarpeta = path.join(process.cwd(), 'public', 'imagenes', 'Vehiculos', nombreCarpeta);
 
-    // Verificar si la carpeta ya existe
     if (!fs.existsSync(rutaCarpeta)) {
         // mkdir
         fs.mkdirSync(rutaCarpeta, { recursive: true }); // the recursive option create the father folder only if this foldes doesn't exist

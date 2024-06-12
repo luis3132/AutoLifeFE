@@ -157,7 +157,7 @@ export default function Anadir({ tipovehiculo, token, dni, showAnadir }) {
                         ))}
                     </select>
                 </div>
-                <div className="flex-row justify-center w-full flex items-center pt-2 ">
+                <div className="flex-row justify-center w-full flex items-center pt-2 pb-1 ">
                     <button className="justify-center flex items-center p-1 bg-lime-400 hover:bg-lime-500 rounded-full" onClick={saveVehiculo}>
                         <Icon icon="gg:add" />
                         Anadir

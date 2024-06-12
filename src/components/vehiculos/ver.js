@@ -415,11 +415,11 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
                                             </div>
                                         </div>
                                     ) : (
-                                        <div className=" absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 md:w-[70%] w-[90%] bg-amber-400 rounded-2xl pb-1  ">
+                                        <div className=" absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] bg-amber-400 rounded-2xl pb-1  ">
                                             <div className="md:flex  w-full">
                                                 <div className="flex flex-col justify-center items-center">
-                                                    <div className="rounded-full">
-                                                        <Image className="p-3 object-cover" src={foto} width={200} height={200} alt="Foto" />
+                                                    <div className="pt-3 overflow-hidden">
+                                                        <Image className="object-cover object-center " src={foto} width={200} height={200} alt="Foto" objectFit="cover" />
                                                     </div>
                                                     <div className="flex-col justify-center w-full flex items-center ">
                                                         <div className="text-left w-full pl-5">Descripcion:</div>
@@ -427,7 +427,7 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <div className="p-5 flex flex-col items-center justify-center">
+                                                    <div className="pt-5 pb-5 flex flex-col items-center justify-center">
                                                         <div className="flex-col justify-center w-full flex items-center ">
                                                             <div className="text-left w-full pl-5">Numero de serie:</div>
                                                             <input name="numSerie" disabled value={vehiculo.numSerie} id="numSerie" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>
