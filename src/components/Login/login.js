@@ -29,6 +29,12 @@ export default function LoginUser({ closeComponent }) {
             rol: "User"
         }
     })
+    const handleEnterPress = (e) => {
+        if ( e.key === 'Enter') {
+            e.preventDefault();
+            loginUsuario();
+        }
+    };
     const saveUsuario = async (e) => {
         if(confirmar.confirmar == Usuario.contrasena){
             const response = await fetch(Usuario_API_URL, {
@@ -243,7 +249,7 @@ export default function LoginUser({ closeComponent }) {
                                             </div>
                                             <div className="pt-2" >
                                                 <div className="text-left w-full pl-5">Contrasena:</div>
-                                                <input name="contrasena" value={login.contrasena} onChange={(e) => handleChangeLogin(e)} type="password" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="1234" ></input>
+                                                <input name="contrasena" onKeyUp={handleEnterPress} value={login.contrasena} onChange={(e) => handleChangeLogin(e)} type="password" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="1234" ></input>
                                             </div>
                                             <div className="pt-2">
                                                 <button onClick={loginUsuario} className="pr-2 pl-2 rounded-full bg-lime-400 hover:bg-opacity-100 bg-opacity-70">Ingresar</button>
