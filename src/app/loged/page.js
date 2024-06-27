@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import CryptoJS from "crypto-js";
+import VerPerfil from "@/components/Loged/perfil";
 
 export default function Home() {
   // start validation
@@ -54,8 +55,8 @@ export default function Home() {
     <div>
       <div className="lg:flex-col flex pl-[5%] pr-[5%] pt-[2%] ">
         <div className="lg:w-[30%] w-full bg-gray-200 rounded-2xl flex flex-col justify-center items-center">
-          <div className="text-2xl text-start">Perfil</div>
-          
+          <div className="text-2xl text-start">Perfil :p</div>
+          <VerPerfil usuario={usuario}/>
         </div>
       </div>
     </div>
