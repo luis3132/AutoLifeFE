@@ -56,7 +56,7 @@ export default function Home() {
       <div className="lg:flex-col flex pl-[5%] pr-[5%] pt-[2%] ">
         <div className="lg:w-[30%] w-full bg-gray-200 rounded-2xl flex flex-col justify-center items-center">
           <div className="text-2xl text-start">Perfil :p</div>
-          <VerPerfil usuario={usuario}/>
+          <VerPerfil usuario={usuario} token ={token}/>
         </div>
       </div>
     </div>
