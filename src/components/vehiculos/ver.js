@@ -43,7 +43,7 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
     const [file, setFile] = useState(null);
 
     const handleEditar = () => {
-        if(token) {
+        if (token) {
             setEditar(!editar)
         } else {
             Swal.fire({
@@ -96,7 +96,7 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
                 body: form
             })
             const data = await res.json()
-            if (res.ok){
+            if (res.ok) {
                 window.location.href = "/loged/vehiculoPrivado"
             }
         }
@@ -336,7 +336,7 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
                                                         <Image className="p-3 object-cover" src={foto} width={200} height={200} alt="Foto" />
                                                     </div>
                                                     <div className="flex flex-col">
-                                                        <input name="file" type="file" onChange={(e) => {setFile(e.target.files[0])}}></input>
+                                                        <input name="file" type="file" onChange={(e) => { setFile(e.target.files[0]) }}></input>
                                                     </div>
                                                 </div>
                                                 <div>
@@ -395,7 +395,7 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
+
                                             </div>
                                             <div className="flex-row justify-center w-full flex items-center pt-2 ">
                                                 <button className="justify-center flex items-center p-1 bg-red-500 hover:bg-red-600 rounded-lg" onClick={deleteVehiculo}>
@@ -482,9 +482,47 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="flex flex-col justify-center ">
-                                                    duenos e historiales
+                                                <div className="flex flex-col space-y-8 p-4">
+                                                    <div>
+                                                        <h2 className="text-xl font-bold mb-4">Dueños</h2>
+                                                        <table className="min-w-full border border-gray-300">
+                                                            <thead>
+                                                                <tr className="bg-gray-100">
+                                                                    <th className="py-2 px-4 border-b">ID</th>
+                                                                    <th className="py-2 px-4 border-b">Nombre</th>
+                                                                    <th className="py-2 px-4 border-b">Vehículo</th>
+                                                                    <th className="py-2 px-4 border-b">Año</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                Aquí van los resultados de los dueños
+                                                                <td className="py-2 px-4 border-b">hola :p</td>
+                                                                <td className="py-2 px-4 border-b">hola </td>
+                                                                <input name="" value={vehiculo.usuario} id="usuario" disabled type="text" className="py-2 px-4 border-b" ></input>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div>
+                                                        <h2 className="text-xl font-bold mb-4">Historiales</h2>
+                                                        <table className="min-w-full border border-gray-300">
+                                                            <thead>
+                                                                <tr className="bg-gray-100">
+                                                                    <th className="py-2 px-4 border-b">ID</th>
+                                                                    <th className="py-2 px-4 border-b">Tipo</th>
+                                                                    <th className="py-2 px-4 border-b">Fecha</th>
+                                                                    <th className="py-2 px-4 border-b">Estado</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                Aquí van los resultados de los historiales
+                                                                <td className="py-2 px-4 border-b">hola :p</td>
+                                                                <td className="py-2 px-4 border-b">hola </td>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
+
+
                                             </div>
                                             <div className="flex-row justify-center w-full flex items-center pt-2 ">
                                                 <button className="justify-center flex items-center p-1 bg-lime-400 hover:bg-lime-500 rounded-lg" onClick={handleEditar} >
