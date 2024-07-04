@@ -1,12 +1,12 @@
 "use client";
 
-import { Icon } from '@iconify/react';
 import CryptoJS from "crypto-js";
 import { useEffect, useState } from "react";
-import Verseguro from '@/components/Regulacion/verSeguro';
+import Seguro from '@/components/Regulacion/seguro';
+import Soat from '@/components/Regulacion/soat';
+import Tecnico from '@/components/Regulacion/tecnico';
 
 export default function Home() {
-    const [showVerSeguro, setShowVerSeguro] = useState(false);
     const [vehiculo, setVehiculo] = useState(null);
 
     // start validation
@@ -66,7 +66,6 @@ export default function Home() {
         }
         fetchData();
     }, [usuario])
-    console.log(vehiculo)
 
     return (
         <>
@@ -81,21 +80,7 @@ export default function Home() {
                         Vehiculos Disponibles:
                     </div>
                     {vehiculo?.map((veh) => (
-                        <div className="pr-[10%] pl-[10%]">
-                            <div className="bg-green-300 h-10 flex items-center pl-5 hover:bg-green-400">
-                                <p className="mr-1 max-sm:hidden">{veh.marca}</p>
-                                <p className="mr-1">{veh.referencia}</p>
-                                <p className="mr-1 max-sm:hidden">{veh.serie}</p>
-                                <p className="mr-1">{veh.placa}</p>
-                                <p className="mr-1 max-sm:hidden">{veh.modelo}</p>
-                                <div className="ml-auto pr-5">
-                                    <button onClick={() => setShowVerSeguro(!showVerSeguro)} className="bg-blue-500 text-white px-2 py-1 rounded flex items-center">
-                                        <Icon className="" icon="mdi:eye-outline" />Ver
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
+                        <Seguro token = {token} vehiculo = {veh} key = {veh.numserie} />
                     ))}
                     <div className="p-2"></div>
                 </div>
@@ -110,21 +95,7 @@ export default function Home() {
                         Vehiculos Disponibles:
                     </div>
                     {vehiculo?.map((veh) => (
-                        <div className="pr-[10%] pl-[10%]">
-                            <div className="bg-blue-300 h-10 flex items-center pl-5 hover:bg-blue-400">
-                                <p className="mr-1 max-sm:hidden">{veh.marca}</p>
-                                <p className="mr-1">{veh.referencia}</p>
-                                <p className="mr-1 max-sm:hidden">{veh.serie}</p>
-                                <p className="mr-1">{veh.placa}</p>
-                                <p className="mr-1 max-sm:hidden">{veh.modelo}</p>
-                                <div className="ml-auto pr-5">
-                                    <button className="bg-blue-500 text-white px-2 py-1 rounded flex items-center">
-                                        <Icon className="" icon="mdi:eye-outline" />Ver
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
+                        <Soat token = {token} vehiculo = {veh} key = {veh.numserie} />
                     ))}
                     <div className="p-2"></div>
                 </div>
@@ -139,26 +110,11 @@ export default function Home() {
                         Vehiculos Disponibles:
                     </div>
                     {vehiculo?.map((veh) => (
-                        <div className="pr-[10%] pl-[10%]">
-                            <div className="bg-red-400 h-10 flex items-center pl-5 hover:bg-red-500">
-                                <p className="mr-1 max-sm:hidden">{veh.marca}</p>
-                                <p className="mr-1">{veh.referencia}</p>
-                                <p className="mr-1 max-sm:hidden">{veh.serie}</p>
-                                <p className="mr-1">{veh.placa}</p>
-                                <p className="mr-1 max-sm:hidden">{veh.modelo}</p>
-                                <div className="ml-auto pr-5">
-                                    <button className="bg-blue-500 text-white px-2 py-1 rounded flex items-center">
-                                        <Icon className="" icon="mdi:eye-outline" />Ver
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
+                        <Tecnico token = {token} vehiculo = {veh}  key = {veh.numserie} />
                     ))}
                     <div className="p-2"></div>
                 </div>
             </div>
-            {showVerSeguro && <Verseguro token = {token} vehiculo = {vehiculo} />}
         </>
     )
 }

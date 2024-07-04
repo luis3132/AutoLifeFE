@@ -2,12 +2,12 @@
 
 import { Icon } from '@iconify/react';
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import Image from "next/image";
-import Historialss from './historialSS';
 import Swal from 'sweetalert2';
+import Historialss from './historialSS';
 
-export default function Verseguro({ token, vehiculo, closecomponent }) {
+export default function Versoat({ token, vehiculo, closecomponent }) {
     // auto set foto if the vehiculo doesn't have it
     var foto = null;
     if (vehiculo.fotos.length > 0) {
@@ -19,25 +19,41 @@ export default function Verseguro({ token, vehiculo, closecomponent }) {
     // set date
     const hoy = new Date(); const dia = hoy.getDate(); const mes = hoy.getMonth() + 1; const anio = hoy.getFullYear();
 
-    // check Seguro
-    const [seguVige, setSeguVige] = useState({
+    // Manage the upload file
+    const [file, setFile] = useState(null);
+
+    // change add and see profile
+    const [add, setadd] = useState(false);
+    const [change, setChange] = useState(false);
+
+    // check Soat
+    const [soatVige, setSoatVige] = useState({
         dateStart: "",
         dateFinish: ""
     });
     var diaVige = null;
     const [diasVige, setDiasVige] = useState(null);
+
+    const [soat1, setSoat1] = useState({
+        id: "",
+        dateStart: "",
+        dateFinish: "",
+        descripcion: "",
+        vehiculo: vehiculo.numSerie
+    })
+
     useEffect(() => {
-        vehiculo.seguro?.map((seguro) => {
+        vehiculo.soat?.map((seguro) => {
             const diaSeguro = new Date(seguro.dateFinish)
             const dife = diaSeguro - hoy
             const milisegundosPorDia = 1000 * 60 * 60 * 24;
             diaVige = Math.round(dife / milisegundosPorDia);
 
             if (diaVige > 0) {
-                setSeguVige(seguro);
+                setSoatVige(seguro);
                 setDiasVige(diaVige);
             } else {
-                setSeguVige({
+                setSoatVige({
                     dateStart: "NN",
                     dateFinish: "NN"
                 })
@@ -45,33 +61,26 @@ export default function Verseguro({ token, vehiculo, closecomponent }) {
         })
     }, [])
 
-    // change add and see profile
-    const [add, setadd] = useState(false);
-    const [change, setChange] = useState(false);
-
-    let [isOpen, setIsOpen] = useState(true);
-    function closeModal() {
-        setIsOpen(false)
+    const handleChange = (event) => {
+        setSoat1({ ...soat1, [event.target.name]: event.target.value });
+        if (event.target.name == "dateFinish") {
+            setChange(!change);
+        }
     }
 
-    // Manage the upload file
-    const [file, setFile] = useState(null);
-
-    // create a new instance of "seguro"
-
-    const saveSeguro = async (e) => {
-        if (file != undefined && seguro1.dateStart && seguro1.dateFinish && seguro1.descripcion) {
+    const saveSoat = async (e) => {
+        if (file != undefined && soat1.dateStart && soat1.dateFinish && soat1.descripcion) {
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_HOSTNAME}/api/seguro/new`, {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_HOSTNAME}/api/soat/new`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                         "Authorization": `Bearer ${token}`
                     },
-                    body: JSON.stringify(seguro1)
+                    body: JSON.stringify(soat1)
                 });
                 if (response.ok) {
-                    const _Seguro = await response;
+                    const _Soat = await response;
                 }
             } catch (error) {
                 console.log(error)
@@ -84,10 +93,10 @@ export default function Verseguro({ token, vehiculo, closecomponent }) {
             try {
                 const form = new FormData();
                 form.set('file', file);
-                const seguroString = JSON.stringify(seguro1)
-                form.set('seguro', seguroString);
+                const seguroString = JSON.stringify(soat1)
+                form.set('soat', seguroString);
                 form.set('token', token);
-                const res = await fetch('/api/uploadSeguro', {
+                const res = await fetch('/api/uploadSoat', {
                     method: "POST",
                     body: form
                 })
@@ -95,7 +104,7 @@ export default function Verseguro({ token, vehiculo, closecomponent }) {
                 if (res.ok) {
                     Swal.fire(
                         'Guardado',
-                        'Se agrego el Seguro con exito',
+                        'Se agrego el Soat con exito',
                         'success'
                     ).then(
                         window.location.href = "/loged/regulacion"
@@ -118,29 +127,17 @@ export default function Verseguro({ token, vehiculo, closecomponent }) {
         }
     }
 
-    const [seguro1, setSeguro1] = useState({
-        id: "",
-        dateStart: "",
-        dateFinish: "",
-        descripcion: "",
-        vehiculo: vehiculo.numSerie
-    })
-
-
-    const handleChange = (event) => {
-        setSeguro1({ ...seguro1, [event.target.name]: event.target.value });
-        if (event.target.name == "dateFinish") {
-            setChange(!change);
-        }
-    }
-
     useEffect(() => {
         if (change) {
-            setSeguro1({ ...seguro1, id: vehiculo.numSerie + seguro1.dateFinish })
+            setSoat1({ ...soat1, id: vehiculo.numSerie + soat1.dateFinish })
             setChange(!change)
         }
-    }, [seguro1])
+    }, [soat1])
 
+    let [isOpen, setIsOpen] = useState(true);
+    function closeModal() {
+        setIsOpen(false)
+    }
     return (
         <>
             <div className="w-full fixed inset-0 flex items-center justify-center backdrop-blur-sm ">
@@ -166,17 +163,17 @@ export default function Verseguro({ token, vehiculo, closecomponent }) {
                                     leave="ease-in duration-200"
                                     leaveFrom="opacity-100 scale-100"
                                     leaveTo="opacity-0 scale-95">
-                                    <div className=" absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 md:w-[70%] w-[90%] bg-green-500 rounded-2xl pb-1  ">
+                                    <div className=" absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 md:w-[70%] w-[90%] bg-blue-500 rounded-2xl pb-1  ">
                                         <div className="md:flex justify-center items-center">
-                                            <div className="flex flex-col justify-center items-center">
+                                            <div className="flex flex-col justify-center items-center h-full">
                                                 <div className="rounded-full">
                                                     <Image className="p-3 object-cover" src={foto} width={200} height={200} alt="Foto" />
                                                 </div>
                                             </div>
-                                            <div className="pl-[5%] pr-[5%] pt-[5%] ">
+                                            <div className="p-[5%] ">
                                                 <div className="w-full flex items-center justify-center h-16">
                                                     <div className="text-3xl font-bold">
-                                                        Seguro
+                                                        Soat
                                                     </div>
                                                 </div>
                                                 {add && <div>
@@ -185,19 +182,19 @@ export default function Verseguro({ token, vehiculo, closecomponent }) {
                                                     </div>
                                                     <div className="flex-col justify-center w-full flex items-center pt-2 ">
                                                         <div className="text-left w-full pl-5">Fecha de Inicio:</div>
-                                                        <input name="dateStart" value={seguro1.dateStart} onChange={(e) => handleChange(e)} id="dateStart" type="date" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2"></input>
+                                                        <input name="dateStart" value={soat1.dateStart} onChange={(e) => handleChange(e)} id="dateStart" type="date" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2"></input>
                                                     </div>
                                                     <div className="flex-col justify-center w-full flex items-center ">
                                                         <div className="text-left w-full pl-5">Fecha de Final:</div>
-                                                        <input name="dateFinish" value={seguro1.dateFinish} onChange={(e) => handleChange(e)} id="dateStart" type="date" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2"></input>
+                                                        <input name="dateFinish" value={soat1.dateFinish} onChange={(e) => handleChange(e)} id="dateStart" type="date" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2"></input>
                                                     </div>
                                                     <div className="flex-col justify-center w-full flex items-center ">
                                                         <div className="text-left w-full pl-5">Descripcion:</div>
-                                                        <textarea name="descripcion" value={seguro1.descripcion} onChange={(e) => handleChange(e)} maxLength={1000} id="descripcion" type="text" className="bg-black bg-opacity-10 rounded-2xl text-center w-[80%] pl-2"></textarea>
+                                                        <textarea name="descripcion" value={soat1.descripcion} onChange={(e) => handleChange(e)} maxLength={1000} id="descripcion" type="text" className="bg-black bg-opacity-10 rounded-2xl text-center w-[80%] pl-2"></textarea>
                                                     </div>
                                                     <div className="flex-col justify-center w-full flex items-center pb-3 ">
                                                         <div className="text-left w-full pl-5">Vehiculo:</div>
-                                                        <input name="" value={seguro1.vehiculo} id="vehiculo" disabled type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2"></input>
+                                                        <input name="" value={soat1.vehiculo} id="vehiculo" disabled type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2"></input>
                                                     </div>
                                                 </div>}
                                                 {!add && <div>
@@ -216,8 +213,8 @@ export default function Verseguro({ token, vehiculo, closecomponent }) {
                                                             </thead>
                                                             <tbody>
                                                                 <tr>
-                                                                    <td className="py-2 px-4 border-b">{seguVige.dateStart}</td>
-                                                                    <td className="py-2 px-4 border-b">{seguVige.dateFinish}</td>
+                                                                    <td className="py-2 px-4 border-b">{soatVige.dateStart}</td>
+                                                                    <td className="py-2 px-4 border-b">{soatVige.dateFinish}</td>
                                                                     <td className="py-2 px-4 border-b">{diasVige}</td>
                                                                     <td className="py-2 px-4 border-b">
                                                                         <button className="bg-blue-500 text-white px-2 py-1 rounded">
@@ -240,7 +237,7 @@ export default function Verseguro({ token, vehiculo, closecomponent }) {
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            {vehiculo.seguro?.slice(-5).map((seg) => (
+                                                            {vehiculo.soat?.slice(-5).map((seg) => (
                                                                 <Historialss key={seg.id} seguro={seg} />
                                                             ))}
                                                         </tbody>
@@ -250,7 +247,7 @@ export default function Verseguro({ token, vehiculo, closecomponent }) {
                                         </div>
                                         <div className="flex-row justify-center w-full flex items-center pt-4 pb-2 ">
                                             {add ? (
-                                                <button className="justify-center flex items-center p-1 bg-lime-400 hover:bg-lime-500 rounded-lg" onClick={saveSeguro} >
+                                                <button className="justify-center flex items-center p-1 bg-lime-400 hover:bg-lime-500 rounded-lg" onClick={saveSoat} >
                                                     <Icon icon="ri:save-line" />
                                                     Guardar
                                                 </button>
@@ -277,9 +274,9 @@ export default function Verseguro({ token, vehiculo, closecomponent }) {
                                 </Transition.Child>
                             </div>
                         </div>
-                    </Dialog >
-                </Transition >
-            </div >
+                    </Dialog>
+                </Transition>
+            </div>
         </>
     )
 }
