@@ -81,7 +81,6 @@ export default function VerPerfil({ usuario, token }) {
 
     }
   }
-console.log(vehiculo)
   const deleteUsuario = async (e) => {
     Swal.fire({
       title: '¿Estás seguro?',
