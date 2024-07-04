@@ -15,6 +15,7 @@
 /out/
 /public/imagenes/Vehiculos/
 /public/imagenes/Usuarios/
+/public/imagenes/Regulacion/
 
 # production
 /build
