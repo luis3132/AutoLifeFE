@@ -3,6 +3,9 @@ import { Dialog, Transition } from "@headlessui/react";
 import Image from "next/image";
 import { Fragment, useState } from "react";
 import Swal from 'sweetalert2';
+import Historialss from '../Regulacion/historialSS';
+import Historiald from './duenos';
+import Historialtm from '../Regulacion/historialTM';
 
 export default function Vervehiculo({ closecomponent, vehiculo, token }) {
     // auto set foto if the vehiculo doesn't have it
@@ -160,7 +163,7 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
             closecomponent();
         }
     }
-
+    console.log(vehiculo)
     const deleteVehiculo = async (e) => {
         Swal.fire({
             title: '¿Estás seguro?',
@@ -489,34 +492,70 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
                                                             <thead>
                                                                 <tr className="bg-gray-100">
                                                                     <th className="py-2 px-4 border-b">ID</th>
-                                                                    <th className="py-2 px-4 border-b">Nombre</th>
-                                                                    <th className="py-2 px-4 border-b">Vehículo</th>
-                                                                    <th className="py-2 px-4 border-b">Año</th>
+                                                                    <th className="py-2 px-4 border-b">Ciudad Transitada</th>
+                                                                    <th className="py-2 px-4 border-b">Fecha Inicio</th>
+                                                                    <th className="py-2 px-4 border-b">Fecha Final</th>
+                                                                    <th className="py-2 px-4 border-b">Kilometraje Inicio</th>
+                                                                    <th className="py-2 px-4 border-b">Kilometraje Final</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                Aquí van los resultados de los dueños
-                                                                <td className="py-2 px-4 border-b">hola :p</td>
-                                                                <td className="py-2 px-4 border-b">hola </td>
-                                                                <input name="" value={vehiculo.usuario} id="usuario" disabled type="text" className="py-2 px-4 border-b" ></input>
+                                                                {vehiculo.duenos?.slice(-5).map((seg) => (
+                                                                    <Historiald key={seg.id} dueno={seg} />
+                                                                ))}
                                                             </tbody>
                                                         </table>
                                                     </div>
                                                     <div>
-                                                        <h2 className="text-xl font-bold mb-4">Historiales</h2>
+                                                        <h2 className="text-xl font-bold mb-4">Soat</h2>
                                                         <table className="min-w-full border border-gray-300">
                                                             <thead>
                                                                 <tr className="bg-gray-100">
-                                                                    <th className="py-2 px-4 border-b">ID</th>
-                                                                    <th className="py-2 px-4 border-b">Tipo</th>
-                                                                    <th className="py-2 px-4 border-b">Fecha</th>
-                                                                    <th className="py-2 px-4 border-b">Estado</th>
+                                                                    <th className="py-2 px-4 border-b">Fecha Inicial</th>
+                                                                    <th className="py-2 px-4 border-b">Fecha Final</th>
+                                                                    <th className="py-2 px-4 border-b">Acción</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                Aquí van los resultados de los historiales
-                                                                <td className="py-2 px-4 border-b">hola :p</td>
-                                                                <td className="py-2 px-4 border-b">hola </td>
+                                                                {vehiculo.soat?.slice(-5).map((seg) => (
+                                                                    <Historialss key={seg.id} seguro={seg} />
+                                                                ))}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+
+                                                    <div>
+                                                        <h2 className="text-xl font-bold mb-4">Seguro</h2>
+                                                        <table className="min-w-full border border-gray-300">
+                                                            <thead>
+                                                                <tr className="bg-gray-100">
+                                                                    <th className="py-2 px-4 border-b">Fecha Inicial</th>
+                                                                    <th className="py-2 px-4 border-b">Fecha Final</th>
+                                                                    <th className="py-2 px-4 border-b">Acción</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {vehiculo.seguro?.slice(-5).map((seg) => (
+                                                                    <Historialss key={seg.id} seguro={seg} />
+                                                                ))}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+
+                                                    <div>
+                                                        <h2 className="text-xl font-bold mb-4">Tecnomecanica</h2>
+                                                        <table className="min-w-full border border-gray-300">
+                                                            <thead>
+                                                                <tr className="bg-gray-100">
+                                                                    <th className="py-2 px-4 border-b">Fecha Inicial</th>
+                                                                    <th className="py-2 px-4 border-b">Fecha Final</th>
+                                                                    <th className="py-2 px-4 border-b">Kilometraje</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {vehiculo.seguro?.slice(-5).map((seg) => (
+                                                                    <Historialtm key={seg.id} seguro={seg} />
+                                                                ))}
                                                             </tbody>
                                                         </table>
                                                     </div>
