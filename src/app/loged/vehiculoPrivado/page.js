@@ -85,6 +85,7 @@ export default function VehiculoP() {
       console.log(error)
     }
   }
+  console.log(vehiculo)
 
   return (
     <div>

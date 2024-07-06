@@ -20,7 +20,15 @@ export default function VerPerfil({ usuario, token }) {
   
   useEffect(() => {
     if (usuario) {
-      setUsuario1(usuario)
+      setUsuario1({
+        dni: usuario.dni,
+        nombre: usuario.nombre,
+        apellidos: usuario.apellidos,
+        telefono: usuario.telefono,
+        direccion: usuario.direccion,
+        nombreUsuario: usuario.nombreUsuario,
+        email: usuario.email,
+      })
       if (usuario.fotos.length > 0) {
         foto = usuario.fotos[0].foto
       } else {
@@ -180,6 +188,7 @@ export default function VerPerfil({ usuario, token }) {
       })
     }
   }
+  console.log(usuario1)
   return (
     <>
       {editar ? (<div className="w-full">
