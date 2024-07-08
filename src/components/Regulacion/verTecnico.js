@@ -6,6 +6,7 @@ import { Fragment, useState, useEffect } from "react";
 import Image from "next/image";
 import Historialtm from './historialTM';
 import Swal from 'sweetalert2';
+import DetailsSST from './detailsSST';
 
 export default function Vertecnico({ token, vehiculo, closecomponent }) {
     // auto set foto if the vehiculo doesn't have it
@@ -18,6 +19,8 @@ export default function Vertecnico({ token, vehiculo, closecomponent }) {
 
     // set date
     const hoy = new Date(); const dia = hoy.getDate(); const mes = hoy.getMonth() + 1; const anio = hoy.getFullYear();
+    const [ver, setVer] = useState(false);
+    const [noDisponible, setNoDisponible] = useState(false);
 
     // Manage the upload file
     const [file, setFile] = useState(null);
@@ -54,6 +57,7 @@ export default function Vertecnico({ token, vehiculo, closecomponent }) {
             if (diaVige > 0) {
                 setTecnoVige(seguro);
                 setDiasVige(diaVige);
+                setNoDisponible(!noDisponible);
             } else {
                 setTecnoVige({
                     dateStart: "NN",
@@ -228,11 +232,12 @@ export default function Vertecnico({ token, vehiculo, closecomponent }) {
                                                                     <td className="py-2 px-4 border-b">{tecnoVige.kilometraje}</td>
                                                                     <td className="py-2 px-4 border-b">{diasVige}</td>
                                                                     <td className="py-2 px-4 border-b">
-                                                                        <button className="bg-blue-500 text-white px-2 py-1 rounded">
+                                                                        {noDisponible && <button className="bg-blue-500 text-white px-2 py-1 rounded" onClick={()=>{setVer(!ver)}} >
                                                                             Acción
-                                                                        </button>
+                                                                        </button>}
                                                                     </td>
                                                                 </tr>
+                                                                {ver && <DetailsSST seguro={tecnoVige} closecomponent={()=>{setVer(!ver)}} token={token} tipo={"tecnicomecanica"} />}
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -250,7 +255,7 @@ export default function Vertecnico({ token, vehiculo, closecomponent }) {
                                                         </thead>
                                                         <tbody>
                                                             {vehiculo.tecnicoMecanica?.slice(-5).map((seg) => (
-                                                                <Historialtm key={seg.id} seguro={seg} />
+                                                                <Historialtm key={seg.id} seguro={seg} token={token} />
                                                             ))}
                                                         </tbody>
                                                     </table>

@@ -109,7 +109,7 @@ export default function NavBarD({ usuario }) {
                         leave="transition-opacity duration-300"
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0">
-                        <div className={`xl:hidden absolute bg-white min-h-[10%] left-0 top-[11%] w-full flex items-center px-5 justify-center ${navbar ? '' : 'hidden'
+                        <div className={`xl:hidden absolute bg-white min-h-[10%] left-0 top-[10%] w-full flex items-center px-5 justify-center border-black  border-2 ${navbar ? '' : 'hidden'
                             }`}>
                             <ul className="flex-col flex gap-8 justify-center items-center">
                                 <li className="flex pt-2">

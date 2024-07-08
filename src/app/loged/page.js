@@ -44,8 +44,8 @@ export default function Home() {
   // end validation
 
   var foto = null
-  if (usuario != undefined && usuario != ""){
-    if (usuario.fotos.length > 0){
+  if (usuario != undefined && usuario != "") {
+    if (usuario.fotos.length > 0) {
       foto = usuario.fotos[0].foto;
     } else {
       foto = "/imagenes/logo/logoSL.png";
@@ -53,11 +53,14 @@ export default function Home() {
   }
   return (
     <div>
-      <div className="lg:flex-col flex pl-[5%] pr-[5%] pt-[2%] ">
-        <div className="lg:w-[30%] w-full bg-gray-200 rounded-2xl flex flex-col justify-center items-center">
-          <div className="text-2xl text-start pt-2 ">Perfil</div>
-          <VerPerfil usuario={usuario} token ={token}/>
+      <div className="max-lg:flex-col flex pl-[5%] pr-[5%] pt-[2%] ">
+        <div className="lg:w-[30%] w-full bg-gray-200 rounded-2xl flex flex-col ">
+          <div className="w-full flex flex-col justify-center items-center">
+            <div className="text-2xl text-start pt-2 ">Perfil</div>
+            <VerPerfil usuario={usuario} token={token} />
+          </div>
         </div>
+        
       </div>
     </div>
   );

@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
 import { Icon } from '@iconify/react';
 import Swal from 'sweetalert2';
+import Image from "next/image";
 
 export default function VerPerfil({ usuario, token }) {
-  var foto = null;
- 
+  const [foto, setFoto] = useState("/imagenes/logo/logoSL.png");
+
   const [file, setFile] = useState(null);
   const [editar, setEditar] = useState(false);
   const [vehiculo, setVehiculo] = useState(null);
@@ -17,26 +18,13 @@ export default function VerPerfil({ usuario, token }) {
     nombreUsuario: "",
     email: "",
   })
-  
+
   useEffect(() => {
     if (usuario) {
-      setUsuario1({
-        dni: usuario.dni,
-        nombre: usuario.nombre,
-        apellidos: usuario.apellidos,
-        telefono: usuario.telefono,
-        direccion: usuario.direccion,
-        nombreUsuario: usuario.nombreUsuario,
-        email: usuario.email,
-      })
-      if (usuario.fotos.length > 0) {
-        foto = usuario.fotos[0].foto
-      } else {
-        foto = "/imagenes/logo/logoSL.png";
-      }
+      setUsuario1(usuario)
+      setFoto(usuario.fotos[usuario.fotos.length - 1].foto)
     }
   }, [usuario])
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -69,7 +57,7 @@ export default function VerPerfil({ usuario, token }) {
       const usuarioString = JSON.stringify(usuario)
       form.set('usuario', usuarioString);
       form.set('token', token);
-      const res = await fetch('/api/uploadUsuario', {
+      const res = await fetch('/api/uploadUser', {
         method: "POST",
         body: form
       })
@@ -99,7 +87,7 @@ export default function VerPerfil({ usuario, token }) {
       cancelButtonColor: '#d33',
       confirmButtonText: 'ELIMINAR!'
     }).then((result) => {
-      if (vehiculo != null) {
+      if (vehiculo.length >= 1) {
         if (result.isConfirmed) {
           // El usuario hizo clic en "Sí, cambiarlo!"
           Swal.fire(
@@ -188,57 +176,66 @@ export default function VerPerfil({ usuario, token }) {
       })
     }
   }
-  console.log(usuario1)
+  
   return (
     <>
-      {editar ? (<div className="w-full">
-        no hay q editar :p
-        <div className="flex-col justify-center w-full flex items-center ">
-          <div className="text-left w-full pl-5">DNI:</div>
-          <input name="dni" disable value={usuario1.dni} id="dni" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" onChange={handleChange} ></input>
-        </div>
-        <div className="flex-col justify-center w-full flex items-center ">
-          <div className="text-left w-full pl-5">Nombre:</div>
-          <input name="nombre" value={usuario1.nombre} id="nombre" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" onChange={handleChange} ></input>
-        </div>
-        <div className="flex-col justify-center w-full flex items-center ">
-          <div className="text-left w-full pl-5">Apellidos:</div>
-          <input name="apellidos" value={usuario1.apellidos || ""} id="apellidos" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" onChange={handleChange} ></input>
-        </div>
-        <div className="flex-col justify-center w-full flex items-center ">
-          <div className="text-left w-full pl-5">Telefono:</div>
-          <input name="telefono" value={usuario1.telefono || ""} id="telefono" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" onChange={handleChange} ></input>
-        </div>
-        <div className="flex-col justify-center w-full flex items-center ">
-          <div className="text-left w-full pl-5">Dirección:</div>
-          <input name="direccion" value={usuario1.direccion || ""} id="direccion" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" onChange={handleChange} ></input>
-        </div>
-        <div className="flex-col justify-center w-full flex items-center ">
-          <div className="text-left w-full pl-5">Nombre usuario:</div>
-          <input name="nombre_usuario" value={usuario1.nombreUsuario || ""} id="nombre_usuario" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" onChange={handleChange} ></input>
-        </div>
-        <div className="flex-col justify-center w-full flex items-center ">
-          <div className="text-left w-full pl-5">Email:</div>
-          <input name="email" value={usuario1.email || ""} id="email" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" onChange={handleChange} ></input>
-        </div>
-        <div className="flex-row justify-center w-full flex items-center pt-2 pl-4 pr-4 pb-2">
-          <button className="justify-center flex items-center p-1 bg-red-500 hover:bg-red-600 rounded-lg" onClick={deleteUsuario}>
-            <Icon icon="material-symbols:delete-outline" />
-            Eliminar
-          </button>
-          <div className="w-[50%] "></div>
-          <button className="justify-center flex items-center p-1 bg-lime-400 hover:bg-lime-500 rounded-lg" onClick={updateUsuario} >
-            <Icon icon="ri:save-line" />
-            Guardar
-          </button>
-          <div className="w-[50%] "></div>
-          <button className="justify-center flex items-center p-1 bg-red-500 hover:bg-red-600 rounded-lg" onClick={() => setEditar(!editar)}>
-            <Icon icon="line-md:cancel-twotone" />
-            Cancelar
-          </button>
-        </div>
-      </div>) : (
+      {editar ? (
         <div className="w-full">
+          <div className="w-full justify-center items-center flex">
+            <Image className="p-3 object-cover" src={foto} width={200} height={200} alt="Foto" />
+          </div>
+          <div className="flex justify-center items-center ">
+            <input name="file" type="file" onChange={(e) => { setFile(e.target.files[0]) }}></input>
+          </div>
+          <div className="flex-col justify-center w-full flex items-center ">
+            <div className="text-left w-full pl-5">DNI:</div>
+            <input name="dni" disable value={usuario1.dni} id="dni" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" onChange={handleChange} ></input>
+          </div>
+          <div className="flex-col justify-center w-full flex items-center ">
+            <div className="text-left w-full pl-5">Nombre:</div>
+            <input name="nombre" value={usuario1.nombre} id="nombre" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" onChange={handleChange} ></input>
+          </div>
+          <div className="flex-col justify-center w-full flex items-center ">
+            <div className="text-left w-full pl-5">Apellidos:</div>
+            <input name="apellidos" value={usuario1.apellidos || ""} id="apellidos" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" onChange={handleChange} ></input>
+          </div>
+          <div className="flex-col justify-center w-full flex items-center ">
+            <div className="text-left w-full pl-5">Telefono:</div>
+            <input name="telefono" value={usuario1.telefono || ""} id="telefono" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" onChange={handleChange} ></input>
+          </div>
+          <div className="flex-col justify-center w-full flex items-center ">
+            <div className="text-left w-full pl-5">Dirección:</div>
+            <input name="direccion" value={usuario1.direccion || ""} id="direccion" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" onChange={handleChange} ></input>
+          </div>
+          <div className="flex-col justify-center w-full flex items-center ">
+            <div className="text-left w-full pl-5">Nombre usuario:</div>
+            <input name="nombre_usuario" value={usuario1.nombreUsuario || ""} id="nombre_usuario" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" onChange={handleChange} ></input>
+          </div>
+          <div className="flex-col justify-center w-full flex items-center ">
+            <div className="text-left w-full pl-5">Email:</div>
+            <input name="email" value={usuario1.email || ""} id="email" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" onChange={handleChange} ></input>
+          </div>
+          <div className="flex-row justify-center w-full flex items-center pt-2 pl-4 pr-4 pb-2">
+            <button className="justify-center flex items-center p-1 bg-red-500 hover:bg-red-600 rounded-lg" onClick={deleteUsuario}>
+              <Icon icon="material-symbols:delete-outline" />
+              Eliminar
+            </button>
+            <div className="w-[50%] "></div>
+            <button className="justify-center flex items-center p-1 bg-lime-400 hover:bg-lime-500 rounded-lg" onClick={updateUsuario} >
+              <Icon icon="ri:save-line" />
+              Guardar
+            </button>
+            <div className="w-[50%] "></div>
+            <button className="justify-center flex items-center p-1 bg-red-500 hover:bg-red-600 rounded-lg" onClick={() => setEditar(!editar)}>
+              <Icon icon="line-md:cancel-twotone" />
+              Cancelar
+            </button>
+          </div>
+        </div>) : (
+        <div className="w-full">
+          <div className="w-full justify-center items-center flex">
+            <Image className="p-3 object-cover" src={foto} width={200} height={200} alt="Foto" />
+          </div>
           <div className="flex-col justify-center w-full flex items-center ">
             <div className="text-left w-full pl-5">DNI:</div>
             <input name="dni" disabled value={usuario1.dni} id="dni" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" placeholder="" ></input>

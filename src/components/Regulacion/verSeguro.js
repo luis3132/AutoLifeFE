@@ -6,6 +6,7 @@ import { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
 import Historialss from './historialSS';
 import Swal from 'sweetalert2';
+import DetailsSST from "./detailsSST";
 
 export default function Verseguro({ token, vehiculo, closecomponent }) {
     // auto set foto if the vehiculo doesn't have it
@@ -18,6 +19,8 @@ export default function Verseguro({ token, vehiculo, closecomponent }) {
 
     // set date
     const hoy = new Date(); const dia = hoy.getDate(); const mes = hoy.getMonth() + 1; const anio = hoy.getFullYear();
+    const [ver, setVer] = useState(false)
+    const [noDisponible, setNoDisponible] = useState(false);
 
     // check Seguro
     const [seguVige, setSeguVige] = useState({
@@ -36,10 +39,11 @@ export default function Verseguro({ token, vehiculo, closecomponent }) {
             if (diaVige > 0) {
                 setSeguVige(seguro);
                 setDiasVige(diaVige);
+                setNoDisponible(!noDisponible);
             } else {
                 setSeguVige({
-                    dateStart: "NN",
-                    dateFinish: "NN"
+                    dateStart: "",
+                    dateFinish: ""
                 })
             }
         })
@@ -220,11 +224,12 @@ export default function Verseguro({ token, vehiculo, closecomponent }) {
                                                                     <td className="py-2 px-4 border-b">{seguVige.dateFinish}</td>
                                                                     <td className="py-2 px-4 border-b">{diasVige}</td>
                                                                     <td className="py-2 px-4 border-b">
-                                                                        <button className="bg-blue-500 text-white px-2 py-1 rounded">
+                                                                        {noDisponible && <button className="bg-blue-500 text-white px-2 py-1 rounded" onClick={() => { setVer(!ver) }} >
                                                                             Acción
-                                                                        </button>
+                                                                        </button>}
                                                                     </td>
                                                                 </tr>
+                                                                {ver && <DetailsSST seguro={seguVige} closecomponent={() => { setVer(!ver) }} token={token} tipo={"seguro"} />}
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -241,7 +246,7 @@ export default function Verseguro({ token, vehiculo, closecomponent }) {
                                                         </thead>
                                                         <tbody>
                                                             {vehiculo.seguro?.slice(-5).map((seg) => (
-                                                                <Historialss key={seg.id} seguro={seg} />
+                                                                <Historialss key={seg.id} seguro={seg} token={token} tipo={"seguro"} />
                                                             ))}
                                                         </tbody>
                                                     </table>

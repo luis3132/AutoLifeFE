@@ -6,6 +6,7 @@ import { Fragment, useState, useEffect } from "react";
 import Image from "next/image";
 import Swal from 'sweetalert2';
 import Historialss from './historialSS';
+import DetailsSST from "./detailsSST";
 
 export default function Versoat({ token, vehiculo, closecomponent }) {
     // auto set foto if the vehiculo doesn't have it
@@ -18,6 +19,8 @@ export default function Versoat({ token, vehiculo, closecomponent }) {
 
     // set date
     const hoy = new Date(); const dia = hoy.getDate(); const mes = hoy.getMonth() + 1; const anio = hoy.getFullYear();
+    const [ver, setVer] = useState(false);
+    const [noDisponible, setNoDisponible] = useState(false);
 
     // Manage the upload file
     const [file, setFile] = useState(null);
@@ -52,10 +55,11 @@ export default function Versoat({ token, vehiculo, closecomponent }) {
             if (diaVige > 0) {
                 setSoatVige(seguro);
                 setDiasVige(diaVige);
+                setNoDisponible(!noDisponible)
             } else {
                 setSoatVige({
-                    dateStart: "NN",
-                    dateFinish: "NN"
+                    dateStart: "",
+                    dateFinish: ""
                 })
             }
         })
@@ -217,11 +221,12 @@ export default function Versoat({ token, vehiculo, closecomponent }) {
                                                                     <td className="py-2 px-4 border-b">{soatVige.dateFinish}</td>
                                                                     <td className="py-2 px-4 border-b">{diasVige}</td>
                                                                     <td className="py-2 px-4 border-b">
-                                                                        <button className="bg-blue-500 text-white px-2 py-1 rounded">
+                                                                        {noDisponible && <button className="bg-blue-500 text-white px-2 py-1 rounded" onClick={()=>{setVer(!ver)}} >
                                                                             Acción
-                                                                        </button>
+                                                                        </button>}
                                                                     </td>
                                                                 </tr>
+                                                                {ver && <DetailsSST seguro={soatVige} closecomponent={() => { setVer(!ver) }} token={token} tipo={"soat"} />}
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -238,7 +243,7 @@ export default function Versoat({ token, vehiculo, closecomponent }) {
                                                         </thead>
                                                         <tbody>
                                                             {vehiculo.soat?.slice(-5).map((seg) => (
-                                                                <Historialss key={seg.id} seguro={seg} />
+                                                                <Historialss key={seg.id} seguro={seg} token={token} tipo={"soat"} />
                                                             ))}
                                                         </tbody>
                                                     </table>

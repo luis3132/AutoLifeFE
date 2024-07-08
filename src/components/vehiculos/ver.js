@@ -163,7 +163,6 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
             closecomponent();
         }
     }
-    console.log(vehiculo)
     const deleteVehiculo = async (e) => {
         Swal.fire({
             title: '¿Estás seguro?',
@@ -332,7 +331,7 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
                                     leaveFrom="opacity-100 scale-100"
                                     leaveTo="opacity-0 scale-95">
                                     {editar ? (
-                                        <div className=" absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 md:w-[70%] w-[90%] bg-amber-400 rounded-2xl pb-1  ">
+                                        <div className=" absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 md:w-[70%] w-[90%] bg-amber-400 rounded-2xl pb-2 max-md:top-1/4 max-md:-translate-y-20 ">
                                             <div className="md:flex justify-center items-center">
                                                 <div className="flex flex-col justify-center items-center">
                                                     <div className="rounded-full">
@@ -418,10 +417,10 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
                                             </div>
                                         </div>
                                     ) : (
-                                        <div className=" absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] bg-amber-400 rounded-2xl pb-1  ">
+                                        <div className=" absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] bg-amber-400 rounded-2xl pb-2 max-md:top-1/4 max-md:-translate-y-20 ">
                                             <div className="md:flex  w-full">
                                                 <div className="flex flex-col justify-center items-center">
-                                                    <div className="pt-3 overflow-hidden">
+                                                    <div className="pt-3 overflow-hidden pl-2">
                                                         <Image className="object-cover object-center " src={foto} width={200} height={200} alt="Foto" objectFit="cover" />
                                                     </div>
                                                     <div className="flex-col justify-center w-full flex items-center ">
@@ -485,18 +484,18 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="flex flex-col space-y-8 p-4">
-                                                    <div>
-                                                        <h2 className="text-xl font-bold mb-4">Dueños</h2>
-                                                        <table className="min-w-full border border-gray-300">
+                                                <div className="w-full space-y-8 p-4">
+                                                    <div className="w-full">
+                                                        <h2 className="text-lg font-bold mb-2">Dueños</h2>
+                                                        <table className="min-w-full border border-amber-700 text-sm">
                                                             <thead>
-                                                                <tr className="bg-gray-100">
-                                                                    <th className="py-2 px-4 border-b">ID</th>
-                                                                    <th className="py-2 px-4 border-b">Ciudad Transitada</th>
-                                                                    <th className="py-2 px-4 border-b">Fecha Inicio</th>
-                                                                    <th className="py-2 px-4 border-b">Fecha Final</th>
-                                                                    <th className="py-2 px-4 border-b">Kilometraje Inicio</th>
-                                                                    <th className="py-2 px-4 border-b">Kilometraje Final</th>
+                                                                <tr className="bg-amber-500">
+                                                                    <th className="py-1 px-1 border-b">ID</th>
+                                                                    <th className="py-1 px-1 border-b">Ciudad Transitada</th>
+                                                                    <th className="py-1 px-1 border-b">Fecha Inicio</th>
+                                                                    <th className="py-1 px-1 border-b">Fecha Final</th>
+                                                                    <th className="py-1 px-1 border-b">Kilometraje Inicio</th>
+                                                                    <th className="py-1 px-1 border-b">Kilometraje Final</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -506,62 +505,63 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
                                                             </tbody>
                                                         </table>
                                                     </div>
-                                                    <div>
-                                                        <h2 className="text-xl font-bold mb-4">Soat</h2>
-                                                        <table className="min-w-full border border-gray-300">
-                                                            <thead>
-                                                                <tr className="bg-gray-100">
-                                                                    <th className="py-2 px-4 border-b">Fecha Inicial</th>
-                                                                    <th className="py-2 px-4 border-b">Fecha Final</th>
-                                                                    <th className="py-2 px-4 border-b">Acción</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                {vehiculo.soat?.slice(-5).map((seg) => (
-                                                                    <Historialss key={seg.id} seguro={seg} />
-                                                                ))}
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-
-                                                    <div>
-                                                        <h2 className="text-xl font-bold mb-4">Seguro</h2>
-                                                        <table className="min-w-full border border-gray-300">
-                                                            <thead>
-                                                                <tr className="bg-gray-100">
-                                                                    <th className="py-2 px-4 border-b">Fecha Inicial</th>
-                                                                    <th className="py-2 px-4 border-b">Fecha Final</th>
-                                                                    <th className="py-2 px-4 border-b">Acción</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                {vehiculo.seguro?.slice(-5).map((seg) => (
-                                                                    <Historialss key={seg.id} seguro={seg} />
-                                                                ))}
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-
-                                                    <div>
-                                                        <h2 className="text-xl font-bold mb-4">Tecnomecanica</h2>
-                                                        <table className="min-w-full border border-gray-300">
-                                                            <thead>
-                                                                <tr className="bg-gray-100">
-                                                                    <th className="py-2 px-4 border-b">Fecha Inicial</th>
-                                                                    <th className="py-2 px-4 border-b">Fecha Final</th>
-                                                                    <th className="py-2 px-4 border-b">Kilometraje</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                {vehiculo.seguro?.slice(-5).map((seg) => (
-                                                                    <Historialtm key={seg.id} seguro={seg} />
-                                                                ))}
-                                                            </tbody>
-                                                        </table>
+                                                    <div className="flex flex-row">
+                                                        <div className="flex flex-col w-[50%]">
+                                                            <div>
+                                                                <h2 className="text-lg font-bold mb-2">Soat</h2>
+                                                                <table className="min-w-full border border-amber-700 text-sm">
+                                                                    <thead>
+                                                                        <tr className="bg-amber-500">
+                                                                            <th className="py-1 px-1 border-b">Fecha Inicial</th>
+                                                                            <th className="py-1 px-1 border-b">Fecha Final</th>
+                                                                            <th className="py-1 px-1 border-b">Acción</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        {vehiculo.soat?.slice(-5).map((seg) => (
+                                                                            <Historialss key={seg.id} seguro={seg} />
+                                                                        ))}
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <div>
+                                                                <h2 className="text-lg font-bold mb-2">Seguro</h2>
+                                                                <table className="min-w-full border border-amber-700 text-sm">
+                                                                    <thead>
+                                                                        <tr className="bg-amber-500">
+                                                                            <th className="py-1 px-1 border-b">Fecha Inicial</th>
+                                                                            <th className="py-1 px-1 border-b">Fecha Final</th>
+                                                                            <th className="py-1 px-1 border-b">Acción</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        {vehiculo.seguro?.slice(-5).map((seg) => (
+                                                                            <Historialss key={seg.id} seguro={seg} />
+                                                                        ))}
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <div>
+                                                                <h2 className="text-lg font-bold mb-2">Tecnomecanica</h2>
+                                                                <table className="min-w-full border border-amber-700 text-sm">
+                                                                    <thead>
+                                                                        <tr className="bg-amber-500">
+                                                                            <th className="py-1 px-1 border-b">Fecha Inicial</th>
+                                                                            <th className="py-1 px-1 border-b">Fecha Final</th>
+                                                                            <th className="py-1 px-1 border-b">Kilometraje</th>
+                                                                            <th className="py-1 px-1 border-b">Acción</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        {vehiculo.seguro?.slice(-5).map((seg) => (
+                                                                            <Historialtm key={seg.id} seguro={seg} />
+                                                                        ))}
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-
-
                                             </div>
                                             <div className="flex-row justify-center w-full flex items-center pt-2 ">
                                                 <button className="justify-center flex items-center p-1 bg-lime-400 hover:bg-lime-500 rounded-lg" onClick={handleEditar} >

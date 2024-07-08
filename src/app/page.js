@@ -60,7 +60,7 @@ export default function Home() {
           <section>
             <h2 className="text-3xl font-bold mb-4">Imágenes</h2>
             <div className="flex justify-center">
-              <Image src="/path-to-your-image.jpg" alt="Descripción de la imagen" className="w-full h-auto max-w-md rounded shadow-md" />
+              <Image src="/path-to-your-image.jpg" alt="Descripción de la imagen" className="w-full h-auto max-w-md rounded shadow-md" width={100} height={100} />
             </div>
           </section>
 
