@@ -28,11 +28,17 @@ export default function Alregulacion({ usuario, token }) {
         fetchData();
     }, [usuario])
 
-    let bgColorClass = "bg-green-200"; // Default to green
+    let bgColorClass = "bg-green-100"; // Default to green
     if (expire) {
-        bgColorClass = "bg-red-300";
+        bgColorClass = "bg-red-200";
     } else if (nextExpire) {
-        bgColorClass = "bg-yellow-200 ";
+        bgColorClass = "bg-yellow-100 ";
+    }
+    let bgColorClass1 = "bg-green-200"; // Default to green
+    if (expire) {
+        bgColorClass1 = "bg-red-300";
+    } else if (nextExpire) {
+        bgColorClass1 = "bg-yellow-200 ";
     }
 
     return (
@@ -47,20 +53,22 @@ export default function Alregulacion({ usuario, token }) {
                     <div className="p-3 text-lg">
                         Vigentes:
                     </div>
-                    <div className="w-full md:flex ">
-                        <div className="p-0 w-full">
+                    <div className="w-full md:flex px-3 ">
+                        <div className={`p-1 w-full rounded-2xl ${bgColorClass1} `}>
                             <p className="pl-10">Seguro:</p>
                             {vehiculo?.map((veh) => (
                                 <Listado vehiculo={veh} key={veh.numSerie} tipo={"seguro"} expire={()=>{setExpire(true)}} nextExpire={()=>{setNextExpire(true)}} />
                             ))}
                         </div>
-                        <div className="p-1 w-full">
+                        <div className="w-[3%] "></div>
+                        <div className={`p-1 w-full rounded-2xl ${bgColorClass1} `}>
                             <p className="pl-10">Soat:</p>
                             {vehiculo?.map((veh) => (
                                 <Listado vehiculo={veh} key={veh.numSerie} tipo={"soat"} expire={()=>{setExpire(true)}} nextExpire={()=>{setNextExpire(true)}} />
                             ))}
                         </div>
-                        <div className="p-1 w-full">
+                        <div className="w-[3%] "></div>
+                        <div className={`p-1 w-full rounded-2xl ${bgColorClass1} `}>
                             <p className="pl-10">Tecnico Mecanica:</p>
                             {vehiculo?.map((veh) => (
                                 <Listado vehiculo={veh} key={veh.numSerie} tipo={"tecnico"} expire={()=>{setExpire(true)}} nextExpire={()=>{setNextExpire(true)}} />
