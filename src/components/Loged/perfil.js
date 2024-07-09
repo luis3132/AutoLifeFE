@@ -22,7 +22,9 @@ export default function VerPerfil({ usuario, token }) {
   useEffect(() => {
     if (usuario) {
       setUsuario1(usuario)
-      setFoto(usuario.fotos[usuario.fotos.length - 1].foto)
+      if (usuario.fotos.length > 0){
+        setFoto(usuario.fotos[usuario.fotos.length - 1].foto)
+      }
     }
   }, [usuario])
 

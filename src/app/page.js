@@ -13,19 +13,21 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="flex justify-between space-x-4 mb-12">
-          <div className="bg-green-200 rounded p-4 flex-1 text-center shadow-md">
+        <div className="md:flex justify-between space-x-4 mb-12">
+          <div className="bg-green-200 rounded p-4 md:flex-1 text-center shadow-md">
             <h2 className="text-2xl font-semibold">¿Qué es AutoLife?</h2>
             <p className="mt-2 text-lg">
               AutoLife es una plataforma diseñada para ayudar a los usuarios a gestionar y mantener un registro de sus vehículos de manera eficiente.
             </p>
           </div>
+          <div className="h-4"></div>
           <div className="bg-blue-200 rounded p-4 flex-1 text-center shadow-md">
             <h2 className="text-2xl font-semibold">¿Qué ofrecemos?</h2>
             <p className="mt-2 text-lg">
               Ofrecemos servicios como el almacenamiento de información importante de los vehículos, incluyendo placas, ubicación, historial de mantenimiento, y más.
             </p>
           </div>
+          <div className="h-4"></div>
           <div className="bg-purple-200 rounded p-4 flex-1 text-center shadow-md">
             <h2 className="text-2xl font-semibold">Características Innovadoras</h2>
             <p className="mt-2 text-lg">

@@ -109,7 +109,7 @@ export default function NavBarD({ usuario }) {
                         leave="transition-opacity duration-300"
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0">
-                        <div className={`xl:hidden absolute bg-white min-h-[10%] left-0 top-[10%] w-full flex items-center px-5 justify-center border-black  border-2 ${navbar ? '' : 'hidden'
+                        <div className={`xl:hidden absolute bg-white min-h-[10%] left-0 top-[10%] max-sm:top-24 w-full flex items-center px-5 justify-center border-black  border-2 ${navbar ? '' : 'hidden'
                             }`}>
                             <ul className="flex-col flex gap-8 justify-center items-center">
                                 <li className="flex pt-2">
@@ -142,7 +142,7 @@ export default function NavBarD({ usuario }) {
                     <div className="flex items-center gap-6 md:pr-2">
                         <button className="bg-lime-400 text-black p-2 rounded-full hover:bg-lime-500" onClick={handlePerfilButtonClick} >
                             <div className="flex items-center justify-center">
-                                <Image src={foto} alt="Logo" width={40} height={40} className="rounded-full pl-1" />
+                                <Image src={foto} alt="Logo" width={40} height={40} className="rounded-full pl-1 max-sm:hidden" />
                                 <div className="pl-4 pr-3 pb-1">Perfil</div>
                             </div>
                         </button>
@@ -189,7 +189,7 @@ export default function NavBarD({ usuario }) {
                         leave="transition-opacity duration-300"
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0">
-                        <div className={`md:hidden absolute bg-white min-h-[10%] left-0 top-[11%] w-full flex items-center px-5 justify-center ${navbar ? '' : 'hidden'
+                        <div className={`md:hidden absolute bg-white min-h-[10%] left-0 top-[11%] max-sm:top-24 w-full flex items-center px-5 justify-center ${navbar ? '' : 'hidden'
                             }`}>
                             <ul className="flex-col flex gap-8 justify-center items-center">
                                 <li className="flex pt-2">

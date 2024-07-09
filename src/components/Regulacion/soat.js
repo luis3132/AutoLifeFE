@@ -6,7 +6,7 @@ export default function Soat({vehiculo, token}) {
     const [showVerSoat, setShowVerSoat] = useState(false);
     return (
         <>
-            <div className="pr-[10%] pl-[10%]">
+            <div className="px-[10%] ">
                 <div className="bg-blue-300 h-10 flex items-center pl-5 hover:bg-blue-400">
                     <p className="mr-1 max-sm:hidden">{vehiculo.marca}</p>
                     <p className="mr-1">{vehiculo.referencia}</p>

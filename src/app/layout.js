@@ -53,6 +53,9 @@ export default async function RootLayout({ children }) {
   }
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/imagenes/logo/logoSLSF.png" />
+      </head>
       <body>
         <header className="bg-white">
           <NavBarD usuario={Usuario} />

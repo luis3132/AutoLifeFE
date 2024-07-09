@@ -6,7 +6,7 @@ export default function Tecnico({vehiculo, token}) {
     const [showVerTecnico, setShowVerTecnico] = useState(false);
     return (
         <>
-            <div className="pr-[10%] pl-[10%]">
+            <div className="px-[10%]">
                 <div className="bg-red-400 h-10 flex items-center pl-5 hover:bg-red-500">
                     <p className="mr-1 max-sm:hidden">{vehiculo.marca}</p>
                     <p className="mr-1">{vehiculo.referencia}</p>

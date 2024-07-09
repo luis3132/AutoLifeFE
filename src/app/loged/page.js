@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import CryptoJS from "crypto-js";
 import VerPerfil from "@/components/Loged/perfil";
+import Alregulacion from "@/components/alertas/alregulacion";
 
 export default function Home() {
   // start validation
@@ -53,14 +54,17 @@ export default function Home() {
   }
   return (
     <div>
-      <div className="max-lg:flex-col flex pl-[5%] pr-[5%] pt-[2%] ">
+      <div className="max-lg:flex-col flex px-[5%] pt-[2%] ">
         <div className="lg:w-[30%] w-full bg-gray-200 rounded-2xl flex flex-col ">
           <div className="w-full flex flex-col justify-center items-center">
             <div className="text-2xl text-start pt-2 ">Perfil</div>
             <VerPerfil usuario={usuario} token={token} />
           </div>
         </div>
-        
+        <div className="w-[2%] h-4"></div>
+        <div className="flex flex-col w-full">
+          <Alregulacion usuario={usuario} token={token} />
+        </div>
       </div>
     </div>
   );
