@@ -25,6 +25,40 @@ export default function Listado({ vehiculo, tipo, expire, nextExpire }) {
                 }
             })
         }
+        if (tipo == "soat") {
+            vehiculo.soat?.forEach((seguro) => {
+                const diaSeguro = new Date(seguro.dateFinish)
+                const dife = diaSeguro - hoy
+                const milisegundosPorDia = 1000 * 60 * 60 * 24;
+                diaVige = Math.round(dife / milisegundosPorDia);
+                setDiasVige(diaVige);
+
+                if (diaVige <= 30 && diaVige > 0) {
+                    nextExpire();
+                } else {
+                    if (diaVige <= 0) {
+                        expire();
+                    }
+                }
+            })
+        }
+        if (tipo == "tecnico") {
+            vehiculo.seguro?.forEach((seguro) => {
+                const diaSeguro = new Date(seguro.dateFinish)
+                const dife = diaSeguro - hoy
+                const milisegundosPorDia = 1000 * 60 * 60 * 24;
+                diaVige = Math.round(dife / milisegundosPorDia);
+                setDiasVige(diaVige);
+
+                if (diaVige <= 30 && diaVige > 0) {
+                    nextExpire();
+                } else {
+                    if (diaVige <= 0) {
+                        expire();
+                    }
+                }
+            })
+        }
     }, [vehiculo])
 
     let bgColorClass = "bg-green-300 hover:bg-green-400"; // Default to green
