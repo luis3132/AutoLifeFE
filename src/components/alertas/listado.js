@@ -43,7 +43,7 @@ export default function Listado({ vehiculo, tipo, expire, nextExpire }) {
             })
         }
         if (tipo == "tecnico") {
-            vehiculo.seguro?.forEach((seguro) => {
+            vehiculo.tecnicoMecanica?.forEach((seguro) => {
                 const diaSeguro = new Date(seguro.dateFinish)
                 const dife = diaSeguro - hoy
                 const milisegundosPorDia = 1000 * 60 * 60 * 24;

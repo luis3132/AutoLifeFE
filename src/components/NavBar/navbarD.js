@@ -108,9 +108,9 @@ export default function NavBarD({ usuario }) {
                         enterTo="opacity-100"
                         leave="transition-opacity duration-300"
                         leaveFrom="opacity-100"
-                        leaveTo="opacity-0">
-                        <div className={`xl:hidden absolute bg-white min-h-[10%] left-0 top-[10%] max-sm:top-24 w-full flex items-center px-5 justify-center border-black  border-2 ${navbar ? '' : 'hidden'
-                            }`}>
+                        leaveTo="opacity-0"
+                        className="z-50">
+                        <div className={`xl:hidden absolute bg-white min-h-[10%] left-0 top-[10%] max-sm:top-24 w-full flex items-center px-5 justify-center border-black border-2 transition-transform duration-300 ease-in-out ${navbar ? 'z-50 transform translate-y-0' : 'z-50 transform -translate-y-full'}`}>
                             <ul className="flex-col flex gap-8 justify-center items-center">
                                 <li className="flex pt-2">
                                     <div className="p-1"><Icon icon="vaadin:car" /></div>
@@ -189,8 +189,7 @@ export default function NavBarD({ usuario }) {
                         leave="transition-opacity duration-300"
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0">
-                        <div className={`md:hidden absolute bg-white min-h-[10%] left-0 top-[11%] max-sm:top-24 w-full flex items-center px-5 justify-center ${navbar ? '' : 'hidden'
-                            }`}>
+                        <div className={`xl:hidden absolute bg-white min-h-[10%] left-0 top-[11%] max-sm:top-24 w-full flex items-center px-5 justify-center border-black border-2 transition-transform duration-300 ease-in-out ${navbar ? 'z-50 transform translate-y-0' : 'z-50 transform -translate-y-full'}`}>
                             <ul className="flex-col flex gap-8 justify-center items-center">
                                 <li className="flex pt-2">
                                     <div className="p-1"><Icon icon="vaadin:car" /></div>
@@ -204,7 +203,7 @@ export default function NavBarD({ usuario }) {
                         </div>
                     </Transition>
                     <div className="flex items-center gap-6 md:pr-2">
-                        <button className="bg-lime-400 text-black px-5 py-2 rounded-full hover:bg-lime-500" onClick={handleLoginButtonClick} >Sign in</button>
+                        <button className="bg-lime-400 text-black px-5 py-2 rounded-full hover:bg-lime-500" onClick={() => {handleLoginButtonClick(); setNavbar(false); setIsShowing(false)}} >Sign in</button>
                         {showLogin && <LoginUser closeComponent={() => setShowLogin(false)} />}
                         <button className="text-3xl md:hidden pr-5" onClick={() => {
                             setNavbar(!navbar);

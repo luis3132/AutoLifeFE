@@ -4,8 +4,8 @@ import { Icon } from '@iconify/react';
 import Swal from 'sweetalert2';
 
 export default function LoginUser({ closeComponent }) {
-    const Usuario_API_URL = "http://localhost:8090/auth/register"
-    const Usuario_API_Login = "http://localhost:8090/auth/login"
+    const Usuario_API_URL = `${process.env.NEXT_PUBLIC_HOSTNAME}/auth/register`
+    const Usuario_API_Login = `${process.env.NEXT_PUBLIC_HOSTNAME}/auth/login`
     const [register, setRegister] = useState(false);
     const [confirmar, setConfirmar] = useState({
         confirmar: ""

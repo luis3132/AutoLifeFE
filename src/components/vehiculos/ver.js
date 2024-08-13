@@ -553,7 +553,7 @@ export default function Vervehiculo({ closecomponent, vehiculo, token }) {
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                        {vehiculo.seguro?.slice(-5).map((seg) => (
+                                                                        {vehiculo.tecnicoMecanica?.slice(-5).map((seg) => (
                                                                             <Historialtm key={seg.id} seguro={seg} />
                                                                         ))}
                                                                     </tbody>

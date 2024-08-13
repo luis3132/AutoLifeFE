@@ -16,7 +16,9 @@ export default function Vehiculos({ vehiculos, token }) {
             <div className='pb-3'></div>
             <div className="flex bg-gray-200 pt-1 pb-1 rounded-2xl ">
                 <div className="md:w-[25%] w-[30%] items-center justify-center flex p-2">
-                    <Image className="" alt="Foto" width={100} height={100} src={foto} objectFit="cover" />
+                    <div className="relative w-[200px] h-[200px] rounded-lg overflow-hidden z-10" >
+                        <Image className="z-10" alt="Foto" priority={true} src={foto} objectFit="cover" layout='fill' />
+                    </div>
                 </div>
                 <div className="w-full flex flex-col">
                     <div>
