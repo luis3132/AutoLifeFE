@@ -7,36 +7,6 @@ import NavbarUsuario from "./navbarUsuario";
 import useAuth from "@/lib/hooks/auth";
 import Cookies from 'js-cookie';
 
-interface Roles {
-    id: number;
-    rol: string;
-}
-
-interface Fotos {
-    id: number;
-    path: string;
-    vehiculo: string;
-    servicio: number;
-    accidentes: number;
-    usuarios: string;
-    legislacion: number;
-    piezas: string;
-    partes: string;
-}
-
-interface Usuario {
-    dni: string;
-    nombre: string;
-    apellidos: string;
-    telefono: string;
-    direccion: string;
-    roles: Roles;
-    contrasena: string;
-    email: string;
-    nombreUsuario: string;
-    fotos: Fotos[];
-}
-
 const MainNavbar = () => {
 
     const { usuario, AuthContext, LogOut } = useAuth({ cookie: Cookies.get("authToken") });

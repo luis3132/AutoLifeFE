@@ -3,36 +3,8 @@
 import Comprobar from "@/lib/scripts/comprobar";
 import React, { useEffect, useState } from "react";
 import Cookies from 'js-cookie';
-
-interface Roles {
-  id: number;
-  rol: string;
-}
-
-interface Fotos {
-  id: number;
-  path: string;
-  vehiculo: string;
-  servicio: number;
-  accidentes: number;
-  usuarios: string;
-  legislacion: number;
-  piezas: string;
-  partes: string;
-}
-
-interface Usuario {
-  dni: string;
-  nombre: string;
-  apellidos: string;
-  telefono: string;
-  direccion: string;
-  roles: Roles;
-  contrasena: string;
-  email: string;
-  nombreUsuario: string;
-  fotos: Fotos[];
-}
+import Notificacion from "@/components/notificaciones/notificacion";
+import { Usuario } from "@/lib/types/types";
 
 export default function Home() {
 
@@ -47,7 +19,7 @@ export default function Home() {
         setToken(token);
         setUsuario(usuario);
       }
-      if (Cookies.get("authToken") === undefined || Cookies.get("authToken") === "" || usuario === null) {
+      if (Cookies.get("authToken") === undefined || Cookies.get("authToken") === "") {
         window.location.href = "/";
       }
     }
@@ -55,11 +27,14 @@ export default function Home() {
 
   return (
     <>
-      <div className="w-full p-5">
-        <div className="w-1/3 bg-gray-300 rounded-xl">
-          <div className="h-min">
+      <div className="w-full p-5 md:flex">
+        <div className="md:w-1/3 p-1">
+          <Notificacion usuario={usuario} token={token} />
+        </div>
+        <div className="md:w-2/3 p-1">
+          <div className="h-min bg-gray-300 rounded-xl">
             <p className="text-center text-2xl">Notificaciones</p>
-            
+
           </div>
         </div>
       </div>
