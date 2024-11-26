@@ -4,7 +4,7 @@ import React from "react";
 export default function Home() {
   return (
     <>
-      <div className="px-4 py-6 lg:px-12">
+      <div className="h-[89dvh] px-4 py-6 lg:px-12 overflow-y-scroll custom-scrollbar ">
         <div className="rounded-lg bg-gray-200 p-6 text-center shadow-md mb-12">
           <h1 className="text-3xl font-bold mb-4">AutoLife</h1>
           <p className="text-lg">

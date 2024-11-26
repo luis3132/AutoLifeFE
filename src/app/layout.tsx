@@ -26,7 +26,7 @@ interface Usuario {
   telefono: string;
   direccion: string;
   roles: Roles;
-  constraseña: string;
+  contrasena: string;
   email: string;
   nombreUsuario: string;
   fotos: Fotos[];
@@ -42,7 +42,7 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
       <head>
         <link rel="icon" href="/images/logo/logoSLSF.png" />
       </head>
-      <body className={` antialiased`}>
+      <body className={` antialiased h-dvh relative`}>
         <MainNavbar />
         {children}
       </body>

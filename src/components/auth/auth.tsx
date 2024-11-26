@@ -15,7 +15,7 @@ interface Usuario {
     telefono: string;
     direccion: string;
     roles: number;
-    constraseña: string;
+    contrasena: string;
     email: string;
     nombreUsuario: string;
 }
@@ -46,7 +46,7 @@ const Auth: FC<authprops> = ({ closeComponent }) => {
         telefono: "",
         direccion: "",
         roles: 2,
-        constraseña: "",
+        contrasena: "",
         email: "",
         nombreUsuario: ""
     });
@@ -110,7 +110,7 @@ const Auth: FC<authprops> = ({ closeComponent }) => {
             if (res.ok) {
                 const token: Token = data;
                 Cookies.set("authToken", token.token);
-                window.location.href = "logged";
+                window.location.href = "home";
             } else {
                 Swal.fire({
                     title: 'Error',
@@ -121,6 +121,7 @@ const Auth: FC<authprops> = ({ closeComponent }) => {
                 });
             }
         } catch (error) {
+            setLoading(false);
             Swal.fire({
                 title: "Error",
                 text: error as string,
@@ -131,8 +132,8 @@ const Auth: FC<authprops> = ({ closeComponent }) => {
 
     const handleSignup = () => {
         setLoading(true);
-        if (usuario.nombreUsuario !== "" && usuario.constraseña !== "" && usuario.dni !== "" && usuario.nombre !== "" && usuario.apellidos !== "" && usuario.telefono !== "" && usuario.direccion !== "" && usuario.email !== "" && confirmar.confirmar !== "") {
-            if (confirmar.confirmar === usuario.constraseña) {
+        if (usuario.nombreUsuario !== "" && usuario.contrasena !== "" && usuario.dni !== "" && usuario.nombre !== "" && usuario.apellidos !== "" && usuario.telefono !== "" && usuario.direccion !== "" && usuario.email !== "" && confirmar.confirmar !== "") {
+            if (confirmar.confirmar === usuario.contrasena) {
                 signup();
             } else {
                 setLoading(false);
@@ -144,6 +145,7 @@ const Auth: FC<authprops> = ({ closeComponent }) => {
             }
         } else {
             setLoading(false);
+            console.log(usuario);
             Swal.fire({
                 title: "Error",
                 text: "Rellena todos los campos",
@@ -166,7 +168,7 @@ const Auth: FC<authprops> = ({ closeComponent }) => {
             if (res.ok) {
                 const token: Token = data;
                 Cookies.set("authToken", token.token);
-                window.location.href = "logged";
+                window.location.href = "home";
             } else {
                 Swal.fire({
                     title: "Error",
@@ -175,6 +177,7 @@ const Auth: FC<authprops> = ({ closeComponent }) => {
                 });
             }
         } catch (error) {
+            setLoading(false);
             Swal.fire({
                 title: "Error",
                 text: error as string,
@@ -276,14 +279,14 @@ const Auth: FC<authprops> = ({ closeComponent }) => {
                                                 </div>
                                                 <div className="" >
                                                     <div className="text-left w-full pl-5">Contraseña:</div>
-                                                    <input name="constraseña" value={usuario.constraseña} onChange={(e) => handleChangeRegister(e)} maxLength={100} id="constraseña" type="text" className="bg-black bg-opacity-10 h-8 rounded-full text-center w-[80%] pl-2" ></input>
+                                                    <input name="contrasena" value={usuario.contrasena} onChange={(e) => handleChangeRegister(e)} maxLength={100} id="constrasena" type="password" className="bg-black bg-opacity-10 h-8 rounded-full text-center w-[80%] pl-2" ></input>
                                                 </div>
                                                 <div className="" >
                                                     <div className="text-left w-full pl-5">Confirmar contraseña:</div>
-                                                    <input name="confirmar" value={confirmar.confirmar} onChange={(e) => handleChangeConfirmar(e)} maxLength={100} id="confirmar" type="text" className="bg-black bg-opacity-10 h-8 rounded-full text-center w-[80%] pl-2" ></input>
+                                                    <input name="confirmar" onKeyUp={handleEnterPress} value={confirmar.confirmar} onChange={(e) => handleChangeConfirmar(e)} maxLength={100} id="confirmar" type="password" className="bg-black bg-opacity-10 h-8 rounded-full text-center w-[80%] pl-2" ></input>
                                                 </div>
                                                 <div className="flex-row justify-center w-full flex items-center pt-2 ">
-                                                    <button className="justify-center flex items-center p-1 bg-lime-400 hover:bg-lime-500 rounded-lg" onClick={handleSignin} >
+                                                    <button className="justify-center flex items-center p-1 bg-lime-400 hover:bg-lime-500 rounded-lg" onClick={handleSignup} >
                                                         <Icon icon="mdi:register" />
                                                         Registrese!
                                                     </button>
