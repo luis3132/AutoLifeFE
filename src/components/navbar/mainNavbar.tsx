@@ -31,7 +31,7 @@ interface Usuario {
     telefono: string;
     direccion: string;
     roles: Roles;
-    constraseña: string;
+    contrasena: string;
     email: string;
     nombreUsuario: string;
     fotos: Fotos[];
@@ -57,12 +57,12 @@ const MainNavbar = () => {
         <AuthContext.Provider value={{
             usuario, logout() {
                 LogOut();
-            },
+            }
         }}>
             {usuario === null && <NavbarLogOut />}
-            {usuario?.roles.rol === "Admin"}
+            {usuario?.roles.rol === "ADMIN"}
             {usuario?.roles.rol === "USER" && <NavbarUsuario logout={LogOut} />}
-            {usuario?.roles.rol === "Taller"}
+            {usuario?.roles.rol === "TALLER"}
         </AuthContext.Provider>
     )
 }

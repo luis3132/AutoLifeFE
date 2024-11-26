@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import Cookies from "js-cookie";
 
 interface Roles {
     id: number;
@@ -24,7 +25,7 @@ interface Usuario {
     telefono: string;
     direccion: string;
     roles: Roles;
-    constraseña: string;
+    contrasena: string;
     email: string;
     nombreUsuario: string;
     fotos: Fotos[];
@@ -53,6 +54,8 @@ const getUsuario = async (token: string | undefined) => {
             });
             verificacion = await response.json();
         } catch (error) {
+            Cookies.remove("authToken");
+            window.location.href = "/";
             console.log(error)
         }
 
@@ -75,7 +78,7 @@ const getUsuario = async (token: string | undefined) => {
 
 export const AuthContext = createContext<Context>({
     usuario: null,
-    logout: () => { }
+    logout: () => {}
 });
 
 export default function useAuth({ cookie }: { cookie: string | undefined }) {
