@@ -47,7 +47,7 @@ export default function Home() {
         setToken(token);
         setUsuario(usuario);
       }
-      if (Cookies.get("authToken") === undefined || Cookies.get("authToken") === "" || usuario === null) {
+      if (Cookies.get("authToken") === undefined || Cookies.get("authToken") === "") {
         window.location.href = "/";
       }
     }
