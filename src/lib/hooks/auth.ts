@@ -1,35 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
-
-interface Roles {
-    id: number;
-    rol: string;
-}
-
-interface Fotos {
-    id: number;
-    path: string;
-    vehiculo: string;
-    servicio: number;
-    accidentes: number;
-    usuarios: string;
-    legislacion: number;
-    piezas: string;
-    partes: string;
-}
-
-interface Usuario {
-    dni: string;
-    nombre: string;
-    apellidos: string;
-    telefono: string;
-    direccion: string;
-    roles: Roles;
-    contrasena: string;
-    email: string;
-    nombreUsuario: string;
-    fotos: Fotos[];
-}
+import { Usuario } from "../types/types";
 
 interface verificacion {
     nombreUsuario: string;

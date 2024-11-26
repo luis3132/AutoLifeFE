@@ -16,7 +16,7 @@ const NavbarLogOut = () => {
         setIsShowing(false)
     }
     return (
-        <nav className="flex bg-amber-400 justify-between items-center w-full mx-auto">
+        <nav className="flex bg-amber-400 justify-between items-center w-full mx-auto shadow-lg">
             <div className="pl-[1%] ">
                 <Link className="flex items-center hover:text-gray-500" href="/" style={{ cursor: 'pointer' }} replace>
                     <Image src="/images/logo/logoSLSF.png" alt="Logo" width={100} height={100} className="pt-1 pb-1" />

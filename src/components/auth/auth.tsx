@@ -3,34 +3,10 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { ChangeEvent, FC, Fragment, KeyboardEventHandler, useState } from "react";
 import Swal from "sweetalert2";
 import Cookies from 'js-cookie';
+import { Confirmar, Registro, Token, UsuarioNewOUpdate } from "@/lib/types/types";
 
 interface authprops {
     closeComponent: () => void;
-}
-
-interface Usuario {
-    dni: string;
-    nombre: string;
-    apellidos: string;
-    telefono: string;
-    direccion: string;
-    roles: number;
-    contrasena: string;
-    email: string;
-    nombreUsuario: string;
-}
-
-interface Token {
-    token: string;
-}
-
-interface Registro {
-    nombreUsuario: string;
-    contrasena: string;
-}
-
-interface Confirmar {
-    confirmar: string;
 }
 
 const Auth: FC<authprops> = ({ closeComponent }) => {
@@ -39,7 +15,7 @@ const Auth: FC<authprops> = ({ closeComponent }) => {
     const [confirmar, setConfirmar] = useState<Confirmar>({
         confirmar: ""
     })
-    const [usuario, setUsuario] = useState<Usuario>({
+    const [usuario, setUsuario] = useState<UsuarioNewOUpdate>({
         dni: "",
         nombre: "",
         apellidos: "",

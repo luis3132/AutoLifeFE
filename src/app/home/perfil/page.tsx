@@ -4,36 +4,7 @@ import Perfil from "@/components/perfil/perfil";
 import Comprobar from "@/lib/scripts/comprobar";
 import React, { useEffect, useState } from "react";
 import Cookies from 'js-cookie';
-
-interface Roles {
-  id: number;
-  rol: string;
-}
-
-interface Fotos {
-  id: number;
-  path: string;
-  vehiculo: string;
-  servicio: number;
-  accidentes: number;
-  usuarios: string;
-  legislacion: number;
-  piezas: string;
-  partes: string;
-}
-
-interface Usuario {
-  dni: string;
-  nombre: string;
-  apellidos: string;
-  telefono: string;
-  direccion: string;
-  roles: Roles;
-  contrasena: string;
-  email: string;
-  nombreUsuario: string;
-  fotos: Fotos[];
-}
+import { Usuario } from "@/lib/types/types";
 
 export default function Home() {
 
@@ -57,7 +28,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="w-full justify-center flex pt-16">
+      <div className="w-full justify-center flex pt-16 h-[89dvh]">
         <Perfil usuario={usuario} token={token} reload={() => setReload(!reload)} />
       </div>
     </>

@@ -2,48 +2,7 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { ChangeEvent, FC, useEffect, useState } from "react";
 import Image from 'next/image';
 import Swal from "sweetalert2";
-
-interface Roles {
-    id: number;
-    rol: string;
-}
-
-interface Fotos {
-    id: number;
-    path: string;
-    vehiculo: string;
-    servicio: number;
-    accidentes: number;
-    usuarios: string;
-    legislacion: number;
-    piezas: string;
-    partes: string;
-}
-
-interface Usuario {
-    dni: string;
-    nombre: string;
-    apellidos: string;
-    telefono: string;
-    direccion: string;
-    roles: Roles;
-    contrasena: string;
-    email: string;
-    nombreUsuario: string;
-    fotos: Fotos[];
-}
-
-interface UsuarioUpdate {
-    dni: string;
-    nombre: string;
-    apellidos: string;
-    telefono: string;
-    direccion: string;
-    roles: number;
-    contrasena: string;
-    email: string;
-    nombreUsuario: string;
-}
+import { Usuario, UsuarioNewOUpdate } from "@/lib/types/types";
 
 interface perfilProps {
     usuario: Usuario | null;
@@ -53,7 +12,7 @@ interface perfilProps {
 
 const Perfil: FC<perfilProps> = ({ usuario, token, reload }) => {
 
-    const [usuarioEdit, setUsuarioEdit] = useState<UsuarioUpdate | null>(null);
+    const [usuarioEdit, setUsuarioEdit] = useState<UsuarioNewOUpdate | null>(null);
     const [foto, setFoto] = useState<string>("/images/logo/logoSL.png");
     const [editar, setEditar] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -84,7 +43,7 @@ const Perfil: FC<perfilProps> = ({ usuario, token, reload }) => {
 
     const handleUsuarioEdit = (e: ChangeEvent<HTMLInputElement>) => {
         if (usuarioEdit) {
-            setUsuarioEdit({ ...usuarioEdit, [e.target.name]: e.target.value } as UsuarioUpdate);
+            setUsuarioEdit({ ...usuarioEdit, [e.target.name]: e.target.value } as UsuarioNewOUpdate);
         }
     };
 

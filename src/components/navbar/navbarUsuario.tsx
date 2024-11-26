@@ -6,36 +6,6 @@ import { FC, useContext, useEffect, useState } from "react";
 import { AuthContext } from "@/lib/hooks/auth";
 import Cookies from 'js-cookie';
 
-interface Roles {
-    id: number;
-    rol: string;
-}
-
-interface Fotos {
-    id: number;
-    path: string;
-    vehiculo: string;
-    servicio: number;
-    accidentes: number;
-    usuarios: string;
-    legislacion: number;
-    piezas: string;
-    partes: string;
-}
-
-interface Usuario {
-    dni: string;
-    nombre: string;
-    apellidos: string;
-    telefono: string;
-    direccion: string;
-    roles: Roles;
-    contrasena: string;
-    email: string;
-    nombreUsuario: string;
-    fotos: Fotos[];
-}
-
 interface NavbarUsuarioProps {
     logout: () => void;
 }
@@ -62,7 +32,7 @@ const NavbarUsuario: FC<NavbarUsuarioProps> = ({ logout }) => {
     }
 
     return (
-        <nav className="flex bg-amber-400 justify-between items-center w-full mx-auto">
+        <nav className="flex bg-amber-400 justify-between items-center w-full mx-auto shadow-lg">
             <div className="pl-[1%] ">
                 <Link className="flex items-center hover:text-gray-500 cursor-pointer" href="/home" replace>
                     <Image src="/images/logo/logoSLSF.png" alt="Logo" width={100} height={100} className="pt-1 pb-1" />
