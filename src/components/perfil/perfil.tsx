@@ -104,7 +104,7 @@ const Perfil: FC<perfilProps> = ({ usuario, token, reload }) => {
                 body: JSON.stringify(usuarioEdit),
             })
             reload();
-            const data = await res.json();
+            await res.json();
         } catch (error) {
             setLoading(false);
             console.log(error);

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import CryptoJS from "crypto-js";
 import NavbarLogOut from "./navbarLogOut";
 import NavbarUsuario from "./navbarUsuario";

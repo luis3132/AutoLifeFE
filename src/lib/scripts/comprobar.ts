@@ -4,8 +4,8 @@ import { Usuario } from '../types/types';
 
 const Comprobar = () => {
 
-    var usuario: Usuario | null = null;
-    var token: string | undefined = Cookies.get("authToken")
+    let usuario: Usuario | null = null;
+    const token: string | undefined = Cookies.get("authToken")
 
     const cryp: string | null = sessionStorage.getItem("usuario");
 
