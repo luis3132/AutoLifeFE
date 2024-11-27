@@ -26,6 +26,7 @@ const getUsuario = async (token: string | undefined) => {
             verificacion = await response.json();
         } catch (error) {
             Cookies.remove("authToken");
+            sessionStorage.removeItem("usuario");
             window.location.href = "/";
             console.log(error)
         }
