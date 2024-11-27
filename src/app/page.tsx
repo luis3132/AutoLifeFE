@@ -3,8 +3,8 @@ import React from "react";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#f0f4f8] to-[#e6eefa] px-4 py-8 lg:px-24">
-      <div className="max-w-6xl mx-auto space-y-12">
+    <div className="h-[89dvh] overflow-y-auto scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-[#3B6BC0] scrollbar-track-rounded-full scrollbar-thumb-rounded-full">
+      <div className="max-w-6xl mx-auto space-y-12 px-4 py-8 lg:px-24">
    
         <header className="bg-white rounded-2xl shadow-xl p-8 text-center transform transition-all hover:scale-[1.01]">
           <h1 className="text-5xl font-bold mb-4 text-[#3B6BC0] tracking-tight">AutoLife</h1>
