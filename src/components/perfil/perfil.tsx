@@ -37,6 +37,7 @@ const Perfil: FC<perfilProps> = ({ usuario, token, reload }) => {
                 contrasena: usuario.contrasena,
                 email: usuario.email,
                 nombreUsuario: usuario.nombreUsuario,
+                estado: usuario.estado,
             });
         }
     }, [usuario]);
@@ -59,6 +60,7 @@ const Perfil: FC<perfilProps> = ({ usuario, token, reload }) => {
                 contrasena: usuario.contrasena,
                 email: usuario.email,
                 nombreUsuario: usuario.nombreUsuario,
+                estado: usuario.estado,
             });
         }
         setEditar(!editar);

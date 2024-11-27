@@ -6,6 +6,7 @@ import NavbarLogOut from "./navbarLogOut";
 import NavbarUsuario from "./navbarUsuario";
 import useAuth from "@/lib/hooks/auth";
 import Cookies from 'js-cookie';
+import Swal from "sweetalert2";
 
 const MainNavbar = () => {
 
@@ -20,6 +21,22 @@ const MainNavbar = () => {
                 // Save
                 sessionStorage.setItem("usuario", cryp);
             }
+        }
+        if (usuario?.estado === "INACTIVO" || (usuario?.estado === "PENDIENTE" && usuario?.roles.rol === "TALLER") || usuario?.estado === "NOAPROBADO") {
+            Swal.fire({
+                title: "Usuario inactivo o no Aprovado",
+                text: "Su usuario ha sido desactivado, contacte con el administrador",
+                icon: "error",
+                timer: 5000,
+                showConfirmButton: false,
+                timerProgressBar: true,
+                willClose: () => {
+                    LogOut();
+                    sessionStorage.removeItem("usuario");
+                    Cookies.remove("authToken");
+                    window.location.reload();
+                }
+            });
         }
     }, [usuario]);
 

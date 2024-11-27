@@ -24,7 +24,8 @@ const Auth: FC<authprops> = ({ closeComponent }) => {
         roles: 2,
         contrasena: "",
         email: "",
-        nombreUsuario: ""
+        nombreUsuario: "",
+        estado: "ACTIVO"
     });
     const [registro, setRegistro] = useState<Registro>({
         nombreUsuario: "",
