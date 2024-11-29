@@ -1,12 +1,13 @@
 "use client";
 
-import React, { FC, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import CryptoJS from "crypto-js";
 import NavbarLogOut from "./navbarLogOut";
 import NavbarUsuario from "./navbarUsuario";
 import useAuth from "@/lib/hooks/auth";
 import Cookies from 'js-cookie';
 import Swal from "sweetalert2";
+import NavbarTaller from "./navbarTaller";
 
 const MainNavbar = () => {
 
@@ -49,7 +50,7 @@ const MainNavbar = () => {
             {usuario === null && <NavbarLogOut />}
             {usuario?.roles.rol === "ADMIN"}
             {usuario?.roles.rol === "USER" && <NavbarUsuario logout={LogOut} />}
-            {usuario?.roles.rol === "TALLER"}
+            {usuario?.roles.rol === "TALLER" && <NavbarTaller logout={LogOut} />}
         </AuthContext.Provider>
     )
 }

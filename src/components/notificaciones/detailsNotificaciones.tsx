@@ -1,4 +1,4 @@
-import { Notificacion, NotificacionUpdate, Servicios, ServiciosUpdate } from "@/lib/types/types";
+import { Notificacion, NotificacionUpdate, ServiciosUpdate } from "@/lib/types/types";
 import { Dialog, Transition, TransitionChild } from "@headlessui/react"
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { FC, Fragment, useEffect, useState } from "react"
