@@ -113,7 +113,7 @@ const Perfil: FC<perfilProps> = ({ usuario, token, reload }) => {
 
     return (
         <>
-            <div className="max-md:w-2/3 max-sm:w-[90%] md:w-1/3 rounded-2xl bg-gray-300 h-min flex flex-col py-2">
+            <div className="max-md:w-2/3 max-sm:w-[90%] md:w-1/3 rounded-2xl bg-gray-300 h-min flex flex-col py-2" >
                 <h1 className="text-center text-4xl font-bold">Perfil</h1>
                 {editar ? (
                     <div className="w-full">
