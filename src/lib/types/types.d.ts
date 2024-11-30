@@ -144,6 +144,22 @@ export interface Vehiculo {
     duenos: Duenos[];
 }
 
+export interface VehiculoNewOUpdate {
+    numSerie: string;
+    placa: string;
+    tipoVehiculo: number;
+    marca: string;
+    modelo: string;
+    referencia: string;
+    serie: string;
+    color: string;
+    usuario: string;
+    kilometraje: number;
+    ciudadProcedencia: string;
+    publico: boolean;
+    descripcion: string;
+}
+
 export interface Notificacion {
     id: number;
     texto: string;

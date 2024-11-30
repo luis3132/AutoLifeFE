@@ -4,12 +4,15 @@ import Comprobar from "@/lib/scripts/comprobar";
 import { Usuario, Vehiculo } from "@/lib/types/types";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import ListVehiculo from "@/components/vehiculo/listVehiculo";
+import AddVehiculo from "@/components/vehiculo/addVehiculo";
 
 export default function Page() {
 
     const [token, setToken] = useState<string | undefined>(undefined);
     const [usuario, setUsuario] = useState<Usuario | null>(null);
     const [vehiculos, setVehiculos] = useState<Vehiculo[]>([]);
+    const [showAddVehiculo, setShowAddVehiculo] = useState<boolean>(false);
 
     useEffect(() => {
         if (document.readyState === "complete") {
@@ -40,11 +43,23 @@ export default function Page() {
             }
             fetchVehiculo();
         }
-    }, [usuario])
+    }, [usuario]);
+
+    console.log(vehiculos);
 
     return (
-        <div className="w-full p-5 md:flex custom-scrollbar overflow-y-scroll h-[89dvh]">
-            <div className=""></div>
-        </div>
+        <>
+            <div className="w-full p-5 custom-scrollbar overflow-y-scroll h-[89dvh]">
+                <div className="md:float-right max-md:w-full pb-5">
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold max-md:w-full py-2 px-4 rounded-lg" onClick={() => setShowAddVehiculo(true)} >Agregar Vehiculo</button>
+                </div>
+                <div className="w-full flex flex-wrap h-[79dvh] justify-around">
+                    {vehiculos.map((vehiculo, index) => (
+                        <ListVehiculo key={index} vehiculo={vehiculo} />
+                    ))}
+                </div>
+            </div>
+            {showAddVehiculo && <AddVehiculo closeComponent={() => setShowAddVehiculo(false)} />}
+        </>
     );
 }
