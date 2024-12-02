@@ -13,6 +13,11 @@ export default function Page() {
     const [usuario, setUsuario] = useState<Usuario | null>(null);
     const [vehiculos, setVehiculos] = useState<Vehiculo[]>([]);
     const [showAddVehiculo, setShowAddVehiculo] = useState<boolean>(false);
+    const [reload, setReload] = useState<boolean>(false);
+
+    const handleReload = () => {
+        setReload(!reload);
+    }
 
     useEffect(() => {
         if (document.readyState === "complete") {
@@ -43,7 +48,7 @@ export default function Page() {
             }
             fetchVehiculo();
         }
-    }, [usuario]);
+    }, [usuario, reload]);
 
     console.log(vehiculos);
 
@@ -55,11 +60,11 @@ export default function Page() {
                 </div>
                 <div className="w-full flex flex-wrap h-[79dvh] justify-around">
                     {vehiculos.map((vehiculo, index) => (
-                        <ListVehiculo key={index} vehiculo={vehiculo} />
+                        <ListVehiculo key={index} vehiculo={vehiculo} token={token} />
                     ))}
                 </div>
             </div>
-            {showAddVehiculo && <AddVehiculo closeComponent={() => setShowAddVehiculo(false)} />}
+            {showAddVehiculo && <AddVehiculo closeComponent={() => setShowAddVehiculo(false)} token={token} usuario={usuario?.dni} reload={handleReload} />}
         </>
     );
 }
