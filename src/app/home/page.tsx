@@ -6,7 +6,9 @@ import Cookies from 'js-cookie';
 import Notificaciones from "@/components/notificaciones/notificacion";
 import { Usuario } from "@/lib/types/types";
 
-export default function Home() {
+export default function 
+
+() {
 
   const [token, setToken] = useState<string | undefined>(undefined);
   const [usuario, setUsuario] = useState<Usuario | null>(null);
