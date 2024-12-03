@@ -1,23 +1,42 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Vehiculo } from "@/lib/types/types";
+import { Usuario, Vehiculo } from "@/lib/types/types";
 import ListVehiculo from "@/components/vehiculo/listVehiculo";
+import Comprobar from "@/lib/scripts/comprobar";
+import Cookies from "js-cookie";
 
 export default function PublicVehiclesPage() {
     const [vehiculos, setVehiculos] = useState<Vehiculo[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [filter, setFilter] = useState<string>('');
+    const [token, setToken] = useState<string | undefined>(undefined);
+    const [usuario, setUsuario] = useState<Usuario | null>(null);
+
+    useEffect(() => {
+        if (document.readyState === "complete") {
+            const { token, usuario } = Comprobar();
+
+            if (token !== undefined && usuario !== null) {
+                setToken(token);
+                setUsuario(usuario);
+            }
+            if (Cookies.get("authToken") === undefined || Cookies.get("authToken") === "" || usuario === null) {
+                window.location.href = "/";
+            }
+        }
+    }, []);
 
     useEffect(() => {
         const fetchPublicVehicles = async () => {
             try {
                 setIsLoading(true);
-                const response = await fetch(`${process.env.NEXT_PUBLIC_HOSTNAME}/api/vehiculos/public`, {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_HOSTNAME}/api/vehiculos/list/public`, {
                     method: 'GET',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        "Authorization": `Bearer ${token}`
                     }
                 });
 
@@ -35,8 +54,10 @@ export default function PublicVehiclesPage() {
             }
         };
 
-        fetchPublicVehicles();
-    }, []);
+        if (token) {
+            fetchPublicVehicles();
+        }
+    }, [token]);
 
     
     const filteredVehiculos = vehiculos.filter(vehiculo => 
@@ -86,7 +107,7 @@ export default function PublicVehiclesPage() {
             ) : (
                 <div className="w-full flex flex-wrap justify-around">
                     {filteredVehiculos.map((vehiculo) => (
-                        <ListVehiculo 
+                        <ListVehiculo
                             key={vehiculo.numSerie} 
                             vehiculo={vehiculo} 
                             token={undefined} 
