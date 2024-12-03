@@ -50,7 +50,11 @@ export default function Page() {
         }
     }, [usuario, reload]);
 
-    console.log(vehiculos);
+    useEffect(() => {
+        if (!reload) {
+            setReload(true);
+        }
+    }, [reload]);
 
     return (
         <>
@@ -60,7 +64,7 @@ export default function Page() {
                 </div>
                 <div className="w-full flex flex-wrap h-[79dvh] justify-around">
                     {vehiculos.map((vehiculo, index) => (
-                        <ListVehiculo key={index} vehiculo={vehiculo} token={token} />
+                        <ListVehiculo key={index} vehiculo={vehiculo} token={token} reload={handleReload} />
                     ))}
                 </div>
             </div>

@@ -51,7 +51,7 @@ const Notificaciones: FC<NotificacionProps> = ({ usuario, token }) => {
 
     return (
         <>
-            <div className="w-full h-min bg-gray-300 rounded-xl">
+            <div className="w-full h-min shadow-2xl rounded-2xl">
                 <p className="text-center text-2xl pt-5 pb-3">Notificaciones</p>
                 <div className={`${leidas && "hidden"} w-full flex justify-around px-5 min-h-[500px]`}>
                     {notificacionesNoLeidas.length > 0 ? (

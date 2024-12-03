@@ -1,3 +1,5 @@
+import exp from "constants";
+
 export interface Roles {
     id: number;
     rol: string;
@@ -138,6 +140,8 @@ export interface Vehiculo {
     ciudadProcedencia: string;
     publico: boolean;
     descripcion: string;
+    ciudadPromTransi: string;
+    fechaCompra: string;
     fotos: Fotos[];
     legislacion: Legislacion[];
     servicios: Servicios[];
@@ -158,6 +162,8 @@ export interface VehiculoNewOUpdate {
     ciudadProcedencia: string;
     publico: boolean;
     descripcion: string;
+    fechaCompra: string;
+    ciudadPromTransi: string;
 }
 
 export interface Notificacion {
@@ -180,4 +186,14 @@ export interface NotificacionUpdate {
     servicio: number;
     fecha: Date;
     taller: string;
+}
+
+export interface DuenosNuevo {
+    kmStart: number;
+    kmFinish: number;
+    dateStart: Date;
+    dateFinish: Date;
+    ciudadPromTansi: string;
+    vehiculo: string;
+    usuario: string;
 }
