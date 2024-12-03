@@ -27,7 +27,9 @@ const AddVehiculo: FC<addVehiculoProps> = ({ closeComponent, token, usuario, rel
         kilometraje: 0,
         ciudadProcedencia: "",
         publico: false,
-        descripcion: ""
+        descripcion: "",
+        fechaCompra: "",
+        ciudadPromTransi: ""
     });
 
     useEffect(() => {
@@ -172,7 +174,7 @@ const AddVehiculo: FC<addVehiculoProps> = ({ closeComponent, token, usuario, rel
                                             </div>
                                             <div className="flex-col justify-center w-full flex items-center ">
                                                 <div className="text-left w-full pl-5 font-bold">Modelo:</div>
-                                                <input name="modelo" value={vehiculo.modelo} id="modelo" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" onChange={handleChange} ></input>
+                                                <input name="modelo" value={vehiculo.modelo} id="modelo" type="number" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" onChange={handleChange} ></input>
                                             </div>
                                             <div className="flex-col justify-center w-full flex items-center ">
                                                 <div className="text-left w-full pl-5 font-bold">Referencia:</div>
@@ -201,6 +203,14 @@ const AddVehiculo: FC<addVehiculoProps> = ({ closeComponent, token, usuario, rel
                                             <div className="flex-col justify-center w-full flex items-center ">
                                                 <div className="text-left w-full pl-5 font-bold">Publico:</div>
                                                 <input name="publico" checked={vehiculo.publico} id="publico" type="checkbox" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" onChange={handleChange} ></input>
+                                            </div>
+                                            <div className="flex-col justify-center w-full flex items-center ">
+                                                <div className="text-left w-full pl-5 font-bold">Fecha de Compra del Vehiculo:</div>
+                                                <input name="fechaCompra" value={vehiculo.fechaCompra} id="fechaCompra" type="date" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" onChange={handleChange} ></input>
+                                            </div>
+                                            <div className="flex-col justify-center w-full flex items-center ">
+                                                <div className="text-left w-full pl-5 font-bold">Ciudad promedio transitada:</div>
+                                                <input name="ciudadPromTransi" value={vehiculo.ciudadPromTransi} id="ciudadPromTransi" type="text" className="bg-black bg-opacity-10 rounded-full text-center w-[80%] pl-2" onChange={handleChange} ></input>
                                             </div>
                                             <div className="flex-col justify-center w-full flex items-center ">
                                                 <div className="text-left w-full pl-5 font-bold">Descripcion:</div>
