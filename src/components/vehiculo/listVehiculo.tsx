@@ -6,9 +6,10 @@ interface listVehiculoProps {
     vehiculo: Vehiculo;
     token: string | undefined;
     reload: () => void;
+    publico: boolean;
 }
 
-const ListVehiculo: FC<listVehiculoProps> = ({ vehiculo, token, reload }) => {
+const ListVehiculo: FC<listVehiculoProps> = ({ vehiculo, token, reload, publico }) => {
 
     const [foto, setFoto] = useState<string>("/images/logo/logoSL.png");
     const [showEdit, setShowEdit] = useState<boolean>(false);
@@ -42,7 +43,7 @@ const ListVehiculo: FC<listVehiculoProps> = ({ vehiculo, token, reload }) => {
                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold max-md:w-full py-2 px-4 rounded-lg" onClick={() => setShowEdit(true)} >Ver Detalles</button>
                 </div>
             </div>
-            {showEdit && <SeeVehiculo vehiculo={vehiculo} token={token} closeComponent={() => setShowEdit(!showEdit)} reload={reload} />}
+            {showEdit && <SeeVehiculo key={vehiculo.numSerie} publico={publico} vehiculo={vehiculo} token={token} closeComponent={() => setShowEdit(!showEdit)} reload={reload} />}
         </>
     );
 };

@@ -64,7 +64,7 @@ export default function Page() {
                 </div>
                 <div className="w-full flex flex-wrap h-[79dvh] justify-around">
                     {vehiculos.map((vehiculo, index) => (
-                        <ListVehiculo key={index} vehiculo={vehiculo} token={token} reload={handleReload} />
+                        <ListVehiculo key={index} publico={false} vehiculo={vehiculo} token={token} reload={handleReload} />
                     ))}
                 </div>
             </div>
