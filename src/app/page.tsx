@@ -1,7 +1,11 @@
+"use client";
+
+import AuthT from "@/components/auth/authT";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 
 export default function Home() {
+  const [registerTaller, setRegisterTaller] = useState<boolean>(false);
   return (
    <div className="h-[89dvh] overflow-y-auto custom-scrollbar">
       <div className="max-w-6xl mx-auto space-y-12 px-4 py-8 lg:px-24">
@@ -78,13 +82,30 @@ export default function Home() {
           </p>
           <a 
             href="mailto:contacto@autolife.com" 
-            className="bg-[#3B6BC0] text-white px-6 py-3 rounded-full hover:bg-opacity-90 transition-colors"
+            className="bg-[#3B6BC0] text-white px-6 py-2 rounded-full hover:bg-opacity-90 transition-colors"
           >
+
             Contáctanos
           </a>
         </section>
+        <section className="bg-white rounded-2xl shadow-xl p-8 text-center">
+          <h2 className="text-3xl font-bold mb-6 text-[#3B6BC0]">¿Quieres ser parte de nosotros?</h2>
+          <p className="text-gray-700 mb-4">
+           Eres un taller y estas buscando clientes en nuestra web registrate 
+          </p>
+           <button onClick={() => setRegisterTaller(true)}
+          
+          className="mt-4 bg-[#3B6BC0] text-white px-6 py-2 rounded-full hover:bg-blue-700 transition duration-300 ease-in-out"
+        >
+          
+          Registrarse
+        </button>
+         
+        </section>
       </div>
+      {registerTaller && <AuthT key={1} closeComponent={() => setRegisterTaller(!registerTaller)} />}
     </div>
+
   );
 }
 
