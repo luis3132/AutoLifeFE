@@ -1,4 +1,4 @@
-import { NotificacionNew, Servicios, ServiciosNew, TipoServicio, Usuario, Vehiculo } from "@/lib/types/types";
+import { NotificacionNew, ServiciosNew, TipoServicio, Usuario, Vehiculo } from "@/lib/types/types";
 import { Dialog, Transition, TransitionChild } from "@headlessui/react";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { ChangeEvent, FC, Fragment, useEffect, useState } from "react";
@@ -61,8 +61,6 @@ const SeeUsuario: FC<SeeUsuario> = ({ closeComponent, taller, token, usuario }) 
 
     const [foto, setFoto] = useState<string>("/images/logo/logoSL.png");
     const [loading, setLoading] = useState<boolean>(false);
-    const [showEdit, setShowEdit] = useState<boolean>(false);
-    const [servicio, setServicio] = useState<Servicios | null>(null);
     const [notificacion, setNotificacion] = useState<NotificacionNew>({
         texto: "",
         estado: "NVISTO",

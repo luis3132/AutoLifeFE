@@ -2,7 +2,6 @@ import { Legislacion, LegislacionNew, Vehiculo } from "@/lib/types/types";
 import { Dialog, Transition, TransitionChild } from "@headlessui/react"
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Image from "next/image";
-import { title } from "process";
 import { ChangeEvent, FC, Fragment, useEffect, useState } from "react"
 import Swal from "sweetalert2";
 
@@ -133,7 +132,7 @@ const DetailsRegulacion: FC<DetailsRegulacionProps> = ({ closeComponent, reload,
         } catch (error) {
             Swal.fire({
                 title: "Error",
-                text: "Ha ocurrido un error al agregar la legislación",
+                text: `Ha ocurrido un error al agregar la legislación: ${error}`,
                 icon: "error"
             });
         }

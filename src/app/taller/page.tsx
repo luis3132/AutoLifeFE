@@ -1,11 +1,8 @@
 "use client";
 
-import AuthT from "@/components/auth/authT";
-import Image from "next/image";
-import React, { useState } from "react";
+import React from "react";
 
 export default function Home() {
-  const [registerTaller, setRegisterTaller] = useState<boolean>(false);
   return (
    <div className="h-[89dvh] overflow-y-auto custom-scrollbar">
       <div className="max-w-6xl mx-auto space-y-12 px-4 py-8 lg:px-24">

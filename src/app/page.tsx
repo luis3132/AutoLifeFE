@@ -1,7 +1,6 @@
 "use client";
 
 import AuthT from "@/components/auth/authT";
-import Image from "next/image";
 import React, { useState } from "react";
 
 export default function Home() {
@@ -57,7 +56,7 @@ export default function Home() {
               { text: "Las alertas automáticas me han ahorrado mucho dinero en reparaciones inesperadas.", author: "María López" }
             ].map((testimonial, index) => (
               <div key={index} className="bg-gray-100 rounded-xl p-6 italic relative">
-                <p className="mb-4 text-gray-700">"{testimonial.text}"</p>
+                <p className="mb-4 text-gray-700">{testimonial.text}</p>
                 <div className="text-right font-semibold text-[#3B6BC0]">- {testimonial.author}</div>
               </div>
             ))}

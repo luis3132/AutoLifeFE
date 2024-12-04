@@ -3,7 +3,6 @@
 import Comprobar from "@/lib/scripts/comprobar";
 import React, { useEffect, useState } from "react";
 import Cookies from 'js-cookie';
-import Notificaciones from "@/components/notificaciones/notificacion";
 import { Usuario } from "@/lib/types/types";
 
 export default function Home() {

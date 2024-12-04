@@ -49,13 +49,21 @@ export default function PublicVehiclesPage() {
 
   const filteredUsuarios = usuarios.filter((usuario) =>
     usuario.nombre.toLowerCase().includes(filter.toLowerCase()) ||
-    usuario.apellidos.toLowerCase().includes(filter.toLowerCase())
+    usuario.email.toLowerCase().includes(filter.toLowerCase())
   );
 
   return (
     <div className="w-full px-4 py-8 custom-scrollbar overflow-y-scroll h-[89dvh]">
       <h1 className="text-4xl font-bold mb-6 text-center">Talleres</h1>
-
+      <div className="mb-6 flex justify-center">
+        <input
+          type="text"
+          placeholder="Buscar por nombre del taller o email"
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+          className="w-full max-w-md px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-lg"
+        />
+      </div>
       {filteredUsuarios.length === 0 ? (
         <div className="text-center text-gray-500 mt-10">
           No se encontraron usuarios.
