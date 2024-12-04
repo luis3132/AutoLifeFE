@@ -2,7 +2,7 @@ import { DuenosNuevo, Vehiculo, VehiculoNewOUpdate } from "@/lib/types/types";
 import { Dialog, Transition, TransitionChild } from "@headlessui/react";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { ChangeEvent, FC, Fragment, useEffect, useState } from "react";
-import ListLegislacion from "../legislacion/listLegislacion";
+import ListLegislacion from "./legislacion/listLegislacion";
 import Swal from "sweetalert2";
 
 interface SeeVehiculo {

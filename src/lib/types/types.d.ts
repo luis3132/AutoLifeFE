@@ -126,6 +126,15 @@ export interface Legislacion {
     fotos: Fotos[];
 }
 
+export interface LegislacionNew {
+    descripcion: string;
+    fechaInicio: string;
+    fechaFin: string;
+    vehiculo: string;
+    kilometraje: number;
+    tipoLegislacion: number;
+}
+
 export interface Vehiculo {
     numSerie: string;
     placa: string;
