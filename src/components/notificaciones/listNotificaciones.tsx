@@ -1,7 +1,6 @@
 import { Notificacion } from "@/lib/types/types";
 import { FC, useEffect, useState } from "react";
 import DetailsNotificaciones from "./detailsNotificaciones";
-import { Icon } from "@iconify/react/dist/iconify.js";
 
 interface NotificacionProps {
     notificaciones: Notificacion;
@@ -10,7 +9,7 @@ interface NotificacionProps {
     reload: () => void;
 }
 
-const ListNotificaciones: FC<NotificacionProps> = ({ notificaciones, token, index, reload }) => {
+const ListNotificaciones: FC<NotificacionProps> = ({ notificaciones, token, reload }) => {
     const [foto, setFoto] = useState<string>("/images/logo/logoSL.png");
     const [showEdit, setShowEdit] = useState<boolean>(false);
 

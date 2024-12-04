@@ -9,7 +9,6 @@ import Notificaciones from "@/components/notificaciones/notificacion";
 export default function Home() {
     const [token, setToken] = useState<string | undefined>(undefined);
     const [usuario, setUsuario] = useState<Usuario | null>(null);
-    const [reload, setReload] = useState<boolean>(false);
 
     useEffect(() => {
         if (document.readyState === "complete") {
