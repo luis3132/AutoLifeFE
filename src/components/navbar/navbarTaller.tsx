@@ -45,11 +45,11 @@ const NavbarTaller: FC<NavbarUsuarioProps> = ({ logout }) => {
                 <ul className=" xl:flex-row flex-col flex xl:items-center xl:gap-[4vw] gap-8 justify-center">
                     <li className="flex">
                         <div className="p-1"><Icon icon="vaadin:car" /></div>
-                        <Link className="hover:text-gray-500" href="/taller/vehiculoRep" replace>Vehiculos</Link>
+                        <Link className="hover:text-gray-500" href="/taller/vehiculoServicios" replace>Vehiculos</Link>
                     </li>
                     <li className="flex">
                         <div className="p-1"><Icon icon="vaadin:car" /></div>
-                        <Link className="hover:text-gray-500" href="/taller/vehiculoSol" replace>Solicitudes</Link>
+                        <Link className="hover:text-gray-500" href="/taller/vehiculoSolicitudes" replace>Solicitudes</Link>
                     </li>
                    
                 </ul>

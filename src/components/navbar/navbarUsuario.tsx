@@ -51,11 +51,11 @@ const NavbarUsuario: FC<NavbarUsuarioProps> = ({ logout }) => {
                         <div className="p-1"><Icon icon="vaadin:car" /></div>
                         <Link className="hover:text-gray-500" href="/home/vehiculoPublico" replace>Vehiculos</Link>
                     </li>
-                    <li className="flex">
+                    <li className="hidden">
                         <div className="p-1"><Icon icon="fluent:vehicle-car-collision-24-regular" /></div>
                         <Link className="hover:text-gray-500" href="/home/accidentePublico" replace>Accidentes</Link>
                     </li>
-                    <li className="flex">
+                    <li className="hidden">
                         <div className="p-1"><Icon icon="fluent:vehicle-car-collision-24-regular" /></div>
                         <Link className="hover:text-gray-500" href="/home/accidentePrivado" replace>Mis Accidentes</Link>
                     </li>
@@ -87,11 +87,11 @@ const NavbarUsuario: FC<NavbarUsuarioProps> = ({ logout }) => {
                             <div className="p-1"><Icon icon="vaadin:car" /></div>
                             <Link className="hover:text-gray-500" onClick={() => { setNavbar(!navbar); setIsShowing(!isShowing); }} replace href="/home/vehiculoPublico">Vehiculos</Link>
                         </li>
-                        <li className="flex">
+                        <li className="hidden">
                             <div className="p-1"><Icon icon="fluent:vehicle-car-collision-24-regular" /></div>
                             <Link className="hover:text-gray-500" onClick={() => { setNavbar(!navbar); setIsShowing(!isShowing); }} replace href="/home/accidentePublico">Accidentes</Link>
                         </li>
-                        <li className="flex">
+                        <li className="hidden">
                             <div className="p-1"><Icon icon="fluent:vehicle-car-collision-24-regular" /></div>
                             <Link className="hover:text-gray-500" onClick={() => { setNavbar(!navbar); setIsShowing(!isShowing); }} replace href="/home/accidentePrivado">Mis Accidentes</Link>
                         </li>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Usuario, Vehiculo } from "@/lib/types/types";
+import { Vehiculo } from "@/lib/types/types";
 import ListVehiculo from "@/components/vehiculo/listVehiculo";
 
 export default function PublicVehiclesPage() {

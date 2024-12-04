@@ -3,7 +3,7 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { ChangeEvent, FC, Fragment, KeyboardEventHandler, useState } from "react";
 import Swal from "sweetalert2";
 import Cookies from 'js-cookie';
-import { Confirmar, Registro, Token, UsuarioNewOUpdate } from "@/lib/types/types";
+import { Confirmar, Token, UsuarioNewOUpdate } from "@/lib/types/types";
 
 interface authprops {
     closeComponent: () => void;
