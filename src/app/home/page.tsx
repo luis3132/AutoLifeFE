@@ -34,11 +34,8 @@ export default function Home() {
 
   return (
     <>
-      <div className="w-full p-5 md:flex">
-        <div className="md:w-1/3 p-1">
-          <Notificaciones usuario={usuario} token={token} />
-        </div>
-        <div className="md:w-2/3 p-1">
+      <div className="w-full p-5 flex justify-center">
+        <div className="md:w-2/3 w-full p-1">
           <div className="h-min bg-gray-300 rounded-xl">
             <p className="text-center text-2xl">Notificaciones</p>
 
