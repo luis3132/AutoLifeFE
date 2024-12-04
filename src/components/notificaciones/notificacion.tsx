@@ -18,7 +18,7 @@ const Notificaciones: FC<NotificacionProps> = ({ usuario, token }) => {
     useEffect(() => {
         const fetchNotificaciones = async () => {
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_HOSTNAME}/api/notificaciones/list/usuario/${usuario?.dni}`, {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_HOSTNAME}/api/notificaciones/list/taller/${usuario?.dni}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -39,6 +39,7 @@ const Notificaciones: FC<NotificacionProps> = ({ usuario, token }) => {
     const handleReload = () => {
         setReload(!reload);
     }
+    console.log(notificaciones);
 
     useEffect(() => {
         if (notificaciones) {
@@ -51,58 +52,32 @@ const Notificaciones: FC<NotificacionProps> = ({ usuario, token }) => {
 
     return (
         <>
-            <div className="w-full h-min shadow-2xl rounded-2xl">
-                <p className="text-center text-2xl pt-5 pb-3">Notificaciones</p>
-                <div className={`${leidas && "hidden"} w-full flex justify-around px-5 min-h-[500px]`}>
+            <div className="w-full h-[89dvh] custom-scrollbar overflow-y-scroll">
+                <div className="float-right flex justify-center p-5">
+                    <button className="w-min bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded" onClick={() => setLeidas(!leidas)}>{leidas ? ("Ver No vistas") : ("Ver Vistas")}</button>
+                </div>
+                <p className="text-center text-4xl pt-5 pb-3 font-bold">Vehiculos solicitados</p>
+                <div className={`${leidas && "hidden"} w-full flex flex-wrap justify-around px-5`}>
                     {notificacionesNoLeidas.length > 0 ? (
-                        <>
-                            <table className="w-full">
-                                <thead>
-                                    <tr className="flex justify-between pb-2 px-4">
-                                        <th>Taller</th>
-                                        <th>Servicio</th>
-                                        <th>Detalles</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {notificacionesNoLeidas.map((notificacion, index) => (
-                                        <ListNotificaciones reload={handleReload} notificaciones={notificacion} token={token} index={index} key={index} />
-                                    ))}
-                                </tbody>
-                            </table>
-                        </>
+                        notificacionesNoLeidas.map((notificacion, index) => (
+                            <ListNotificaciones reload={handleReload} notificaciones={notificacion} token={token} index={index} key={index} />
+                        ))
                     ) : (
                         <>
                             <p className="text-center font-bold text-red-500 h-inherit flex items-center text-2xl">No hay notificaciones nuevas</p>
                         </>
                     )}
                 </div>
-                <div className={`${!leidas && "hidden"} w-full flex justify-center px-10 min-h-[500px]`}>
+                <div className={`${!leidas && "hidden"} w-full flex flex-wrap justify-around px-5`}>
                     {notificacionesLeidas.length > 0 ? (
-                        <>
-                            <table className="w-full">
-                                <thead>
-                                    <tr className="flex justify-around">
-                                        <th>Taller</th>
-                                        <th>Servicio</th>
-                                        <th>Detalles</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {notificacionesLeidas.map((notificacion, index) => (
-                                        <ListNotificaciones reload={handleReload} notificaciones={notificacion} token={token} index={index} key={index} />
-                                    ))}
-                                </tbody>
-                            </table>
-                        </>
+                        notificacionesLeidas.map((notificacion, index) => (
+                            <ListNotificaciones reload={handleReload} notificaciones={notificacion} token={token} index={index} key={index} />
+                        ))
                     ) : (
                         <>
                             <p className="text-center font-bold text-red-500 h-inherit flex items-center text-2xl">No hay notificaciones</p>
                         </>
                     )}
-                </div>
-                <div className="w-full flex justify-center py-2">
-                    <button className="w-1/2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded" onClick={() => setLeidas(!leidas)}>{leidas ? ("Ver No vistas") : ("Ver Vistas")}</button>
                 </div>
             </div>
         </>

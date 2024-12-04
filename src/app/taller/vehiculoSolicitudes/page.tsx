@@ -4,6 +4,7 @@ import Comprobar from "@/lib/scripts/comprobar";
 import { Usuario } from "@/lib/types/types";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import Notificaciones from "@/components/notificaciones/notificacion";
 
 export default function Home() {
     const [token, setToken] = useState<string | undefined>(undefined);
@@ -22,5 +23,11 @@ export default function Home() {
                 window.location.href = "/";
             }
         }
-    }, [reload]);
+    }, []);
+
+    return(
+        <>
+            <Notificaciones token={token} usuario={usuario} key={1} />
+        </>
+    );
 }

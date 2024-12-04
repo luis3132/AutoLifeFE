@@ -63,7 +63,7 @@ const SeeUsuario: FC<SeeUsuario> = ({ closeComponent, taller, token, usuario }) 
     const [loading, setLoading] = useState<boolean>(false);
     const [notificacion, setNotificacion] = useState<NotificacionNew>({
         texto: "",
-        estado: "NVISTO",
+        estado: "NVISTA",
         usuario: usuario?.dni || "",
         vehiculo: "",
         servicio: 0,
