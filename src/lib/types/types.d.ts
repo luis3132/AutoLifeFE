@@ -102,6 +102,18 @@ export interface ServiciosUpdate {
     estado: string;
 }
 
+export interface ServiciosNew {
+    fecha: Date;
+    fechaProximo: Date;
+    tipoServicio: number;
+    costoServicio: number;
+    descripcion: string;
+    kilometraje: number;
+    vehiculo: string;
+    mecanico: string;
+    estado: string;
+}
+
 export interface Servicios {
     id: number;
     fecha: Date;
@@ -188,6 +200,16 @@ export interface Notificacion {
 
 export interface NotificacionUpdate {
     id: number;
+    texto: string;
+    estado: string;
+    usuario: string;
+    vehiculo: string;
+    servicio: number;
+    fecha: Date;
+    taller: string;
+}
+
+export interface NotificacionNew {
     texto: string;
     estado: string;
     usuario: string;
