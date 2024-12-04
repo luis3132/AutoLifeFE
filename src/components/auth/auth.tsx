@@ -87,7 +87,7 @@ const Auth: FC<authprops> = ({ closeComponent }) => {
             if (res.ok) {
                 const token: Token = data;
                 Cookies.set("authToken", token.token);
-                window.location.href = "home";
+                window.location.href = "routes";
             } else {
                 Swal.fire({
                     title: 'Error',
@@ -145,7 +145,7 @@ const Auth: FC<authprops> = ({ closeComponent }) => {
             if (res.ok) {
                 const token: Token = data;
                 Cookies.set("authToken", token.token);
-                window.location.href = "home";
+                window.location.href = "routes";
             } else {
                 Swal.fire({
                     title: "Error",

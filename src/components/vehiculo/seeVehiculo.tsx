@@ -10,9 +10,10 @@ interface SeeVehiculo {
     vehiculo: Vehiculo;
     token: string | undefined;
     reload: () => void;
+    publico: boolean;
 }
 
-const SeeVehiculo: FC<SeeVehiculo> = ({ closeComponent, vehiculo, token, reload }) => {
+const SeeVehiculo: FC<SeeVehiculo> = ({ closeComponent, vehiculo, token, reload, publico }) => {
     const [vehiculoEdit, setVehiculoEdit] = useState<VehiculoNewOUpdate>({
         numSerie: vehiculo.numSerie,
         placa: vehiculo.placa,
@@ -475,7 +476,7 @@ const SeeVehiculo: FC<SeeVehiculo> = ({ closeComponent, vehiculo, token, reload 
                                                     <div className="text-left w-full pl-5 font-bold">Descripcion:</div>
                                                     <textarea value={vehiculo.descripcion} id="descripcion" className="bg-black bg-opacity-10 rounded-xl text-center w-[90%] pl-2" disabled ></textarea>
                                                 </div>
-                                                <div className="w-full flex justify-center pt-3">
+                                                <div className={`w-full flex justify-center pt-3 ${publico && "hidden"}`}>
                                                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold w-40 py-2  rounded-lg" onClick={() => setShowEdit(!showEdit)}>Editar</button>
                                                 </div>
                                                 <div className="w-full">
@@ -487,16 +488,16 @@ const SeeVehiculo: FC<SeeVehiculo> = ({ closeComponent, vehiculo, token, reload 
                                                                     <th className="px-4 py-2">Cedula</th>
                                                                     <th className="px-4 py-2 max-sm:hidden">Kilometraje Inicio</th>
                                                                     <th className="px-4 py-2 max-sm:hidden">Kilometraje Fin</th>
-                                                                    <th className="px-4 py-2">Acciones</th>
+                                                                    <th className={`px-4 py-2 ${publico && "hidden"}`}>Acciones</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
                                                                 {vehiculo.duenos.slice(-10).map((dueno, index) => (
                                                                     <tr key={index}>
-                                                                        <td className="border px-4 py-2">{dueno.usuario.dni}</td>
-                                                                        <td className="border px-4 py-2 max-sm:hidden">{dueno.kmStart}</td>
-                                                                        <td className="border px-4 py-2 max-sm:hidden">{dueno.kmFinish ?? "Vigente"}</td>
-                                                                        <td className="border px-4 py-2">
+                                                                        <td className=" px-4 py-2">{dueno.usuario.dni}</td>
+                                                                        <td className=" px-4 py-2 max-sm:hidden">{dueno.kmStart}</td>
+                                                                        <td className=" px-4 py-2 max-sm:hidden">{dueno.kmFinish ?? "Vigente"}</td>
+                                                                        <td className=" px-4 py-2">
                                                                             <button className="bg-blue-500 hover:bg-blue-700 flex items-center text-white font-bold py-2 px-4 rounded-lg">
                                                                                 <Icon className="mr-1" icon="mdi:eye-outline" />
                                                                                 Ver
@@ -516,7 +517,7 @@ const SeeVehiculo: FC<SeeVehiculo> = ({ closeComponent, vehiculo, token, reload 
                                                                 <tr>
                                                                     <th className="px-4 py-2 max-sm:hidden">Fecha Inicio</th>
                                                                     <th className="px-4 py-2">Fecha Final</th>
-                                                                    <th className="px-4 py-2">Acciones</th>
+                                                                    <th className={`px-4 py-2 ${publico && "hidden"}`}>Acciones</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -535,7 +536,7 @@ const SeeVehiculo: FC<SeeVehiculo> = ({ closeComponent, vehiculo, token, reload 
                                                                 <tr>
                                                                     <th className="px-4 py-2 max-sm:hidden">Fecha Inicio</th>
                                                                     <th className="px-4 py-2">Fecha Final</th>
-                                                                    <th className="px-4 py-2">Acciones</th>
+                                                                    <th className={`px-4 py-2 ${publico && "hidden"}`}>Acciones</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -555,7 +556,7 @@ const SeeVehiculo: FC<SeeVehiculo> = ({ closeComponent, vehiculo, token, reload 
                                                                     <th className="px-4 py-2 max-sm:hidden">Fecha Inicio</th>
                                                                     <th className="px-4 py-2">Fecha Final</th>
                                                                     <th className="px-4 py-2 max-sm:hidden">Kilometraje</th>
-                                                                    <th className="px-4 py-2">Acciones</th>
+                                                                    <th className={`px-4 py-2 ${publico && "hidden"}`}>Acciones</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -575,7 +576,7 @@ const SeeVehiculo: FC<SeeVehiculo> = ({ closeComponent, vehiculo, token, reload 
                                                                     <th className="px-4 py-2">Tipo Servicio</th>
                                                                     <th className="px-4 py-2 max-sm:hidden">Mecanico</th>
                                                                     <th className="px-4 py-2 max-sm:hidden">Kilometraje</th>
-                                                                    <th className="px-4 py-2">Acciones</th>
+                                                                    <th className={`px-4 py-2 ${publico && "hidden"}`}>Acciones</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
