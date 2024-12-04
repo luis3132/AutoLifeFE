@@ -34,7 +34,7 @@ const NavbarTaller: FC<NavbarUsuarioProps> = ({ logout }) => {
     return (
         <nav className="flex bg-amber-400 justify-between items-center w-full mx-auto shadow-lg">
             <div className="pl-[1%] ">
-                <Link className="flex items-center hover:text-gray-500 cursor-pointer" href="/home" replace>
+                <Link className="flex items-center hover:text-gray-500 cursor-pointer" href="/taller" replace>
                     <Image src="/images/logo/logoSLSF.png" alt="Logo" width={100} height={100} className="pt-1 pb-1" />
                     <div className="sm:static absolute top-[-100%] text-2xl font-bold">
                         AutoLife
@@ -45,28 +45,13 @@ const NavbarTaller: FC<NavbarUsuarioProps> = ({ logout }) => {
                 <ul className=" xl:flex-row flex-col flex xl:items-center xl:gap-[4vw] gap-8 justify-center">
                     <li className="flex">
                         <div className="p-1"><Icon icon="vaadin:car" /></div>
-                        <Link className="hover:text-gray-500" href="/taller/vehiculoPrivado" replace>Mis Vehiculos</Link>
+                        <Link className="hover:text-gray-500" href="/taller/vehiculoRep" replace>Vehiculos</Link>
                     </li>
                     <li className="flex">
                         <div className="p-1"><Icon icon="vaadin:car" /></div>
-                        <Link className="hover:text-gray-500" href="/taller/vehiculoPublico" replace>Vehiculos</Link>
+                        <Link className="hover:text-gray-500" href="/taller/vehiculoSol" replace>Solicitudes</Link>
                     </li>
-                    <li className="flex">
-                        <div className="p-1"><Icon icon="fluent:vehicle-car-collision-24-regular" /></div>
-                        <Link className="hover:text-gray-500" href="/taller/accidentePublico" replace>Accidentes</Link>
-                    </li>
-                    <li className="flex">
-                        <div className="p-1"><Icon icon="fluent:vehicle-car-collision-24-regular" /></div>
-                        <Link className="hover:text-gray-500" href="/taller/accidentePrivado" replace>Mis Accidentes</Link>
-                    </li>
-                    <li className="flex">
-                        <div className="p-1"><Icon icon="mi:document" /></div>
-                        <Link className="hover:text-gray-500" href="/taller/regulacion" replace>Regulacion</Link>
-                    </li>
-                    <li className="flex">
-                        <div className="p-1"><Icon icon="material-symbols:home-repair-service-outline" /></div>
-                        <Link className="hover:text-gray-500" href="/taller/servicios" replace>Servicios</Link>
-                    </li>
+                   
                 </ul>
             </div>
             <Transition
@@ -81,34 +66,19 @@ const NavbarTaller: FC<NavbarUsuarioProps> = ({ logout }) => {
                     <ul className="flex-col flex gap-8 justify-center items-center">
                         <li className="flex pt-2">
                             <div className="p-1"><Icon icon="vaadin:car" /></div>
-                            <Link className="hover:text-gray-500" onClick={() => { setNavbar(!navbar); setIsShowing(!isShowing); }} replace href="/home/vehiculoPrivado">Mis Vehiculos</Link>
+                            <Link className="hover:text-gray-500" onClick={() => { setNavbar(!navbar); setIsShowing(!isShowing); }} replace href="/taller/vehiculoRep">Vehiculos</Link>
                         </li>
                         <li className="flex">
                             <div className="p-1"><Icon icon="vaadin:car" /></div>
-                            <Link className="hover:text-gray-500" onClick={() => { setNavbar(!navbar); setIsShowing(!isShowing); }} replace href="/home/vehiculoPublico">Vehiculos</Link>
+                            <Link className="hover:text-gray-500" onClick={() => { setNavbar(!navbar); setIsShowing(!isShowing); }} replace href="/taller/vehiculoSol">Solicitudes</Link>
                         </li>
-                        <li className="flex">
-                            <div className="p-1"><Icon icon="fluent:vehicle-car-collision-24-regular" /></div>
-                            <Link className="hover:text-gray-500" onClick={() => { setNavbar(!navbar); setIsShowing(!isShowing); }} replace href="/home/accidentePublico">Accidentes</Link>
-                        </li>
-                        <li className="flex">
-                            <div className="p-1"><Icon icon="fluent:vehicle-car-collision-24-regular" /></div>
-                            <Link className="hover:text-gray-500" onClick={() => { setNavbar(!navbar); setIsShowing(!isShowing); }} replace href="/home/accidentePrivado">Mis Accidentes</Link>
-                        </li>
-                        <li className="flex">
-                            <div className="p-1"><Icon icon="mi:document" /></div>
-                            <Link className="hover:text-gray-500" onClick={() => { setNavbar(!navbar); setIsShowing(!isShowing); }} replace href="/home/regulacion">Regulacion</Link>
-                        </li>
-                        <li className="flex pb-2">
-                            <div className="p-1"><Icon icon="material-symbols:home-repair-service-outline" /></div>
-                            <Link className="hover:text-gray-500" onClick={() => { setNavbar(!navbar); setIsShowing(!isShowing); }} replace href="/home/servicios">Servicios</Link>
-                        </li>
+                   
                     </ul>
                 </div>
             </Transition>
             <div className="flex items-center gap-6 md:pr-2">
                 <button className="bg-lime-400 text-black p-2 rounded-full hover:bg-lime-500" >
-                    <Link href="/home/perfil" className="flex items-center justify-center">
+                    <Link href="/taller/perfil" className="flex items-center justify-center">
                         <Image src={foto} alt="Logo" width={40} height={40} className="rounded-full pl-1 max-sm:hidden" />
                         <div className="pl-4 pr-3 pb-1">Perfil</div>
                     </Link>
