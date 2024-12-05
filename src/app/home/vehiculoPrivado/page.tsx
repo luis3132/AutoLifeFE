@@ -27,11 +27,17 @@ export default function Page() {
                 setToken(token);
                 setUsuario(usuario);
             }
-            if (Cookies.get("authToken") === undefined || Cookies.get("authToken") === "" || usuario === null) {
+            if (Cookies.get("authToken") === undefined || Cookies.get("authToken") === "") {
                 window.location.href = "/";
             }
         }
-    }, []);
+    }, [reload]);
+
+    useEffect(() => {
+        if (!usuario && !token) {
+            setReload(!reload);
+        }
+    }, [usuario, token, reload]);
 
     useEffect(() => {
         if (usuario) {

@@ -18,7 +18,7 @@ const SeeUsuario: FC<SeeUsuario> = ({ closeComponent, taller, token, usuario }) 
     useEffect(() => {
         const fetchPublicVehicles = async () => {
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_HOSTNAME}/api/vehiculos/list/public`, {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_HOSTNAME}/api/vehiculos/list/${usuario?.dni}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -32,10 +32,10 @@ const SeeUsuario: FC<SeeUsuario> = ({ closeComponent, taller, token, usuario }) 
             }
         };
 
-        if (token) {
+        if (token && usuario) {
             fetchPublicVehicles();
         }
-    }, [token]);
+    }, [token, usuario]);
 
     useEffect(() => {
         const fetchPublicVehicles = async () => {

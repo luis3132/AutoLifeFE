@@ -26,6 +26,12 @@ export default function Home() {
     }
   }, [reload]);
 
+  useEffect(() => {
+    if (!usuario && !token) {
+      setReload(!reload);
+    }
+  }, [usuario, token, reload]);
+
   return (
     <>
       <div className="w-full justify-center flex pt-16 h-[89dvh]">

@@ -4,12 +4,14 @@ import { useState, useEffect } from "react";
 import { Usuario } from "@/lib/types/types";
 import Comprobar from "@/lib/scripts/comprobar";
 import ListUsuario from "@/components/servicios/listUsuario";
+import Cookies from "js-cookie";
 
 export default function PublicVehiclesPage() {
   const [usuarios, setUsuarios] = useState<Usuario[]>([]);
   const [filter, setFilter] = useState<string>('');
   const [token, setToken] = useState<string | undefined>(undefined);
   const [usuario, setUsuario] = useState<Usuario | null>(null);
+  const [reload, setReload] = useState<boolean>(false);
 
   useEffect(() => {
     if (document.readyState === "complete") {
@@ -18,12 +20,18 @@ export default function PublicVehiclesPage() {
       if (token !== undefined && usuario !== null) {
         setToken(token);
         setUsuario(usuario);
-      } else {
+      }
+      if (Cookies.get("authToken") === undefined || Cookies.get("authToken") === "") {
         window.location.href = "/";
       }
     }
-  }, []
-  );
+  }, [reload]);
+
+  useEffect(() => {
+    if (!usuario && !token) {
+      setReload(!reload);
+    }
+  }, [usuario, token, reload]);
 
   useEffect(() => {
     const fetchPublicData = async () => {
