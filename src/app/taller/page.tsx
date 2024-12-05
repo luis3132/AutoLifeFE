@@ -1,8 +1,35 @@
 "use client";
 
-import React from "react";
+import Comprobar from "@/lib/scripts/comprobar";
+import { Usuario } from "@/lib/types/types";
+import React, { useEffect, useState } from "react";
+import Cookies from "js-cookie";
 
 export default function Home() {
+  const [token, setToken] = useState<string | undefined>(undefined);
+  const [usuario, setUsuario] = useState<Usuario | null>(null);
+  const [reload, setReload] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (document.readyState === "complete") {
+      const { token, usuario } = Comprobar();
+
+      if (token !== undefined && usuario !== null) {
+        setToken(token);
+        setUsuario(usuario);
+      }
+      if (Cookies.get("authToken") === undefined || Cookies.get("authToken") === "") {
+        window.location.href = "/";
+      }
+    }
+  }, [reload]);
+
+  useEffect(() => {
+    if (!usuario && !token) {
+      setReload(!reload);
+    }
+  }, [usuario, token, reload]);
+  
   return (
    <div className="h-[89dvh] overflow-y-auto custom-scrollbar">
       <div className="max-w-6xl mx-auto space-y-12 px-4 py-8 lg:px-24">

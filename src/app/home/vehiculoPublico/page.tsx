@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Vehiculo } from "@/lib/types/types";
+import { Usuario, Vehiculo } from "@/lib/types/types";
 import ListVehiculo from "@/components/vehiculo/listVehiculo";
 import Comprobar from "@/lib/scripts/comprobar";
 import Cookies from "js-cookie";
@@ -10,6 +10,8 @@ export default function PublicVehiclesPage() {
     const [vehiculos, setVehiculos] = useState<Vehiculo[]>([]);
     const [filter, setFilter] = useState<string>('');
     const [token, setToken] = useState<string | undefined>(undefined);
+    const [usuario, setUsuario] = useState<Usuario | null>(null);
+    const [reload, setReload] = useState<boolean>(false);
 
     useEffect(() => {
         if (document.readyState === "complete") {
@@ -17,12 +19,19 @@ export default function PublicVehiclesPage() {
 
             if (token !== undefined && usuario !== null) {
                 setToken(token);
+                setUsuario(usuario);
             }
-            if (Cookies.get("authToken") === undefined || Cookies.get("authToken") === "" || usuario === null) {
+            if (Cookies.get("authToken") === undefined || Cookies.get("authToken") === "") {
                 window.location.href = "/";
             }
         }
-    }, []);
+    }, [reload]);
+
+    useEffect(() => {
+        if (!usuario && !token) {
+            setReload(!reload);
+        }
+    }, [usuario, token, reload]);
 
     useEffect(() => {
         const fetchPublicVehicles = async () => {
